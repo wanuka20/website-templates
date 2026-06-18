@@ -5,6 +5,7 @@ import { ContactForm } from "@/components/shared/ContactForm";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { WhatsAppInline } from "@/components/shared/WhatsAppButton";
+import { submitLeadToGoogleSheet } from "@/lib/googleSheets";
 import type { RestaurantConfig } from "@/types";
 
 export function RestaurantContact({ config }: { config: RestaurantConfig }) {
@@ -45,7 +46,16 @@ export function RestaurantContact({ config }: { config: RestaurantConfig }) {
           <AnimatedSection direction="right">
             <div className="rounded-2xl border bg-card p-8 shadow-sm">
               <h3 className="mb-6 text-xl font-bold">Make a Reservation</h3>
-              <ContactForm accentColor="#f59e0b" />
+              <ContactForm
+                accentColor="#f59e0b"
+                onSubmit={(data) =>
+                  submitLeadToGoogleSheet({
+                    template: "restaurant",
+                    businessName: config.name,
+                    data,
+                  })
+                }
+              />
             </div>
           </AnimatedSection>
         </div>

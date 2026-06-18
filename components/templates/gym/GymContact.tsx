@@ -5,6 +5,7 @@ import { ContactForm } from "@/components/shared/ContactForm";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { WhatsAppInline } from "@/components/shared/WhatsAppButton";
+import { submitLeadToGoogleSheet } from "@/lib/googleSheets";
 import type { GymConfig } from "@/types";
 
 export function GymContact({ config }: { config: GymConfig }) {
@@ -62,7 +63,16 @@ export function GymContact({ config }: { config: GymConfig }) {
           <AnimatedSection direction="right">
             <div className="rounded-2xl border bg-card p-8 shadow-sm">
               <h3 className="mb-6 text-xl font-bold">Send Us a Message</h3>
-              <ContactForm accentColor="#f97316" />
+              <ContactForm
+                accentColor="#f97316"
+                onSubmit={(data) =>
+                  submitLeadToGoogleSheet({
+                    template: "gym",
+                    businessName: config.name,
+                    data,
+                  })
+                }
+              />
             </div>
           </AnimatedSection>
         </div>

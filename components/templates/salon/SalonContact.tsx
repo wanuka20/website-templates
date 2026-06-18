@@ -5,6 +5,7 @@ import { ContactForm } from "@/components/shared/ContactForm";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { WhatsAppInline } from "@/components/shared/WhatsAppButton";
+import { submitLeadToGoogleSheet } from "@/lib/googleSheets";
 import type { SalonConfig } from "@/types";
 
 export function SalonContact({ config }: { config: SalonConfig }) {
@@ -45,7 +46,16 @@ export function SalonContact({ config }: { config: SalonConfig }) {
           <AnimatedSection direction="right">
             <div className="rounded-2xl border bg-card p-8 shadow-sm">
               <h3 className="mb-6 text-xl font-bold">Send an Enquiry</h3>
-              <ContactForm accentColor="#f43f5e" />
+              <ContactForm
+                accentColor="#f43f5e"
+                onSubmit={(data) =>
+                  submitLeadToGoogleSheet({
+                    template: "salon",
+                    businessName: config.name,
+                    data,
+                  })
+                }
+              />
             </div>
           </AnimatedSection>
         </div>

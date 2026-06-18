@@ -6,6 +6,7 @@ import { SectionHeader } from "@/components/shared/SectionHeader";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { WhatsAppInline } from "@/components/shared/WhatsAppButton";
 import { Badge } from "@/components/ui/badge";
+import { submitLeadToGoogleSheet } from "@/lib/googleSheets";
 import type { RealEstateConfig } from "@/types";
 
 export function RealEstateContact({ config }: { config: RealEstateConfig }) {
@@ -57,7 +58,16 @@ export function RealEstateContact({ config }: { config: RealEstateConfig }) {
           <AnimatedSection direction="right">
             <div className="rounded-2xl border bg-card p-8 shadow-sm">
               <h3 className="mb-6 text-xl font-bold">Property Inquiry Form</h3>
-              <ContactForm accentColor="#059669" />
+              <ContactForm
+                accentColor="#059669"
+                onSubmit={(data) =>
+                  submitLeadToGoogleSheet({
+                    template: "realestate",
+                    businessName: config.name,
+                    data,
+                  })
+                }
+              />
             </div>
           </AnimatedSection>
         </div>

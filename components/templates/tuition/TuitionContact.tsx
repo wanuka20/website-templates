@@ -5,6 +5,7 @@ import { ContactForm } from "@/components/shared/ContactForm";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { WhatsAppInline } from "@/components/shared/WhatsAppButton";
+import { submitLeadToGoogleSheet } from "@/lib/googleSheets";
 import type { TuitionConfig } from "@/types";
 
 export function TuitionContact({ config }: { config: TuitionConfig }) {
@@ -44,7 +45,16 @@ export function TuitionContact({ config }: { config: TuitionConfig }) {
           <AnimatedSection direction="right">
             <div className="rounded-2xl border bg-card p-8 shadow-sm">
               <h3 className="mb-6 text-xl font-bold">Registration Enquiry</h3>
-              <ContactForm accentColor="#2563eb" />
+              <ContactForm
+                accentColor="#2563eb"
+                onSubmit={(data) =>
+                  submitLeadToGoogleSheet({
+                    template: "tuition",
+                    businessName: config.name,
+                    data,
+                  })
+                }
+              />
             </div>
           </AnimatedSection>
         </div>

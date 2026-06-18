@@ -35,6 +35,7 @@ export function ContactForm({
 }: ContactFormProps) {
   const [submitted, setSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const {
     register,
@@ -47,6 +48,7 @@ export function ContactForm({
 
   const onSubmit = async (data: ContactFormData) => {
     setIsLoading(true);
+    setSubmitError("");
     try {
       if (externalSubmit) {
         await externalSubmit(data);
@@ -59,6 +61,7 @@ export function ContactForm({
       reset();
     } catch (err) {
       console.error("Form submission error:", err);
+      setSubmitError("Something went wrong. Please try again in a moment.");
     } finally {
       setIsLoading(false);
     }
@@ -192,6 +195,11 @@ export function ContactForm({
           </>
         )}
       </Button>
+      {submitError && (
+        <p className={cn("text-sm font-medium", light ? "text-red-200" : "text-red-500")}>
+          {submitError}
+        </p>
+      )}
     </form>
   );
 }
