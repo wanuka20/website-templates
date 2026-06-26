@@ -47,7 +47,7 @@ export function ContactSection() {
           <AnimatedSection direction="left">
             <div className="space-y-8">
               <div>
-                <h3 className="mb-4 text-2xl font-bold">We're here to help</h3>
+                <h3 className="mb-4 text-2xl font-bold">We&apos;re here to help</h3>
                 <p className="text-muted-foreground leading-relaxed">
                   Whether you need help choosing the right template, customising
                   it for your brand, or have any technical questions — our team

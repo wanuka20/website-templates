@@ -63,7 +63,7 @@ export function RestaurantMenu({ config }: { config: RestaurantConfig }) {
                     )}
                     {item.featured && (
                       <Badge className="bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 text-xs">
-                        Chef's Pick
+                        Chef&apos;s Pick
                       </Badge>
                     )}
                   </div>

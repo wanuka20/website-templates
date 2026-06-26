@@ -3,6 +3,7 @@
 import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/hooks/useTheme";
+import { cn } from "@/lib/utils";
 
 interface ThemeToggleProps {
   className?: string;
@@ -13,10 +14,15 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
 
   if (!mounted) {
     return (
-      <Button variant="ghost" size="icon" className={className} disabled>
+      <span
+        className={cn(
+          "inline-flex h-10 w-10 items-center justify-center",
+          className
+        )}
+        aria-hidden="true"
+      >
         <Sun className="h-5 w-5" />
-        <span className="sr-only">Toggle theme</span>
-      </Button>
+      </span>
     );
   }
 

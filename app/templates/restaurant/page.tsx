@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { restaurantConfig } from "@/config/restaurant";
+import { getRestaurantContent } from "@/lib/template-content";
 import { generateMetadata as genMeta } from "@/lib/seo";
 import { RestaurantNavbar } from "@/components/templates/restaurant/RestaurantNavbar";
 import { RestaurantHero } from "@/components/templates/restaurant/RestaurantHero";
@@ -12,9 +12,17 @@ import { RestaurantContact } from "@/components/templates/restaurant/RestaurantC
 import { RestaurantFooter } from "@/components/templates/restaurant/RestaurantFooter";
 import { WhatsAppButton } from "@/components/shared/WhatsAppButton";
 
-export const metadata: Metadata = genMeta(restaurantConfig.seo, "/templates/restaurant");
+export const dynamic = "force-dynamic";
 
-export default function RestaurantTemplatePage() {
+export async function generateMetadata(): Promise<Metadata> {
+  const config = await getRestaurantContent();
+
+  return genMeta(config.seo, "/templates/restaurant");
+}
+
+export default async function RestaurantTemplatePage() {
+  const restaurantConfig = await getRestaurantContent();
+
   return (
     <div className="flex min-h-screen flex-col">
       <RestaurantNavbar config={restaurantConfig} />

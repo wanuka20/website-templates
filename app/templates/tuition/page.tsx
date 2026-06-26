@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { tuitionConfig } from "@/config/tuition";
+import { getTuitionContent } from "@/lib/template-content";
 import { generateMetadata as genMeta } from "@/lib/seo";
 import { TuitionNavbar } from "@/components/templates/tuition/TuitionNavbar";
 import { TuitionHero } from "@/components/templates/tuition/TuitionHero";
@@ -11,9 +11,17 @@ import { TuitionContact } from "@/components/templates/tuition/TuitionContact";
 import { TuitionFooter } from "@/components/templates/tuition/TuitionFooter";
 import { WhatsAppButton } from "@/components/shared/WhatsAppButton";
 
-export const metadata: Metadata = genMeta(tuitionConfig.seo, "/templates/tuition");
+export const dynamic = "force-dynamic";
 
-export default function TuitionTemplatePage() {
+export async function generateMetadata(): Promise<Metadata> {
+  const config = await getTuitionContent();
+
+  return genMeta(config.seo, "/templates/tuition");
+}
+
+export default async function TuitionTemplatePage() {
+  const tuitionConfig = await getTuitionContent();
+
   return (
     <div className="flex min-h-screen flex-col">
       <TuitionNavbar config={tuitionConfig} />

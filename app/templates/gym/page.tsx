@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { gymConfig } from "@/config/gym";
+import { getGymContent } from "@/lib/gym-content";
 import { generateMetadata as genMeta } from "@/lib/seo";
 import { GymNavbar } from "@/components/templates/gym/GymNavbar";
 import { GymHero } from "@/components/templates/gym/GymHero";
@@ -13,9 +13,17 @@ import { GymContact } from "@/components/templates/gym/GymContact";
 import { GymFooter } from "@/components/templates/gym/GymFooter";
 import { WhatsAppButton } from "@/components/shared/WhatsAppButton";
 
-export const metadata: Metadata = genMeta(gymConfig.seo, "/templates/gym");
+export const dynamic = "force-dynamic";
 
-export default function GymTemplatePage() {
+export async function generateMetadata(): Promise<Metadata> {
+  const config = await getGymContent();
+
+  return genMeta(config.seo, "/templates/gym");
+}
+
+export default async function GymTemplatePage() {
+  const gymConfig = await getGymContent();
+
   return (
     <div className="flex min-h-screen flex-col">
       <GymNavbar config={gymConfig} />

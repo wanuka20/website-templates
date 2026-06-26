@@ -9,17 +9,26 @@ interface SubmitLeadOptions {
 }
 
 const GOOGLE_APPS_SCRIPT_URL = process.env.NEXT_PUBLIC_GOOGLE_APPS_SCRIPT_URL;
+const TEMPLATE_GOOGLE_APPS_SCRIPT_URLS: Partial<Record<LeadTemplate, string | undefined>> = {
+  gym: process.env.NEXT_PUBLIC_GYM_GOOGLE_APPS_SCRIPT_URL,
+  salon: process.env.NEXT_PUBLIC_SALON_GOOGLE_APPS_SCRIPT_URL,
+  restaurant: process.env.NEXT_PUBLIC_RESTAURANT_GOOGLE_APPS_SCRIPT_URL,
+  realestate: process.env.NEXT_PUBLIC_REALESTATE_GOOGLE_APPS_SCRIPT_URL,
+  tuition: process.env.NEXT_PUBLIC_TUITION_GOOGLE_APPS_SCRIPT_URL,
+};
 
 export async function submitLeadToGoogleSheet({
   template,
   businessName,
   data,
 }: SubmitLeadOptions) {
-  if (!GOOGLE_APPS_SCRIPT_URL) {
-    throw new Error("Missing NEXT_PUBLIC_GOOGLE_APPS_SCRIPT_URL");
+  const webAppUrl = TEMPLATE_GOOGLE_APPS_SCRIPT_URLS[template] || GOOGLE_APPS_SCRIPT_URL;
+
+  if (!webAppUrl) {
+    throw new Error(`Missing Google Apps Script URL for ${template}`);
   }
 
-  await fetch(GOOGLE_APPS_SCRIPT_URL, {
+  await fetch(webAppUrl, {
     method: "POST",
     mode: "no-cors",
     headers: {

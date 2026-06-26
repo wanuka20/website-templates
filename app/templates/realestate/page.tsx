@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { realestateConfig } from "@/config/realestate";
+import { getRealEstateContent } from "@/lib/template-content";
 import { generateMetadata as genMeta } from "@/lib/seo";
 import { RealEstateNavbar } from "@/components/templates/realestate/RealEstateNavbar";
 import { RealEstateHero } from "@/components/templates/realestate/RealEstateHero";
@@ -11,9 +11,17 @@ import { RealEstateContact } from "@/components/templates/realestate/RealEstateC
 import { RealEstateFooter } from "@/components/templates/realestate/RealEstateFooter";
 import { WhatsAppButton } from "@/components/shared/WhatsAppButton";
 
-export const metadata: Metadata = genMeta(realestateConfig.seo, "/templates/realestate");
+export const dynamic = "force-dynamic";
 
-export default function RealEstateTemplatePage() {
+export async function generateMetadata(): Promise<Metadata> {
+  const config = await getRealEstateContent();
+
+  return genMeta(config.seo, "/templates/realestate");
+}
+
+export default async function RealEstateTemplatePage() {
+  const realestateConfig = await getRealEstateContent();
+
   return (
     <div className="flex min-h-screen flex-col">
       <RealEstateNavbar config={realestateConfig} />

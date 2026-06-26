@@ -114,6 +114,27 @@ whatsapp: {
 },
 ```
 
+## Gym Template Google Sheet Test
+
+The gym template can now read editable content from the Google Apps Script web app, using `config/gym.ts` as the fallback when the sheet is unavailable.
+
+1. Paste `google-apps-script.js` into the Apps Script project attached to your Google Sheet.
+2. Deploy it as a web app, or update the existing deployment.
+3. Visit:
+   ```text
+   YOUR_WEB_APP_URL?action=setupGymContent
+   ```
+   This creates the editable `Gym Content` tab.
+4. Set the URL locally:
+   ```bash
+   GOOGLE_SHEET_WEB_APP_URL=YOUR_WEB_APP_URL
+   ```
+   If omitted, the app uses `NEXT_PUBLIC_GOOGLE_APPS_SCRIPT_URL`.
+5. Check the normalized content at:
+   ```text
+   http://localhost:3000/api/gym-content
+   ```
+
 ---
 
 ## Adding Email Integration

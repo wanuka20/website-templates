@@ -27,7 +27,7 @@ export function RestaurantFeatured({ config }: { config: RestaurantConfig }) {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                     <div className="absolute top-3 right-3">
                       <Badge className="bg-amber-500 text-white text-xs">
-                        <Star className="mr-1 h-3 w-3 fill-white" />Chef's Pick
+                        <Star className="mr-1 h-3 w-3 fill-white" />Chef&apos;s Pick
                       </Badge>
                     </div>
                     <div className="absolute bottom-3 right-3">
