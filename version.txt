@@ -1,0 +1,7 @@
+CURRENT VERSION: 0.4.0
+
+VERSION HISTORY:
+  - 2026-06-27 - v0.4.0: all five templates have separate Apps Script files, sheet-driven content wiring, and per-template env vars.
+  - 2026-06-26 - v0.3.0: admin sheets created for all templates.
+  - 2026-06-26 - v0.2.0: gym admin sheet + Apps Script integration working.
+  - 2026-06-26 - v0.1.0: static template site exists.
