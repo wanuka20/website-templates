@@ -8,6 +8,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { cn } from "@/lib/utils";
 import { useScrolled } from "@/hooks/useScrolled";
+import { BrandLogo } from "@/components/templates/BrandLogo";
 import type { GymConfig } from "@/types";
 
 const navLinks = [
@@ -40,9 +41,17 @@ export function GymNavbar({ config }: { config: GymConfig }) {
             scrolled ? "text-foreground dark:text-white" : "text-white"
           )}
         >
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-orange-500">
-            <Dumbbell className="h-4 w-4 text-white" />
-          </div>
+          <BrandLogo
+            src={config.logo}
+            alt={config.name}
+            size={32}
+            className="h-8 w-8 rounded-lg object-contain"
+            fallback={
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-orange-500">
+                <Dumbbell className="h-4 w-4 text-white" />
+              </div>
+            }
+          />
           {config.name}
         </a>
 
@@ -88,7 +97,7 @@ export function GymNavbar({ config }: { config: GymConfig }) {
             </SheetTrigger>
             <SheetContent side="right" className="w-72 bg-black text-white">
               <div className="mb-8 flex items-center gap-2 font-extrabold text-xl">
-                <Dumbbell className="h-5 w-5 text-orange-500" />
+                <BrandLogo src={config.logo} alt={config.name} size={20} className="h-5 w-5 rounded object-contain" fallback={<Dumbbell className="h-5 w-5 text-orange-500" />} />
                 {config.name}
               </div>
               <nav className="flex flex-col gap-2">

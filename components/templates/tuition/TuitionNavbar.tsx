@@ -7,6 +7,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { cn } from "@/lib/utils";
 import { useScrolled } from "@/hooks/useScrolled";
+import { BrandLogo } from "@/components/templates/BrandLogo";
 import type { TuitionConfig } from "@/types";
 
 const navLinks = [
@@ -26,7 +27,7 @@ export function TuitionNavbar({ config }: { config: TuitionConfig }) {
       scrolled ? "bg-white/95 shadow-sm dark:bg-zinc-900/95" : "bg-transparent")}> 
       <nav className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <a href="#hero" className={cn("flex items-center gap-2 font-bold text-xl", scrolled ? "text-foreground" : "text-white")}>
-          <BookOpen className="h-5 w-5 text-blue-500" />{config.name}
+          <BrandLogo src={config.logo} alt={config.name} size={24} className="h-6 w-6 object-contain" fallback={<BookOpen className="h-5 w-5 text-blue-500" />} />{config.name}
         </a>
         <div className="hidden items-center gap-1 md:flex">
           {navLinks.map((link) => (
@@ -49,7 +50,7 @@ export function TuitionNavbar({ config }: { config: TuitionConfig }) {
             </SheetTrigger>
             <SheetContent side="right" className="w-72">
               <div className="mb-8 flex items-center gap-2 font-bold text-lg">
-                <BookOpen className="h-5 w-5 text-blue-500" />{config.name}
+                <BrandLogo src={config.logo} alt={config.name} size={20} className="h-5 w-5 object-contain" fallback={<BookOpen className="h-5 w-5 text-blue-500" />} />{config.name}
               </div>
               <nav className="flex flex-col gap-2">
                 {navLinks.map((link) => (

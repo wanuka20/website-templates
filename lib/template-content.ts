@@ -390,6 +390,7 @@ function buildGymClasses(content: Record<string, unknown>): GymClass[] {
 function normalizeGymConfig(content: Record<string, unknown>): GymConfig {
   return {
     ...mergeCommon(content, gymConfig),
+    aboutImage: normalizeImageUrl(get(content, "aboutImage"), gymConfig.aboutImage),
     amenities: listFromKeys(content, "amenities", gymConfig.amenities),
     membership: buildGymPricingPlans(content),
     trainers: buildGymTrainers(content),
@@ -452,6 +453,8 @@ function normalizeRestaurantConfig(content: Record<string, unknown>): Restaurant
 
   return {
     ...mergeCommon(content, restaurantConfig),
+    aboutImage1: normalizeImageUrl(get(content, "aboutImage1"), restaurantConfig.aboutImage1),
+    aboutImage2: normalizeImageUrl(get(content, "aboutImage2"), restaurantConfig.aboutImage2),
     cuisine: text(get(content, "cuisine"), restaurantConfig.cuisine),
     reservationPhone: text(
       get(content, "reservationPhone"),
@@ -549,6 +552,10 @@ function normalizeSalonConfig(content: Record<string, unknown>): SalonConfig {
   return {
     ...mergeCommon(content, salonConfig),
     bookingUrl: text(get(content, "bookingUrl"), salonConfig.bookingUrl),
+    openingHoursText: text(
+      get(content, "openingHoursText"),
+      salonConfig.openingHoursText,
+    ),
     serviceCategories: listFromKeys(
       content,
       "serviceCategories",

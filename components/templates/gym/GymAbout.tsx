@@ -14,7 +14,7 @@ export function GymAbout({ config }: { config: GymConfig }) {
           <AnimatedSection direction="left">
             <div className="relative h-[480px]">
               <Image
-                src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=700&q=80"
+                src={config.aboutImage}
                 alt="Gym interior"
                 fill
                 sizes="(max-width: 1023px) 100vw, 50vw"

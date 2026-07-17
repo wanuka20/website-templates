@@ -7,10 +7,13 @@ import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/sha
 import { Clock, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { SalonConfig } from "@/types";
+import { isExternalBookingUrl, resolveBookingUrl } from "@/lib/booking-url";
 
 export function SalonServices({ config }: { config: SalonConfig }) {
   const [activeCategory, setActiveCategory] = useState("All");
   const categories = ["All", ...config.serviceCategories];
+  const bookingUrl = resolveBookingUrl(config.bookingUrl);
+  const bookingIsExternal = isExternalBookingUrl(bookingUrl);
 
   const filtered = activeCategory === "All"
     ? config.services
@@ -51,7 +54,7 @@ export function SalonServices({ config }: { config: SalonConfig }) {
                   </div>
                   <div className="font-bold text-rose-500">LKR {service.price.toLocaleString()}</div>
                 </div>
-                <a href="#contact"
+                <a href={bookingUrl} target={bookingIsExternal ? "_blank" : undefined} rel={bookingIsExternal ? "noopener noreferrer" : undefined}
                   className="mt-4 flex items-center gap-1 text-xs font-medium text-rose-500 opacity-0 transition-opacity group-hover:opacity-100">
                   Book Now <ArrowRight className="h-3 w-3" />
                 </a>

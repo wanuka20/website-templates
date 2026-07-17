@@ -987,8 +987,8 @@ const SETTINGS_SHEETS = [
         "Achievements",
         "achievements.1.icon",
         "Achievement 1 icon",
-        "",
-        ""
+        "Users",
+        "Supported icons: Users, Trophy, Award, or GraduationCap."
       ],
       [
         "Achievements",
@@ -1015,8 +1015,8 @@ const SETTINGS_SHEETS = [
         "Achievements",
         "achievements.2.icon",
         "Achievement 2 icon",
-        "",
-        ""
+        "Trophy",
+        "Supported icons: Users, Trophy, Award, or GraduationCap."
       ],
       [
         "Achievements",
@@ -1043,8 +1043,8 @@ const SETTINGS_SHEETS = [
         "Achievements",
         "achievements.3.icon",
         "Achievement 3 icon",
-        "",
-        ""
+        "Award",
+        "Supported icons: Users, Trophy, Award, or GraduationCap."
       ],
       [
         "Achievements",
@@ -1071,8 +1071,8 @@ const SETTINGS_SHEETS = [
         "Achievements",
         "achievements.4.icon",
         "Achievement 4 icon",
-        "",
-        ""
+        "GraduationCap",
+        "Supported icons: Users, Trophy, Award, or GraduationCap."
       ]
     ]
   },

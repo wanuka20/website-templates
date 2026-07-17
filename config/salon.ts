@@ -37,7 +37,8 @@ export const salonConfig: SalonConfig = {
     ],
     ogImage: "/placeholder_images/salon-adminsheet/settings-brand-d17.jpg",
   },
-  bookingUrl: "#booking",
+  bookingUrl: "",
+  openingHoursText: "Mon–Sat: 9am–8pm | Sun: 10am–6pm",
   serviceCategories: ["Hair", "Skin", "Nails", "Makeup", "Spa"],
   services: [
     {

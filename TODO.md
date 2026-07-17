@@ -1,5 +1,22 @@
 # Website Performance Roadmap
 
+# v.0.5.1
+## Completed
+- [x] Add an environment-controlled image-host policy
+  - Added `ALLOW_ANY_IMAGE_HOSTS=true` to allow any HTTPS image hostname through `next/image` when desired.
+  - The default remains the restricted `remotePatterns` allowlist when the variable is missing or not set to `true`.
+- [x] Render the spreadsheet `logo` value in template branding
+  - Added reusable `BrandLogo` rendering with the existing template icon as a fallback.
+  - Applied it to desktop/mobile navbars and footers across all five templates.
+- [x] Complete the remaining Google Sheets-to-site mappings
+  - All configured social links now render in every template footer.
+  - Salon booking links now open a configured HTTP(S) booking service, with a safe Contact fallback for blank, unsafe, and legacy `#booking` values.
+  - Real Estate property cards now use the Sheet type, currency, features, and every supplied image.
+  - Tuition now displays Sheet testimonials and achievement icons.
+  - Gym and Restaurant About images, plus Salon opening-hours text, are now editable from Settings sheets.
+- [x] Make the new Settings fields safe to add to existing Google Sheets
+  - Added `addMissingSettingsRows()` to the Gym, Restaurant, and Salon Apps Script files; it appends only missing Settings rows and does not clear existing entries.
+
 
 # v.0.5.0
 ## High Priority

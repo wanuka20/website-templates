@@ -5,9 +5,16 @@ import { Badge } from "@/components/ui/badge";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { StaggerContainer, StaggerItem } from "@/components/shared/AnimatedSection";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
-import { Trophy } from "lucide-react";
+import { Award, GraduationCap, Trophy, Users } from "lucide-react";
 import { getInitials } from "@/lib/utils";
 import type { TuitionConfig } from "@/types";
+
+const achievementIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  Award,
+  GraduationCap,
+  Trophy,
+  Users,
+};
 
 export function TuitionResults({ config }: { config: TuitionConfig }) {
   return (
@@ -21,12 +28,17 @@ export function TuitionResults({ config }: { config: TuitionConfig }) {
 
         {/* Achievement stats */}
         <AnimatedSection className="mb-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {config.achievements.map((a) => (
-            <div key={a.id} className="rounded-2xl bg-blue-600 p-6 text-white text-center shadow-lg shadow-blue-500/20">
-              <div className="text-3xl font-black mb-1">{a.value}</div>
-              <div className="text-sm text-blue-100">{a.label}</div>
-            </div>
-          ))}
+          {config.achievements.map((a) => {
+            const Icon = achievementIconMap[a.icon ?? ""] ?? Trophy;
+
+            return (
+              <div key={a.id} className="rounded-2xl bg-blue-600 p-6 text-center text-white shadow-lg shadow-blue-500/20">
+                <Icon className="mx-auto mb-3 h-5 w-5 text-blue-100" />
+                <div className="mb-1 text-3xl font-black">{a.value}</div>
+                <div className="text-sm text-blue-100">{a.label}</div>
+              </div>
+            );
+          })}
         </AnimatedSection>
 
         <StaggerContainer className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">

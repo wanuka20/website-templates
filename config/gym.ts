@@ -14,6 +14,7 @@ export const gymConfig: GymConfig = {
     "Join IronPeak Fitness — where champions are built. State-of-the-art equipment, expert trainers, and a community unlike any other.",
   heroCtaText: "Start Free Trial",
   heroImage: "/placeholder_images/gym-adminsheet/settings-brand-d12.jpg",
+  aboutImage: "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=700&q=80",
   socialLinks: {
     facebook: "https://facebook.com/ironpeakfitness",
     instagram: "https://instagram.com/ironpeakfitness",

@@ -97,8 +97,15 @@ const SETTINGS_SHEETS = [
         "Business Details",
         "bookingUrl",
         "Booking URL",
-        "#booking",
-        "Appointment booking link or page anchor."
+        "",
+        "Optional external booking link (for example, Fresha or Calendly). Leave blank to use this site's contact section."
+      ],
+      [
+        "Business Details",
+        "openingHoursText",
+        "Opening hours",
+        "Mon–Sat: 9am–8pm | Sun: 10am–6pm",
+        "Opening-hours text shown in the Contact section."
       ],
       [
         "SEO",
@@ -1686,6 +1693,35 @@ function setupSettingsSheets() {
   return SETTINGS_SHEETS.map(function(settingsSheet) {
     return settingsSheet.name;
   });
+}
+
+function addMissingSettingsRows() {
+  SETTINGS_SHEETS.forEach(function(settingsSheet) {
+    const sheet = getOrCreateSheet(settingsSheet.name);
+
+    if (sheet.getLastRow() < 2) {
+      writeSettingsSheet(settingsSheet, true);
+      return;
+    }
+
+    const existingKeys = sheet
+      .getRange(2, 2, sheet.getLastRow() - 1, 1)
+      .getDisplayValues()
+      .flat()
+      .map(function(key) { return String(key).trim(); });
+    const missingRows = settingsSheet.rows.filter(function(row) {
+      return existingKeys.indexOf(String(row[1]).trim()) === -1;
+    });
+
+    if (missingRows.length > 0) {
+      sheet
+        .getRange(sheet.getLastRow() + 1, 1, missingRows.length, CONTENT_HEADERS.length)
+        .setValues(missingRows);
+      formatSettingsSheet(sheet, sheet.getLastRow() - 1);
+    }
+  });
+
+  SpreadsheetApp.flush();
 }
 
 function ensureSettingsSheets() {

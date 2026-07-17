@@ -1,5 +1,7 @@
-import { BookOpen, Facebook, Youtube } from "lucide-react";
+import { BookOpen } from "lucide-react";
 import type { TuitionConfig } from "@/types";
+import { BrandLogo } from "@/components/templates/BrandLogo";
+import { SocialLinks } from "@/components/shared/SocialLinks";
 
 export function TuitionFooter({ config }: { config: TuitionConfig }) {
   return (
@@ -8,17 +10,10 @@ export function TuitionFooter({ config }: { config: TuitionConfig }) {
         <div className="grid gap-8 md:grid-cols-3">
           <div>
             <div className="mb-4 flex items-center gap-2 font-bold text-xl">
-              <BookOpen className="h-5 w-5 text-blue-300" />{config.name}
+              <BrandLogo src={config.logo} alt={config.name} size={24} className="h-6 w-6 object-contain" fallback={<BookOpen className="h-5 w-5 text-blue-300" />} />{config.name}
             </div>
             <p className="text-sm text-blue-200/60">{config.tagline}</p>
-            <div className="mt-4 flex gap-3">
-              {config.socialLinks.facebook && (
-                <a href={config.socialLinks.facebook} target="_blank" rel="noopener noreferrer" className="text-blue-200/50 hover:text-blue-300 transition-colors"><Facebook className="h-5 w-5" /></a>
-              )}
-              {config.socialLinks.youtube && (
-                <a href={config.socialLinks.youtube} target="_blank" rel="noopener noreferrer" className="text-blue-200/50 hover:text-blue-300 transition-colors"><Youtube className="h-5 w-5" /></a>
-              )}
-            </div>
+            <SocialLinks links={config.socialLinks} className="mt-4 flex gap-3" linkClassName="text-blue-200/50 hover:text-blue-300 transition-colors" />
           </div>
           <div>
             <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-blue-200/40">Subjects</h4>

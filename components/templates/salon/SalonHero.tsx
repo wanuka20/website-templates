@@ -3,8 +3,12 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Star, Award, Users } from "lucide-react";
 import type { SalonConfig } from "@/types";
+import { isExternalBookingUrl, resolveBookingUrl } from "@/lib/booking-url";
 
 export function SalonHero({ config }: { config: SalonConfig }) {
+  const bookingUrl = resolveBookingUrl(config.bookingUrl);
+  const bookingIsExternal = isExternalBookingUrl(bookingUrl);
+
   return (
     <section id="hero" className="relative flex min-h-screen items-center overflow-hidden">
       {/* Background */}
@@ -31,7 +35,7 @@ export function SalonHero({ config }: { config: SalonConfig }) {
 
           <div className="hero-reveal hero-delay-3 flex flex-col gap-4 sm:flex-row">
             <Button asChild size="xl" className="gap-2 bg-rose-500 font-bold hover:bg-rose-600 shadow-lg shadow-rose-500/30">
-              <a href="#contact">{config.heroCtaText} <ArrowRight className="h-5 w-5" /></a>
+              <a href={bookingUrl} target={bookingIsExternal ? "_blank" : undefined} rel={bookingIsExternal ? "noopener noreferrer" : undefined}>{config.heroCtaText} <ArrowRight className="h-5 w-5" /></a>
             </Button>
             <Button asChild size="xl" variant="outline" className="border-white/30 bg-white/15 text-white hover:bg-white/25">
               <a href="#services">Explore Services</a>

@@ -269,9 +269,9 @@ export const tuitionConfig: TuitionConfig = {
     },
   ],
   achievements: [
-    { id: "a1", label: "Students Enrolled", value: "2,000+" },
-    { id: "a2", label: "A-Grade Results (2024)", value: "380+" },
-    { id: "a3", label: "Years of Excellence", value: "15" },
-    { id: "a4", label: "University Admissions", value: "95%" },
+    { id: "a1", label: "Students Enrolled", value: "2,000+", icon: "Users" },
+    { id: "a2", label: "A-Grade Results (2024)", value: "380+", icon: "Trophy" },
+    { id: "a3", label: "Years of Excellence", value: "15", icon: "Award" },
+    { id: "a4", label: "University Admissions", value: "95%", icon: "GraduationCap" },
   ],
 };

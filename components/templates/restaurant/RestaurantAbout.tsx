@@ -13,7 +13,7 @@ export function RestaurantAbout({ config }: { config: RestaurantConfig }) {
           <AnimatedSection direction="left">
             <div className="grid grid-cols-2 gap-4">
               <Image
-                src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=80"
+                src={config.aboutImage1}
                 alt="Restaurant interior"
                 width={500}
                 height={384}
@@ -21,7 +21,7 @@ export function RestaurantAbout({ config }: { config: RestaurantConfig }) {
                 className="h-64 w-full rounded-2xl object-cover"
               />
               <Image
-                src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=500&q=80"
+                src={config.aboutImage2}
                 alt="Chef"
                 width={500}
                 height={384}

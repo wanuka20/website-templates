@@ -88,6 +88,20 @@ const SETTINGS_SHEETS = [
       ],
       [
         "Basic Info",
+        "aboutImage1",
+        "About image 1 URL",
+        "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=80",
+        "First image shown in the About section. Use a direct image URL or public Google Drive link."
+      ],
+      [
+        "Basic Info",
+        "aboutImage2",
+        "About image 2 URL",
+        "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=500&q=80",
+        "Second image shown in the About section. Use a direct image URL or public Google Drive link."
+      ],
+      [
+        "Basic Info",
         "logo",
         "Logo URL",
         "",
@@ -1569,6 +1583,35 @@ function setupSettingsSheets() {
   return SETTINGS_SHEETS.map(function(settingsSheet) {
     return settingsSheet.name;
   });
+}
+
+function addMissingSettingsRows() {
+  SETTINGS_SHEETS.forEach(function(settingsSheet) {
+    const sheet = getOrCreateSheet(settingsSheet.name);
+
+    if (sheet.getLastRow() < 2) {
+      writeSettingsSheet(settingsSheet, true);
+      return;
+    }
+
+    const existingKeys = sheet
+      .getRange(2, 2, sheet.getLastRow() - 1, 1)
+      .getDisplayValues()
+      .flat()
+      .map(function(key) { return String(key).trim(); });
+    const missingRows = settingsSheet.rows.filter(function(row) {
+      return existingKeys.indexOf(String(row[1]).trim()) === -1;
+    });
+
+    if (missingRows.length > 0) {
+      sheet
+        .getRange(sheet.getLastRow() + 1, 1, missingRows.length, CONTENT_HEADERS.length)
+        .setValues(missingRows);
+      formatSettingsSheet(sheet, sheet.getLastRow() - 1);
+    }
+  });
+
+  SpreadsheetApp.flush();
 }
 
 function ensureSettingsSheets() {

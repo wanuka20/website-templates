@@ -1,7 +1,33 @@
-CURRENT VERSION: 0.4.0
+CURRENT VERSION: 0.5.1
 
 VERSION HISTORY:
+  - 2026-07-18 - v0.5.1: flexible image hosting and complete Google Sheets-to-site content mappings.
+    - Added `ALLOW_ANY_IMAGE_HOSTS=true` to allow any HTTPS image hostname through `next/image` when desired; the default remains the restricted `remotePatterns` allowlist when the variable is missing or not set to `true`.
+    - Added reusable `BrandLogo` rendering with the existing template icon as a fallback, applied to desktop/mobile navbars and footers across all five templates.
+    - Rendered all configured social links in every template footer.
+    - Made Salon booking links open a configured HTTP(S) booking service, with a safe Contact fallback for blank, unsafe, and legacy `#booking` values.
+    - Updated Real Estate property cards to use the Sheet type, currency, features, and every supplied image.
+    - Added Tuition Sheet testimonials and achievement-icon rendering.
+    - Made Gym and Restaurant About images, plus Salon opening-hours text, editable from Settings sheets.
+    - Added `addMissingSettingsRows()` to the Gym, Restaurant, and Salon Apps Script files; it appends only missing Settings rows and does not clear existing entries.
+
+  - 2026-07-17 - v0.5.0: performance, caching, image, motion, and production-readiness improvements.
+    - Optimized site images with `next/image`, lazy-loaded below-the-fold images, and prioritized hero images.
+    - Replaced invalid Unsplash URLs with Google Drive placeholders and moved fallback images to local `public/placeholder_images` assets.
+    - Mirrored the complete 76-file placeholder collection locally and updated spreadsheet image cells with matching Drive links.
+    - Added configurable Google Apps Script caching with `GOOGLE_SHEETS_REVALIDATE_SECONDS` and removed unnecessary dynamic rendering from template pages.
+    - Added request timeouts and cached-content fallback behavior for unavailable Google Apps Script responses.
+    - Removed the global transition rule, reduced Framer Motion usage, added reduced-motion support, and optimized navbar scroll handling.
+    - Simplified expensive blur, shadow, and image-transform effects.
+    - Added `npm run cache:clear` and `npm run dev:fresh` for local Next.js cache management.
+    - Added Lighthouse, Chrome Performance, bundle-size, Vitest, Playwright, Axe, resilience, SEO, and production-probe testing workflows.
+    - Audited all public routes and five template websites across desktop and mobile browsers, including live form submission and cleanup verification.
+    - Added the detailed production-readiness findings to `reports/production-readiness/REPORT.md`.
+
   - 2026-06-27 - v0.4.0: all five templates have separate Apps Script files, sheet-driven content wiring, and per-template env vars.
+
   - 2026-06-26 - v0.3.0: admin sheets created for all templates.
+
   - 2026-06-26 - v0.2.0: gym admin sheet + Apps Script integration working.
+
   - 2026-06-26 - v0.1.0: static template site exists.

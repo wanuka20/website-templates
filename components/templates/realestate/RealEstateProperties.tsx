@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { StaggerContainer, StaggerItem } from "@/components/shared/AnimatedSection";
-import { Bed, Bath, Maximize, MapPin, ArrowRight } from "lucide-react";
+import { Bed, Bath, Maximize, MapPin, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { RealEstateConfig, Property } from "@/types";
 
@@ -18,18 +18,33 @@ const statusColors: Record<string, string> = {
 };
 
 function PropertyCard({ property }: { property: Property }) {
-  const formatPrice = (p: number, status: string) => {
+  const [activeImage, setActiveImage] = useState(0);
+  const images = property.images.filter(Boolean);
+  const imageCount = images.length;
+  const currentImage = images[activeImage] ?? property.images[0];
+
+  const formatPrice = (p: number, currency: string, status: string) => {
+    const formattedPrice = p >= 1000000 ? `${(p / 1000000).toFixed(1)}M` : p.toLocaleString();
+
     if (status === "For Rent" || status === "Rented") {
-      return `LKR ${p.toLocaleString()}/mo`;
+      return `${currency} ${formattedPrice}/mo`;
     }
-    return `LKR ${(p / 1000000).toFixed(1)}M`;
+    return `${currency} ${formattedPrice}`;
+  };
+
+  const showPreviousImage = () => {
+    setActiveImage((current) => (current - 1 + imageCount) % imageCount);
+  };
+
+  const showNextImage = () => {
+    setActiveImage((current) => (current + 1) % imageCount);
   };
 
   return (
     <div className="group overflow-hidden rounded-2xl border bg-card shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
       <div className="relative h-52 overflow-hidden">
         <Image
-          src={property.images[0]}
+          src={currentImage}
           alt={property.title}
           fill
           sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
@@ -40,13 +55,39 @@ function PropertyCard({ property }: { property: Property }) {
           <span className={cn("rounded-full px-2.5 py-0.5 text-xs font-semibold", statusColors[property.status])}>
             {property.status}
           </span>
+          <span className="rounded-full bg-black/70 px-2.5 py-0.5 text-xs font-semibold text-white">
+            {property.type}
+          </span>
           {property.featured && (
             <Badge className="bg-emerald-500 text-white text-xs">Featured</Badge>
           )}
         </div>
         <div className="absolute bottom-3 right-3 rounded-full bg-black/80 px-3 py-1 text-white font-bold text-sm">
-          {formatPrice(property.price, property.status)}
+          {formatPrice(property.price, property.currency, property.status)}
         </div>
+        {imageCount > 1 && (
+          <>
+            <button
+              type="button"
+              onClick={showPreviousImage}
+              aria-label="Show previous property image"
+              className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-black/60 p-1.5 text-white transition-colors hover:bg-black/80"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              onClick={showNextImage}
+              aria-label="Show next property image"
+              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-black/60 p-1.5 text-white transition-colors hover:bg-black/80"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
+            <div className="absolute bottom-3 left-3 rounded-full bg-black/70 px-2 py-1 text-xs text-white">
+              {activeImage + 1}/{imageCount}
+            </div>
+          </>
+        )}
       </div>
       <div className="p-5">
         <h3 className="font-bold text-base leading-tight mb-1">{property.title}</h3>
@@ -54,6 +95,18 @@ function PropertyCard({ property }: { property: Property }) {
           <MapPin className="h-3 w-3" />{property.location}
         </div>
         <p className="text-xs text-muted-foreground leading-relaxed mb-4 line-clamp-2">{property.description}</p>
+        {property.features.length > 0 && (
+          <div className="mb-4 flex flex-wrap gap-1.5">
+            {property.features.slice(0, 3).map((feature) => (
+              <Badge key={feature} variant="secondary" className="text-xs">
+                {feature}
+              </Badge>
+            ))}
+            {property.features.length > 3 && (
+              <Badge variant="secondary" className="text-xs">+{property.features.length - 3} more</Badge>
+            )}
+          </div>
+        )}
         <div className="flex items-center gap-4 text-xs text-muted-foreground border-t pt-3">
           {property.bedrooms && (
             <div className="flex items-center gap-1">

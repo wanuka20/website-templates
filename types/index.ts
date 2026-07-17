@@ -80,6 +80,7 @@ export interface GymClass {
 }
 
 export interface GymConfig extends BusinessConfig {
+  aboutImage: string;
   membership: PricingPlan[];
   trainers: GymTrainer[];
   classes: GymClass[];
@@ -124,6 +125,7 @@ export interface SalonConfig extends BusinessConfig {
   beforeAfter: BeforeAfterImage[];
   testimonials: Testimonial[];
   bookingUrl?: string;
+  openingHoursText: string;
 }
 
 // Restaurant-specific types
@@ -141,6 +143,8 @@ export interface MenuItem {
 }
 
 export interface RestaurantConfig extends BusinessConfig {
+  aboutImage1: string;
+  aboutImage2: string;
   menuCategories: string[];
   menu: MenuItem[];
   featuredDishes: MenuItem[];

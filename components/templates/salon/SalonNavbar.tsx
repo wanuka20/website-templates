@@ -7,6 +7,8 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { cn } from "@/lib/utils";
 import { useScrolled } from "@/hooks/useScrolled";
+import { BrandLogo } from "@/components/templates/BrandLogo";
+import { isExternalBookingUrl, resolveBookingUrl } from "@/lib/booking-url";
 import type { SalonConfig } from "@/types";
 
 const navLinks = [
@@ -21,6 +23,8 @@ const navLinks = [
 export function SalonNavbar({ config }: { config: SalonConfig }) {
   const scrolled = useScrolled(50);
   const [open, setOpen] = useState(false);
+  const bookingUrl = resolveBookingUrl(config.bookingUrl);
+  const bookingIsExternal = isExternalBookingUrl(bookingUrl);
 
   return (
     <header
@@ -31,7 +35,7 @@ export function SalonNavbar({ config }: { config: SalonConfig }) {
     >
       <nav className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <a href="#hero" className={cn("flex items-center gap-2 font-bold text-xl", scrolled ? "text-foreground" : "text-white")}>
-          <Scissors className="h-5 w-5 text-rose-500" />
+          <BrandLogo src={config.logo} alt={config.name} size={24} className="h-6 w-6 object-contain" fallback={<Scissors className="h-5 w-5 text-rose-500" />} />
           {config.name}
         </a>
         <div className="hidden items-center gap-1 md:flex">
@@ -44,7 +48,7 @@ export function SalonNavbar({ config }: { config: SalonConfig }) {
         <div className="flex items-center gap-2">
           <ThemeToggle />
           <Button asChild size="sm" className="hidden bg-rose-500 text-white hover:bg-rose-600 md:flex">
-            <a href="#contact">Book Now</a>
+            <a href={bookingUrl} target={bookingIsExternal ? "_blank" : undefined} rel={bookingIsExternal ? "noopener noreferrer" : undefined}>Book Now</a>
           </Button>
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
@@ -54,7 +58,7 @@ export function SalonNavbar({ config }: { config: SalonConfig }) {
             </SheetTrigger>
             <SheetContent side="right" className="w-72">
               <div className="mb-8 flex items-center gap-2 font-bold text-lg">
-                <Scissors className="h-5 w-5 text-rose-500" />
+                <BrandLogo src={config.logo} alt={config.name} size={20} className="h-5 w-5 object-contain" fallback={<Scissors className="h-5 w-5 text-rose-500" />} />
                 {config.name}
               </div>
               <nav className="flex flex-col gap-2">
@@ -63,8 +67,8 @@ export function SalonNavbar({ config }: { config: SalonConfig }) {
                     {link.label}
                   </a>
                 ))}
-                <Button className="mt-4 bg-rose-500 hover:bg-rose-600" onClick={() => setOpen(false)}>
-                  Book Appointment
+                <Button asChild className="mt-4 bg-rose-500 hover:bg-rose-600" onClick={() => setOpen(false)}>
+                  <a href={bookingUrl} target={bookingIsExternal ? "_blank" : undefined} rel={bookingIsExternal ? "noopener noreferrer" : undefined}>Book Appointment</a>
                 </Button>
               </nav>
             </SheetContent>

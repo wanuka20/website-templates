@@ -7,9 +7,12 @@ import { SectionHeader } from "@/components/shared/SectionHeader";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import type { SalonConfig } from "@/types";
+import { isExternalBookingUrl, resolveBookingUrl } from "@/lib/booking-url";
 
 export function SalonPricing({ config }: { config: SalonConfig }) {
   const categories = config.serviceCategories;
+  const bookingUrl = resolveBookingUrl(config.bookingUrl);
+  const bookingIsExternal = isExternalBookingUrl(bookingUrl);
 
   return (
     <section id="pricing" className="section-padding bg-background template-section">
@@ -63,8 +66,8 @@ export function SalonPricing({ config }: { config: SalonConfig }) {
         <div className="mt-12 rounded-2xl bg-gradient-to-br from-rose-500 to-pink-600 p-8 text-white text-center">
           <h3 className="text-2xl font-bold mb-2">Ready for Your Transformation?</h3>
           <p className="text-white/80 mb-6">Book your appointment today — slots fill up quickly!</p>
-          <Button size="lg" className="bg-white text-rose-500 hover:bg-white/90 font-bold">
-            <a href="#contact">Book an Appointment</a>
+          <Button asChild size="lg" className="bg-white text-rose-500 hover:bg-white/90 font-bold">
+            <a href={bookingUrl} target={bookingIsExternal ? "_blank" : undefined} rel={bookingIsExternal ? "noopener noreferrer" : undefined}>Book an Appointment</a>
           </Button>
         </div>
       </div>

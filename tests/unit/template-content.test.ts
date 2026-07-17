@@ -91,6 +91,71 @@ describe("Google Sheets content normalization and fallback", () => {
     );
   });
 
+  it("maps newly editable Sheet fields to their matching template content", async () => {
+    process.env.GYM_GOOGLE_SHEET_WEB_APP_URL = "https://example.test/gym";
+    process.env.RESTAURANT_GOOGLE_SHEET_WEB_APP_URL = "https://example.test/restaurant";
+    process.env.SALON_GOOGLE_SHEET_WEB_APP_URL = "https://example.test/salon";
+    process.env.REALESTATE_GOOGLE_SHEET_WEB_APP_URL = "https://example.test/realestate";
+    process.env.TUITION_GOOGLE_SHEET_WEB_APP_URL = "https://example.test/tuition";
+
+    vi.stubGlobal(
+      "fetch",
+      vi.fn((url: string) => {
+        if (url.includes("template=gym")) {
+          return Promise.resolve(jsonResponse({ ok: true, content: { aboutImage: "https://example.com/gym.jpg" } }));
+        }
+        if (url.includes("template=restaurant")) {
+          return Promise.resolve(jsonResponse({ ok: true, content: {
+            aboutImage1: "https://example.com/restaurant-1.jpg",
+            aboutImage2: "https://example.com/restaurant-2.jpg",
+          } }));
+        }
+        if (url.includes("template=salon")) {
+          return Promise.resolve(jsonResponse({ ok: true, content: {
+            bookingUrl: "https://www.fresha.com/a/salon",
+            openingHoursText: "Daily: 9am–6pm",
+          } }));
+        }
+        if (url.includes("template=realestate")) {
+          return Promise.resolve(jsonResponse({ ok: true, content: {
+            "properties.1.type": "Villa",
+            "properties.1.currency": "USD",
+            "properties.1.features.1": "Ocean view",
+            "properties.1.images.1": "https://example.com/property-1.jpg",
+            "properties.1.images.2": "https://example.com/property-2.jpg",
+          } }));
+        }
+        return Promise.resolve(jsonResponse({ ok: true, content: {
+          "achievements.1.icon": "Users",
+          "testimonials.1.name": "Sheet Student",
+        } }));
+      }),
+    );
+
+    const content = await loadModule();
+    const [gym, restaurant, salon, realestate, tuition] = await Promise.all([
+      content.getGymContent(),
+      content.getRestaurantContent(),
+      content.getSalonContent(),
+      content.getRealEstateContent(),
+      content.getTuitionContent(),
+    ]);
+
+    expect(gym.aboutImage).toBe("https://example.com/gym.jpg");
+    expect(restaurant.aboutImage1).toBe("https://example.com/restaurant-1.jpg");
+    expect(restaurant.aboutImage2).toBe("https://example.com/restaurant-2.jpg");
+    expect(salon.bookingUrl).toBe("https://www.fresha.com/a/salon");
+    expect(salon.openingHoursText).toBe("Daily: 9am–6pm");
+    expect(realestate.properties[0]).toMatchObject({
+      type: "Villa",
+      currency: "USD",
+      features: ["Ocean view"],
+      images: ["https://example.com/property-1.jpg", "https://example.com/property-2.jpg"],
+    });
+    expect(tuition.achievements[0].icon).toBe("Users");
+    expect(tuition.testimonials[0].name).toBe("Sheet Student");
+  });
+
   it("falls back field-by-field for empty, malformed, and partial values", async () => {
     process.env.GYM_GOOGLE_SHEET_WEB_APP_URL = "https://example.test/gym";
     vi.stubGlobal(

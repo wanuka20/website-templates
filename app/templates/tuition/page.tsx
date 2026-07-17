@@ -6,6 +6,7 @@ import { TuitionHero } from "@/components/templates/tuition/TuitionHero";
 import { TuitionSubjects } from "@/components/templates/tuition/TuitionSubjects";
 import { TuitionTeachers } from "@/components/templates/tuition/TuitionTeachers";
 import { TuitionResults } from "@/components/templates/tuition/TuitionResults";
+import { TuitionTestimonials } from "@/components/templates/tuition/TuitionTestimonials";
 import { TuitionSchedule } from "@/components/templates/tuition/TuitionSchedule";
 import { TuitionContact } from "@/components/templates/tuition/TuitionContact";
 import { TuitionFooter } from "@/components/templates/tuition/TuitionFooter";
@@ -28,6 +29,7 @@ export default async function TuitionTemplatePage() {
         <TuitionSubjects config={tuitionConfig} />
         <TuitionTeachers config={tuitionConfig} />
         <TuitionResults config={tuitionConfig} />
+        <TuitionTestimonials config={tuitionConfig} />
         <TuitionSchedule config={tuitionConfig} />
         <TuitionContact config={tuitionConfig} />
       </main>

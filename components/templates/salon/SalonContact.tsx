@@ -24,7 +24,7 @@ export function SalonContact({ config }: { config: SalonConfig }) {
                 { icon: Phone, label: "Phone", value: config.phone, href: `tel:${config.phone}` },
                 { icon: Mail, label: "Email", value: config.email, href: `mailto:${config.email}` },
                 { icon: MapPin, label: "Address", value: `${config.address}, ${config.city}`, href: "#" },
-                { icon: Clock, label: "Hours", value: "Mon–Sat: 9am–8pm | Sun: 10am–6pm", href: "#" },
+                { icon: Clock, label: "Hours", value: config.openingHoursText, href: "#" },
               ].map(({ icon: Icon, label, value, href }) => (
                 <a key={label} href={href} className="flex items-start gap-4 rounded-xl border bg-card p-5 transition-all hover:border-rose-300 hover:shadow-sm">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-rose-100 text-rose-500 dark:bg-rose-900/30">

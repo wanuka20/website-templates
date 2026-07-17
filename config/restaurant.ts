@@ -14,6 +14,8 @@ export const restaurantConfig: RestaurantConfig = {
     "Where authentic Sri Lankan spices meet modern gastronomy. Each dish is a masterpiece crafted from the freshest local ingredients.",
   heroCtaText: "Reserve a Table",
   heroImage: "/placeholder_images/restaurant-adminsheet/settings-brand-d12.jpg",
+  aboutImage1: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=80",
+  aboutImage2: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=500&q=80",
   socialLinks: {
     facebook: "https://facebook.com/spiceroutekitchen",
     instagram: "https://instagram.com/spiceroutekitchen",
