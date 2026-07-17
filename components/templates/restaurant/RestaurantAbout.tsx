@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
+import Image from "next/image";
 import { Clock } from "lucide-react";
 import type { RestaurantConfig } from "@/types";
 
@@ -11,10 +12,22 @@ export function RestaurantAbout({ config }: { config: RestaurantConfig }) {
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <AnimatedSection direction="left">
             <div className="grid grid-cols-2 gap-4">
-              <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=80"
-                alt="Restaurant interior" className="rounded-2xl object-cover h-64 w-full" />
-              <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=500&q=80"
-                alt="Chef" className="rounded-2xl object-cover h-64 w-full mt-8" />
+              <Image
+                src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=80"
+                alt="Restaurant interior"
+                width={500}
+                height={384}
+                sizes="(max-width: 1023px) 50vw, 25vw"
+                className="h-64 w-full rounded-2xl object-cover"
+              />
+              <Image
+                src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=500&q=80"
+                alt="Chef"
+                width={500}
+                height={384}
+                sizes="(max-width: 1023px) 50vw, 25vw"
+                className="mt-8 h-64 w-full rounded-2xl object-cover"
+              />
             </div>
           </AnimatedSection>
           <AnimatedSection direction="right">

@@ -1,6 +1,7 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
+import Image from "next/image";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { StaggerContainer, StaggerItem } from "@/components/shared/AnimatedSection";
 import { Flame, Leaf, Star } from "lucide-react";
@@ -22,8 +23,13 @@ export function RestaurantFeatured({ config }: { config: RestaurantConfig }) {
               <div className="group overflow-hidden rounded-2xl border bg-white dark:bg-card shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
                 {dish.image && (
                   <div className="relative h-52 overflow-hidden">
-                    <img src={dish.image} alt={dish.name}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                    <Image
+                      src={dish.image}
+                      alt={dish.name}
+                      fill
+                      sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                     <div className="absolute top-3 right-3">
                       <Badge className="bg-amber-500 text-white text-xs">
@@ -31,7 +37,7 @@ export function RestaurantFeatured({ config }: { config: RestaurantConfig }) {
                       </Badge>
                     </div>
                     <div className="absolute bottom-3 right-3">
-                      <div className="rounded-full bg-black/70 px-3 py-1 text-white font-bold text-sm backdrop-blur">
+                      <div className="rounded-full bg-black/80 px-3 py-1 text-white font-bold text-sm">
                         LKR {dish.price.toLocaleString()}
                       </div>
                     </div>

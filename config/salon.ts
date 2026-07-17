@@ -13,8 +13,7 @@ export const salonConfig: SalonConfig = {
   heroSubtitle:
     "Indulge in a transformative beauty experience. Our award-winning stylists craft looks that make you feel extraordinary every single day.",
   heroCtaText: "Book Your Appointment",
-  heroImage:
-    "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1600&q=80",
+  heroImage: "/placeholder_images/salon-adminsheet/settings-brand-d12.jpg",
   socialLinks: {
     facebook: "https://facebook.com/lumierebeauty",
     instagram: "https://instagram.com/lumierebeauty",
@@ -36,8 +35,7 @@ export const salonConfig: SalonConfig = {
       "skin care",
       "bridal makeup",
     ],
-    ogImage:
-      "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200&q=80",
+    ogImage: "/placeholder_images/salon-adminsheet/settings-brand-d17.jpg",
   },
   bookingUrl: "#booking",
   serviceCategories: ["Hair", "Skin", "Nails", "Makeup", "Spa"],
@@ -187,8 +185,7 @@ export const salonConfig: SalonConfig = {
       name: "Amara De Silva",
       role: "Creative Director & Master Stylist",
       experience: "15 years",
-      image:
-        "https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=400&q=80",
+      image: "/placeholder_images/salon-adminsheet/settings-stylists-d6.jpg",
       specialties: ["Balayage", "Editorial Cuts", "Colour Correction"],
       bio: "Trained in Paris and London, Amara brings international expertise to every client. Her work has been featured in Vogue Lanka and Harper's Bazaar.",
     },
@@ -197,8 +194,7 @@ export const salonConfig: SalonConfig = {
       name: "Kavindra Rajapaksa",
       role: "Senior Colourist",
       experience: "10 years",
-      image:
-        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80",
+      image: "/placeholder_images/salon-adminsheet/settings-stylists-d15.jpg",
       specialties: ["Ombre", "Highlights", "Toning"],
       bio: "Kavindra is renowned for her colour transformations. A L'Oréal Professionnel certified colourist with a portfolio that speaks for itself.",
     },
@@ -207,8 +203,7 @@ export const salonConfig: SalonConfig = {
       name: "Niroshan Fernando",
       role: "Skin & Spa Specialist",
       experience: "8 years",
-      image:
-        "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=400&q=80",
+      image: "/placeholder_images/salon-adminsheet/settings-stylists-d24.jpg",
       specialties: ["HydraFacial", "Chemical Peels", "Anti-Ageing"],
       bio: "A licensed aesthetician with advanced training in clinical skincare. Niroshan's treatments consistently deliver visible, lasting results.",
     },
@@ -217,8 +212,7 @@ export const salonConfig: SalonConfig = {
       name: "Thilini Senarathna",
       role: "Makeup Artist & Nail Technician",
       experience: "7 years",
-      image:
-        "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=400&q=80",
+      image: "/placeholder_images/salon-adminsheet/settings-stylists-d33.jpg",
       specialties: ["Bridal Makeup", "Nail Art", "Airbrush"],
       bio: "Thilini has beautified over 500 brides across Sri Lanka. Her attention to detail and artistic flair make every look uniquely stunning.",
     },
@@ -226,26 +220,20 @@ export const salonConfig: SalonConfig = {
   beforeAfter: [
     {
       id: "ba1",
-      before:
-        "https://images.unsplash.com/photo-1562322140-8baeececf3df?w=400&q=80",
-      after:
-        "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=400&q=80",
+      before: "/placeholder_images/salon-adminsheet/settings-gallery-d3.jpg",
+      after: "/placeholder_images/salon-adminsheet/settings-gallery-d4.jpg",
       treatment: "Balayage Transformation",
     },
     {
       id: "ba2",
-      before:
-        "https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=400&q=80",
-      after:
-        "https://images.unsplash.com/photo-1487412840181-b83a50bb0a69?w=400&q=80",
+      before: "/placeholder_images/salon-adminsheet/settings-gallery-d7.jpg",
+      after: "/placeholder_images/salon-adminsheet/settings-gallery-d8.jpg",
       treatment: "HydraFacial Glow",
     },
     {
       id: "ba3",
-      before:
-        "https://images.unsplash.com/photo-1527799820374-87036042f33e?w=400&q=80",
-      after:
-        "https://images.unsplash.com/photo-1604079628040-94301bb21b91?w=400&q=80",
+      before: "/placeholder_images/salon-adminsheet/settings-gallery-d11.jpg",
+      after: "/placeholder_images/salon-adminsheet/settings-gallery-d12.jpg",
       treatment: "Keratin Smoothing",
     },
   ],
@@ -257,8 +245,7 @@ export const salonConfig: SalonConfig = {
       content:
         "Lumière is my absolute haven. Amara did the most stunning balayage — I've never received so many compliments on my hair!",
       rating: 5,
-      avatar:
-        "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&q=80",
+      avatar: "/placeholder_images/salon-adminsheet/settings-reviews-d7.jpg",
     },
     {
       id: "te2",
@@ -267,8 +254,7 @@ export const salonConfig: SalonConfig = {
       content:
         "Thilini made me feel like a queen on my wedding day. Flawless makeup that lasted all evening. Highly recommend Lumière to every bride!",
       rating: 5,
-      avatar:
-        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&q=80",
+      avatar: "/placeholder_images/salon-adminsheet/settings-reviews-d13.jpg",
     },
     {
       id: "te3",
@@ -277,8 +263,7 @@ export const salonConfig: SalonConfig = {
       content:
         "The HydraFacial with Niroshan is life-changing. My skin has never been this clear and glowing. The spa ambience is pure luxury.",
       rating: 5,
-      avatar:
-        "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=100&q=80",
+      avatar: "/placeholder_images/salon-adminsheet/settings-reviews-d19.jpg",
     },
   ],
 };

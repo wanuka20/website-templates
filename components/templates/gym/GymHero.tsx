@@ -1,6 +1,4 @@
-"use client";
-
-import { motion } from "framer-motion";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Play, Users, Star, Award } from "lucide-react";
@@ -14,10 +12,13 @@ export function GymHero({ config }: { config: GymConfig }) {
     >
       {/* Background */}
       <div className="absolute inset-0">
-        <img
+        <Image
           src={config.heroImage}
           alt="Gym hero"
-          className="h-full w-full object-cover"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/30" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
@@ -25,41 +26,26 @@ export function GymHero({ config }: { config: GymConfig }) {
 
       <div className="relative container mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
         <div className="max-w-2xl">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-          >
+          <div className="hero-reveal hero-reveal-from-left">
             <Badge className="mb-6 bg-orange-500/20 text-orange-400 border-orange-500/40">
               🔥 Join 1,200+ Members
             </Badge>
-          </motion.div>
+          </div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="mb-6 text-5xl font-black leading-none tracking-tight text-white sm:text-6xl lg:text-7xl"
+          <h1
+            className="hero-reveal hero-delay-1 mb-6 text-5xl font-black leading-none tracking-tight text-white sm:text-6xl lg:text-7xl"
             style={{ whiteSpace: "pre-line" }}
           >
             {config.heroTitle}
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="mb-10 text-lg text-white/80 leading-relaxed max-w-xl"
+          <p
+            className="hero-reveal hero-delay-2 mb-10 max-w-xl text-lg leading-relaxed text-white/80"
           >
             {config.heroSubtitle}
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="flex flex-col gap-4 sm:flex-row"
-          >
+          <div className="hero-reveal hero-delay-3 flex flex-col gap-4 sm:flex-row">
             <Button
               asChild
               size="xl"
@@ -74,22 +60,17 @@ export function GymHero({ config }: { config: GymConfig }) {
               asChild
               size="xl"
               variant="outline"
-              className="gap-2 border-white/30 bg-white/10 text-white backdrop-blur hover:bg-white/20"
+              className="gap-2 border-white/30 bg-white/15 text-white hover:bg-white/25"
             >
               <a href="#classes">
                 <Play className="h-5 w-5 fill-white" />
                 View Schedule
               </a>
             </Button>
-          </motion.div>
+          </div>
 
           {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.5 }}
-            className="mt-16 grid grid-cols-3 gap-6 border-t border-white/20 pt-8"
-          >
+          <div className="hero-reveal hero-delay-4 mt-16 grid grid-cols-3 gap-6 border-t border-white/20 pt-8">
             {[
               { icon: Users, value: "1,200+", label: "Active Members" },
               { icon: Award, value: "15+", label: "Expert Trainers" },
@@ -101,7 +82,7 @@ export function GymHero({ config }: { config: GymConfig }) {
                 <div className="text-xs text-white/60">{label}</div>
               </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

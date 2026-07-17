@@ -1,0 +1,114 @@
+{
+  "generatedAt": "2026-07-16T23:50:55.408Z",
+  "source": "Three local production Lighthouse runs per route; values are medians.",
+  "routes": {
+    "/contact": {
+      "performance": 97,
+      "accessibility": 96,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcpMs": 2532.014,
+      "cls": 0,
+      "tbtMs": 120,
+      "scriptTransferBytes": 257675,
+      "scriptRequestCount": 11,
+      "unusedJavaScriptBytes": 89708
+    },
+    "/": {
+      "performance": 76,
+      "accessibility": 92,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcpMs": 5095.192174999998,
+      "cls": 0,
+      "tbtMs": 248.61134999999956,
+      "scriptTransferBytes": 389146,
+      "scriptRequestCount": 20,
+      "unusedJavaScriptBytes": 119442
+    },
+    "/pricing": {
+      "performance": 98,
+      "accessibility": 91,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcpMs": 2241.5751,
+      "cls": 0,
+      "tbtMs": 83,
+      "scriptTransferBytes": 265627,
+      "scriptRequestCount": 12,
+      "unusedJavaScriptBytes": 116948
+    },
+    "/templates/gym": {
+      "performance": 94,
+      "accessibility": 85,
+      "bestPractices": 96,
+      "seo": 100,
+      "lcpMs": 2854.0463999999997,
+      "cls": 0,
+      "tbtMs": 112.30975000000001,
+      "scriptTransferBytes": 212511,
+      "scriptRequestCount": 9,
+      "unusedJavaScriptBytes": 54820
+    },
+    "/templates/realestate": {
+      "performance": 92,
+      "accessibility": 85,
+      "bestPractices": 96,
+      "seo": 100,
+      "lcpMs": 3142.7454,
+      "cls": 0,
+      "tbtMs": 201.8152,
+      "scriptTransferBytes": 212324,
+      "scriptRequestCount": 9,
+      "unusedJavaScriptBytes": 54811
+    },
+    "/templates/restaurant": {
+      "performance": 92,
+      "accessibility": 85,
+      "bestPractices": 96,
+      "seo": 100,
+      "lcpMs": 3100.5801999999994,
+      "cls": 0,
+      "tbtMs": 157.65020000000004,
+      "scriptTransferBytes": 211582,
+      "scriptRequestCount": 9,
+      "unusedJavaScriptBytes": 54811
+    },
+    "/templates": {
+      "performance": 95,
+      "accessibility": 96,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcpMs": 2903.7254000000003,
+      "cls": 0,
+      "tbtMs": 79.50000000000045,
+      "scriptTransferBytes": 302521,
+      "scriptRequestCount": 14,
+      "unusedJavaScriptBytes": 139505
+    },
+    "/templates/salon": {
+      "performance": 91,
+      "accessibility": 83,
+      "bestPractices": 96,
+      "seo": 100,
+      "lcpMs": 2843.1614,
+      "cls": 0,
+      "tbtMs": 230.41930000000002,
+      "scriptTransferBytes": 215977,
+      "scriptRequestCount": 10,
+      "unusedJavaScriptBytes": 54867
+    },
+    "/templates/tuition": {
+      "performance": 95,
+      "accessibility": 85,
+      "bestPractices": 96,
+      "seo": 100,
+      "lcpMs": 2812.8828,
+      "cls": 0,
+      "tbtMs": 117.05859999999996,
+      "scriptTransferBytes": 211547,
+      "scriptRequestCount": 9,
+      "unusedJavaScriptBytes": 54820
+    }
+  }
+}

@@ -11,8 +11,6 @@ import { RealEstateContact } from "@/components/templates/realestate/RealEstateC
 import { RealEstateFooter } from "@/components/templates/realestate/RealEstateFooter";
 import { WhatsAppButton } from "@/components/shared/WhatsAppButton";
 
-export const dynamic = "force-dynamic";
-
 export async function generateMetadata(): Promise<Metadata> {
   const config = await getRealEstateContent();
 

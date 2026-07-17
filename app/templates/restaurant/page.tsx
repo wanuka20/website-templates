@@ -12,8 +12,6 @@ import { RestaurantContact } from "@/components/templates/restaurant/RestaurantC
 import { RestaurantFooter } from "@/components/templates/restaurant/RestaurantFooter";
 import { WhatsAppButton } from "@/components/shared/WhatsAppButton";
 
-export const dynamic = "force-dynamic";
-
 export async function generateMetadata(): Promise<Metadata> {
   const config = await getRestaurantContent();
 

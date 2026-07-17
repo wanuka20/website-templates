@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppButton } from "@/components/shared/WhatsAppButton";
@@ -20,7 +21,7 @@ const templates = [
     name: "IronPeak Fitness",
     category: "Gym & Fitness",
     description: "High-energy fitness template with membership plans, trainer profiles, class schedules, and an animated hero.",
-    image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80",
+    image: "/placeholder_images/gym-adminsheet/settings-brand-d12.jpg",
     previewUrl: "/templates/gym",
     sections: ["Hero", "About", "Membership", "Trainers", "Schedule", "Gallery", "Testimonials", "Contact"],
     accent: "from-orange-500 to-red-600",
@@ -30,7 +31,7 @@ const templates = [
     name: "Lumière Beauty Studio",
     category: "Beauty & Salon",
     description: "Luxury salon template with service categories, stylist profiles, before/after gallery, and pricing tables.",
-    image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&q=80",
+    image: "/placeholder_images/salon-adminsheet/settings-brand-d12.jpg",
     previewUrl: "/templates/salon",
     sections: ["Hero", "Services", "Pricing", "Stylists", "Gallery", "Reviews", "Contact"],
     accent: "from-pink-500 to-rose-600",
@@ -40,7 +41,7 @@ const templates = [
     name: "Spice Route Kitchen",
     category: "Restaurant & Dining",
     description: "Premium restaurant template with filterable menu, featured dishes, gallery, and reservation form.",
-    image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80",
+    image: "/placeholder_images/restaurant-adminsheet/settings-brand-d12.jpg",
     previewUrl: "/templates/restaurant",
     sections: ["Hero", "Menu", "Featured", "About", "Gallery", "Reviews", "Contact"],
     accent: "from-amber-500 to-orange-600",
@@ -50,7 +51,7 @@ const templates = [
     name: "Apex Academy",
     category: "Education & Tuition",
     description: "Trustworthy tuition template with subjects, teacher profiles, student results, and class schedules.",
-    image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&q=80",
+    image: "/placeholder_images/tuition-adminsheet/settings-brand-d12.jpg",
     previewUrl: "/templates/tuition",
     sections: ["Hero", "Subjects", "Teachers", "Results", "Schedule", "Testimonials", "Contact"],
     accent: "from-blue-500 to-indigo-600",
@@ -60,7 +61,7 @@ const templates = [
     name: "Keshan Realty",
     category: "Real Estate",
     description: "Modern real estate agent template with property listings, agent bio, services, and inquiry form.",
-    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80",
+    image: "/placeholder_images/real-estate-adminsheet/settings-brand-d12.jpg",
     previewUrl: "/templates/realestate",
     sections: ["Hero", "Properties", "Agent", "Services", "Testimonials", "Contact"],
     accent: "from-emerald-500 to-teal-600",
@@ -89,14 +90,19 @@ export default function TemplatesPage() {
         <div className="container mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-2">
             {templates.map((template) => (
-              <div key={template.id} className="overflow-hidden rounded-2xl border bg-card shadow-sm hover:shadow-xl transition-all duration-300">
+              <div key={template.id} className="overflow-hidden rounded-2xl border bg-card shadow-sm transition-shadow duration-200 hover:shadow-md">
                 {/* Image */}
                 <div className="relative h-64 overflow-hidden">
                   <div className={`absolute inset-0 bg-gradient-to-br ${template.accent} opacity-80`} />
-                  <img src={template.image} alt={template.name}
-                    className="h-full w-full object-cover mix-blend-overlay" />
+                  <Image
+                    src={template.image}
+                    alt={template.name}
+                    fill
+                    sizes="(max-width: 1023px) 100vw, 50vw"
+                    className="object-cover mix-blend-overlay"
+                  />
                   <div className="absolute inset-0 flex flex-col justify-end p-6">
-                    <Badge variant="outline" className="w-fit border-white/30 bg-black/20 text-white backdrop-blur mb-2">
+                    <Badge variant="outline" className="mb-2 w-fit border-white/30 bg-black/70 text-white">
                       {template.category}
                     </Badge>
                     <h2 className="text-2xl font-black text-white">{template.name}</h2>

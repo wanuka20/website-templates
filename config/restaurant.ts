@@ -13,8 +13,7 @@ export const restaurantConfig: RestaurantConfig = {
   heroSubtitle:
     "Where authentic Sri Lankan spices meet modern gastronomy. Each dish is a masterpiece crafted from the freshest local ingredients.",
   heroCtaText: "Reserve a Table",
-  heroImage:
-    "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1600&q=80",
+  heroImage: "/placeholder_images/restaurant-adminsheet/settings-brand-d12.jpg",
   socialLinks: {
     facebook: "https://facebook.com/spiceroutekitchen",
     instagram: "https://instagram.com/spiceroutekitchen",
@@ -36,8 +35,7 @@ export const restaurantConfig: RestaurantConfig = {
       "dinner reservation",
       "authentic cuisine",
     ],
-    ogImage:
-      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&q=80",
+    ogImage: "/placeholder_images/restaurant-adminsheet/settings-brand-d18.jpg",
   },
   cuisine: "Sri Lankan Contemporary",
   reservationPhone: "+94 11 234 5678",
@@ -60,8 +58,7 @@ export const restaurantConfig: RestaurantConfig = {
       price: 1800,
       category: "Starters",
       featured: true,
-      image:
-        "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",
+      image: "/placeholder_images/restaurant-adminsheet/settings-menu-d16.jpg",
     },
     {
       id: "m2",
@@ -72,8 +69,7 @@ export const restaurantConfig: RestaurantConfig = {
       category: "Mains",
       featured: true,
       spicy: true,
-      image:
-        "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80",
+      image: "/placeholder_images/restaurant-adminsheet/settings-menu-d25.jpg",
     },
     {
       id: "m3",
@@ -84,8 +80,7 @@ export const restaurantConfig: RestaurantConfig = {
       category: "Seafood",
       featured: true,
       spicy: true,
-      image:
-        "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&q=80",
+      image: "/placeholder_images/restaurant-adminsheet/settings-menu-d34.jpg",
     },
     {
       id: "m4",
@@ -95,8 +90,7 @@ export const restaurantConfig: RestaurantConfig = {
       price: 1500,
       category: "Vegetarian",
       vegetarian: true,
-      image:
-        "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&q=80",
+      image: "/placeholder_images/restaurant-adminsheet/settings-menu-d43.jpg",
     },
     {
       id: "m5",
@@ -107,8 +101,7 @@ export const restaurantConfig: RestaurantConfig = {
       category: "Desserts",
       featured: true,
       vegetarian: true,
-      image:
-        "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400&q=80",
+      image: "/placeholder_images/restaurant-adminsheet/settings-menu-d52.jpg",
     },
     {
       id: "m6",
@@ -117,8 +110,7 @@ export const restaurantConfig: RestaurantConfig = {
         "Jumbo prawns simmered in a tangy tamarind and tomato curry sauce",
       price: 3800,
       category: "Seafood",
-      image:
-        "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80",
+      image: "/placeholder_images/restaurant-adminsheet/settings-menu-d61.jpg",
     },
     {
       id: "m7",
@@ -127,8 +119,7 @@ export const restaurantConfig: RestaurantConfig = {
         "Fragrant basmati rice with slow-cooked lamb, saffron and caramelised onions",
       price: 3200,
       category: "Mains",
-      image:
-        "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=400&q=80",
+      image: "/placeholder_images/restaurant-adminsheet/settings-menu-d70.jpg",
     },
     {
       id: "m8",
@@ -138,8 +129,7 @@ export const restaurantConfig: RestaurantConfig = {
       price: 1200,
       category: "Starters",
       vegetarian: true,
-      image:
-        "https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?w=400&q=80",
+      image: "/placeholder_images/restaurant-adminsheet/settings-menu-d79.jpg",
     },
     {
       id: "m9",
@@ -149,8 +139,7 @@ export const restaurantConfig: RestaurantConfig = {
       price: 1100,
       category: "Desserts",
       vegetarian: true,
-      image:
-        "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=400&q=80",
+      image: "/placeholder_images/restaurant-adminsheet/settings-menu-d88.jpg",
     },
     {
       id: "m10",
@@ -171,8 +160,7 @@ export const restaurantConfig: RestaurantConfig = {
       content:
         "Spice Route Kitchen has reinvented Sri Lankan dining. The Devilled Crab is the best I've had anywhere in the country. A must-visit!",
       rating: 5,
-      avatar:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80",
+      avatar: "/placeholder_images/restaurant-adminsheet/settings-media-d7.jpg",
     },
     {
       id: "te2",
@@ -181,8 +169,7 @@ export const restaurantConfig: RestaurantConfig = {
       content:
         "We celebrated our anniversary here and it was perfect. Impeccable service, beautiful ambience, and flavours that were simply divine.",
       rating: 5,
-      avatar:
-        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80",
+      avatar: "/placeholder_images/restaurant-adminsheet/settings-media-d13.jpg",
     },
     {
       id: "te3",
@@ -191,44 +178,43 @@ export const restaurantConfig: RestaurantConfig = {
       content:
         "As someone experiencing Sri Lankan food for the first time, this was extraordinary. The Watalappam dessert alone is worth the visit!",
       rating: 5,
-      avatar:
-        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80",
+      avatar: "/placeholder_images/restaurant-adminsheet/settings-media-d19.jpg",
     },
   ],
   galleryImages: [
     {
       id: "g1",
-      src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80",
+      src: "/placeholder_images/restaurant-adminsheet/settings-media-d21.jpg",
       alt: "Restaurant dining room",
       category: "Interior",
     },
     {
       id: "g2",
-      src: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80",
+      src: "/placeholder_images/restaurant-adminsheet/settings-media-d25.jpg",
       alt: "Chef preparing dish",
       category: "Kitchen",
     },
     {
       id: "g3",
-      src: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600&q=80",
+      src: "/placeholder_images/restaurant-adminsheet/settings-media-d29.jpg",
       alt: "Signature dishes",
       category: "Food",
     },
     {
       id: "g4",
-      src: "https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=600&q=80",
+      src: "/placeholder_images/restaurant-adminsheet/settings-media-d33.jpg",
       alt: "Private dining",
       category: "Interior",
     },
     {
       id: "g5",
-      src: "https://images.unsplash.com/photo-1481833761820-0509d3217039?w=600&q=80",
+      src: "/placeholder_images/restaurant-adminsheet/settings-media-d37.jpg",
       alt: "Dessert platter",
       category: "Food",
     },
     {
       id: "g6",
-      src: "https://images.unsplash.com/photo-1514190051997-0f6f39ca5cde?w=600&q=80",
+      src: "/placeholder_images/restaurant-adminsheet/settings-media-d41.jpg",
       alt: "Bar area",
       category: "Interior",
     },

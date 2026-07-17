@@ -130,6 +130,13 @@ The gym template can now read editable content from the Google Apps Script web a
    GOOGLE_SHEET_WEB_APP_URL=YOUR_WEB_APP_URL
    ```
    If omitted, the app uses `NEXT_PUBLIC_GOOGLE_APPS_SCRIPT_URL`.
+   Google Sheets content is cached for five minutes by default. Configure the
+   duration in seconds with `GOOGLE_SHEETS_REVALIDATE_SECONDS` in `.env.local`
+   (and in your hosting provider's environment variables for production).
+   Google Apps Script requests time out after ten seconds by default. Configure
+   this in milliseconds with `GOOGLE_SHEETS_REQUEST_TIMEOUT_MS`. If the service
+   is unavailable during revalidation, the previously cached page remains
+   available.
 5. Check the normalized content at:
    ```text
    http://localhost:3000/api/gym-content

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { Badge } from "@/components/ui/badge";
@@ -54,9 +55,12 @@ export function GymGallery({ config }: { config: GymConfig }) {
                   index === 0 ? "md:col-span-2 md:row-span-2" : ""
                 )}
               >
-                <img
+                <Image
                   src={image.src}
                   alt={image.alt}
+                  width={800}
+                  height={600}
+                  sizes="(max-width: 767px) 50vw, (max-width: 1023px) 33vw, 25vw"
                   className={cn(
                     "w-full object-cover transition-transform duration-500 group-hover:scale-105",
                     index === 0 ? "h-64 md:h-full" : "h-40 md:h-48"

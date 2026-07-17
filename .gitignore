@@ -5,6 +5,10 @@ node_modules
 
 # Testing
 /coverage
+/playwright-report/
+/test-results/
+/reports/playwright/
+/reports/production-readiness/lighthouse/raw/
 
 # Next.js
 /.next/
@@ -21,6 +25,7 @@ node_modules
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+debug.log
 .npm-cache/
 
 # Local env files

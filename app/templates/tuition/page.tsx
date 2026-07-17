@@ -11,8 +11,6 @@ import { TuitionContact } from "@/components/templates/tuition/TuitionContact";
 import { TuitionFooter } from "@/components/templates/tuition/TuitionFooter";
 import { WhatsAppButton } from "@/components/shared/WhatsAppButton";
 
-export const dynamic = "force-dynamic";
-
 export async function generateMetadata(): Promise<Metadata> {
   const config = await getTuitionContent();
 

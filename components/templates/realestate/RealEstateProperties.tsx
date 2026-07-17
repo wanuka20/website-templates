@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { StaggerContainer, StaggerItem } from "@/components/shared/AnimatedSection";
@@ -27,8 +28,13 @@ function PropertyCard({ property }: { property: Property }) {
   return (
     <div className="group overflow-hidden rounded-2xl border bg-card shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
       <div className="relative h-52 overflow-hidden">
-        <img src={property.images[0]} alt={property.title}
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+        <Image
+          src={property.images[0]}
+          alt={property.title}
+          fill
+          sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+        />
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
         <div className="absolute left-3 top-3 flex items-center gap-2">
           <span className={cn("rounded-full px-2.5 py-0.5 text-xs font-semibold", statusColors[property.status])}>
@@ -38,7 +44,7 @@ function PropertyCard({ property }: { property: Property }) {
             <Badge className="bg-emerald-500 text-white text-xs">Featured</Badge>
           )}
         </div>
-        <div className="absolute bottom-3 right-3 rounded-full bg-black/70 px-3 py-1 text-white font-bold text-sm backdrop-blur">
+        <div className="absolute bottom-3 right-3 rounded-full bg-black/80 px-3 py-1 text-white font-bold text-sm">
           {formatPrice(property.price, property.status)}
         </div>
       </div>

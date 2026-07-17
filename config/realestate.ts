@@ -13,8 +13,7 @@ export const realestateConfig: RealEstateConfig = {
   heroSubtitle:
     "Trusted by over 500 families across Colombo. Let Sri Lanka's leading property agent guide you to your dream property.",
   heroCtaText: "View Properties",
-  heroImage:
-    "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1600&q=80",
+  heroImage: "/placeholder_images/real-estate-adminsheet/settings-brand-d12.jpg",
   socialLinks: {
     facebook: "https://facebook.com/keshanrealty",
     instagram: "https://instagram.com/keshanrealty",
@@ -37,14 +36,12 @@ export const realestateConfig: RealEstateConfig = {
       "buy house colombo",
       "property for sale",
     ],
-    ogImage:
-      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&q=80",
+    ogImage: "/placeholder_images/real-estate-adminsheet/settings-brand-d16.jpg",
   },
   agent: {
     name: "Keshan de Silva",
     title: "Principal Agent & Licensed Realtor",
-    image:
-      "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80",
+    image: "/placeholder_images/real-estate-adminsheet/settings-agent-d4.jpg",
     bio: "With over 12 years of real estate experience, Keshan de Silva has built an unmatched reputation for integrity, market knowledge, and exceptional client service. He has facilitated over 500 successful property transactions in the Colombo district, covering everything from studio apartments to luxury penthouses.\n\nKeshan believes that buying or selling a home is one of life's biggest decisions — and he treats it that way. His data-driven approach, combined with genuine care for his clients, makes every transaction smooth and stress-free.",
     experience: "12 Years",
     totalSales: "LKR 2.8B+",
@@ -84,8 +81,8 @@ export const realestateConfig: RealEstateConfig = {
         "Gym access",
       ],
       images: [
-        "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80",
-        "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&q=80",
+        "/placeholder_images/real-estate-adminsheet/settings-properties-d23.jpg",
+        "/placeholder_images/real-estate-adminsheet/settings-properties-d24.jpg",
       ],
       featured: true,
     },
@@ -113,7 +110,7 @@ export const realestateConfig: RealEstateConfig = {
         "Water tank",
       ],
       images: [
-        "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&q=80",
+        "/placeholder_images/real-estate-adminsheet/settings-properties-d45.jpg",
       ],
       featured: true,
     },
@@ -142,7 +139,7 @@ export const realestateConfig: RealEstateConfig = {
         "Bore water",
       ],
       images: [
-        "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80",
+        "/placeholder_images/real-estate-adminsheet/settings-properties-d67.jpg",
       ],
       featured: true,
     },
@@ -167,7 +164,7 @@ export const realestateConfig: RealEstateConfig = {
         "Rooftop pool",
       ],
       images: [
-        "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&q=80",
+        "/placeholder_images/real-estate-adminsheet/settings-properties-d87.jpg",
       ],
     },
     {
@@ -190,7 +187,7 @@ export const realestateConfig: RealEstateConfig = {
         "Loading bay",
       ],
       images: [
-        "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80",
+        "/placeholder_images/real-estate-adminsheet/settings-properties-d106.jpg",
       ],
     },
     {
@@ -217,7 +214,7 @@ export const realestateConfig: RealEstateConfig = {
         "Car park",
       ],
       images: [
-        "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80",
+        "/placeholder_images/real-estate-adminsheet/settings-properties-d127.jpg",
       ],
       featured: true,
     },
@@ -274,8 +271,7 @@ export const realestateConfig: RealEstateConfig = {
       content:
         "Keshan found us our dream home in Battaramulla within 3 weeks. His knowledge of the market is extraordinary. We couldn't be happier!",
       rating: 5,
-      avatar:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80",
+      avatar: "/placeholder_images/real-estate-adminsheet/settings-local-proof-d15.jpg",
     },
     {
       id: "ts2",
@@ -284,8 +280,7 @@ export const realestateConfig: RealEstateConfig = {
       content:
         "Sold my apartment at Cinnamon Life for 8% above asking price. Keshan's negotiation skills are second to none. Highly recommended!",
       rating: 5,
-      avatar:
-        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80",
+      avatar: "/placeholder_images/real-estate-adminsheet/settings-local-proof-d21.jpg",
     },
     {
       id: "ts3",
@@ -294,8 +289,7 @@ export const realestateConfig: RealEstateConfig = {
       content:
         "I've bought 3 investment properties through Keshan in the past 4 years. His market insights and integrity are unmatched in Colombo.",
       rating: 5,
-      avatar:
-        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80",
+      avatar: "/placeholder_images/real-estate-adminsheet/settings-local-proof-d27.jpg",
     },
   ],
   areas: [

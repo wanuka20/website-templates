@@ -1,6 +1,7 @@
 "use client";
 
 import { StarRating } from "@/components/shared/StarRating";
+import Image from "next/image";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { StaggerContainer, StaggerItem } from "@/components/shared/AnimatedSection";
 import { GraduationCap, Users } from "lucide-react";
@@ -20,8 +21,13 @@ export function TuitionTeachers({ config }: { config: TuitionConfig }) {
             <StaggerItem key={teacher.id}>
               <div className="group overflow-hidden rounded-2xl border bg-white dark:bg-card shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
                 <div className="relative h-64 overflow-hidden">
-                  <img src={teacher.image} alt={teacher.name}
-                    className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105" />
+                  <Image
+                    src={teacher.image}
+                    alt={teacher.name}
+                    fill
+                    sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 25vw"
+                    className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-blue-900/60 to-transparent" />
                 </div>
                 <div className="p-5">

@@ -30,7 +30,7 @@ import type {
   TuitionConfig,
 } from "@/types";
 
-type TemplateId = "gym" | "restaurant" | "salon" | "realestate" | "tuition";
+export type TemplateId = "gym" | "restaurant" | "salon" | "realestate" | "tuition";
 
 type SheetPayload = {
   ok?: boolean;
@@ -68,6 +68,48 @@ const TEMPLATE_URLS: Record<TemplateId, string | undefined> = {
     process.env.NEXT_PUBLIC_TUITION_GOOGLE_APPS_SCRIPT_URL ||
     process.env.NEXT_PUBLIC_GOOGLE_APPS_SCRIPT_URL,
 };
+
+const DEFAULT_GOOGLE_SHEETS_REVALIDATE_SECONDS = 300;
+const DEFAULT_GOOGLE_SHEETS_REQUEST_TIMEOUT_MS = 10_000;
+
+function getGoogleSheetsRevalidateSeconds() {
+  const configuredValue = Number(
+    process.env.GOOGLE_SHEETS_REVALIDATE_SECONDS ??
+      DEFAULT_GOOGLE_SHEETS_REVALIDATE_SECONDS,
+  );
+
+  return Number.isInteger(configuredValue) && configuredValue > 0
+    ? configuredValue
+    : DEFAULT_GOOGLE_SHEETS_REVALIDATE_SECONDS;
+}
+
+function getGoogleSheetsRequestTimeoutMs() {
+  const configuredValue = Number(
+    process.env.GOOGLE_SHEETS_REQUEST_TIMEOUT_MS ??
+      DEFAULT_GOOGLE_SHEETS_REQUEST_TIMEOUT_MS,
+  );
+
+  return Number.isInteger(configuredValue) && configuredValue > 0
+    ? configuredValue
+    : DEFAULT_GOOGLE_SHEETS_REQUEST_TIMEOUT_MS;
+}
+
+async function fetchGoogleSheets(
+  url: string,
+  options: RequestInit,
+) {
+  const controller = new AbortController();
+  const timeout = setTimeout(
+    () => controller.abort(),
+    getGoogleSheetsRequestTimeoutMs(),
+  );
+
+  try {
+    return await fetch(url, { ...options, signal: controller.signal });
+  } finally {
+    clearTimeout(timeout);
+  }
+}
 
 function text(value: unknown, fallback = "") {
   return typeof value === "string" && value.trim() ? value.trim() : fallback;
@@ -818,9 +860,12 @@ async function fetchContent<T>(
   }
 
   try {
-    const response = await fetch(appendTemplateParam(url, template), {
-      cache: "no-store",
-      next: { revalidate: 0 },
+    const response = await fetchGoogleSheets(appendTemplateParam(url, template), {
+      cache: "force-cache",
+      next: {
+        revalidate: getGoogleSheetsRevalidateSeconds(),
+        tags: [`template-content:${template}`],
+      },
     });
 
     if (!response.ok) {

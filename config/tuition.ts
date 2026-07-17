@@ -13,8 +13,7 @@ export const tuitionConfig: TuitionConfig = {
   heroSubtitle:
     "Join over 2,000 students who achieved their dream results at Apex Academy. Expert teachers, small class sizes, and guaranteed results.",
   heroCtaText: "Register Now",
-  heroImage:
-    "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1600&q=80",
+  heroImage: "/placeholder_images/tuition-adminsheet/settings-brand-d12.jpg",
   socialLinks: {
     facebook: "https://facebook.com/apexacademylk",
     youtube: "https://youtube.com/apexacademylk",
@@ -36,8 +35,7 @@ export const tuitionConfig: TuitionConfig = {
       "maths tuition",
       "science tuition nugegoda",
     ],
-    ogImage:
-      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&q=80",
+    ogImage: "/placeholder_images/tuition-adminsheet/settings-brand-d16.jpg",
   },
   subjects: [
     {
@@ -102,8 +100,7 @@ export const tuitionConfig: TuitionConfig = {
       subject: "Combined Mathematics",
       qualification: "B.Sc. (Hons) Mathematics, University of Colombo",
       experience: "18 years",
-      image:
-        "https://images.unsplash.com/photo-1544717297-fa95b6ee9643?w=400&q=80",
+      image: "/placeholder_images/tuition-adminsheet/settings-teachers-d7.jpg",
       bio: "Mr. Saman is a legend in the A/L Mathematics field. With an unmatched record of students achieving A grades, his teaching method transforms even the most reluctant maths student.",
       rating: 5,
       studentsCount: 890,
@@ -114,8 +111,7 @@ export const tuitionConfig: TuitionConfig = {
       subject: "Physics",
       qualification: "B.Sc. Physics, M.Sc. Applied Physics",
       experience: "12 years",
-      image:
-        "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80",
+      image: "/placeholder_images/tuition-adminsheet/settings-teachers-d16.jpg",
       bio: "Ms. Nilmini makes complex physics concepts crystal clear. Former university lecturer who returned to school-level teaching to make a direct impact.",
       rating: 5,
       studentsCount: 620,
@@ -126,8 +122,7 @@ export const tuitionConfig: TuitionConfig = {
       subject: "Chemistry",
       qualification: "B.Sc. Chemistry (Special), PhD Candidate",
       experience: "10 years",
-      image:
-        "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80",
+      image: "/placeholder_images/tuition-adminsheet/settings-teachers-d25.jpg",
       bio: "Mr. Prasanna's passion for chemistry is infectious. His practical demonstrations and memory techniques have helped hundreds of students score A grades.",
       rating: 5,
       studentsCount: 480,
@@ -138,8 +133,7 @@ export const tuitionConfig: TuitionConfig = {
       subject: "English Language",
       qualification: "B.A. English (Hons), PGDE",
       experience: "9 years",
-      image:
-        "https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=400&q=80",
+      image: "/placeholder_images/tuition-adminsheet/settings-teachers-d34.jpg",
       bio: "Ms. Rashika has a remarkable ability to build confidence in students who struggle with English. Her students consistently achieve A and B grades in O/L and A/L English.",
       rating: 5,
       studentsCount: 340,
@@ -153,8 +147,7 @@ export const tuitionConfig: TuitionConfig = {
       grade: "A",
       year: "2024",
       testimonial: "Mr. Saman's classes were the turning point for me. I went from D grades to getting into Engineering at Moratuwa.",
-      avatar:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80",
+      avatar: "/placeholder_images/tuition-adminsheet/settings-outcomes-d8.jpg",
     },
     {
       id: "r2",
@@ -163,8 +156,7 @@ export const tuitionConfig: TuitionConfig = {
       grade: "A",
       year: "2024",
       testimonial: "Ms. Nilmini made me love Physics. I got the island's 4th best result in Physics — couldn't have done it without Apex.",
-      avatar:
-        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80",
+      avatar: "/placeholder_images/tuition-adminsheet/settings-outcomes-d15.jpg",
     },
     {
       id: "r3",
@@ -173,8 +165,7 @@ export const tuitionConfig: TuitionConfig = {
       grade: "A",
       year: "2024",
       testimonial: "Chemistry was my weakest subject. After joining Mr. Prasanna's class, I scored an A and got into Medicine. Life-changing!",
-      avatar:
-        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80",
+      avatar: "/placeholder_images/tuition-adminsheet/settings-outcomes-d22.jpg",
     },
     {
       id: "r4",
@@ -183,8 +174,7 @@ export const tuitionConfig: TuitionConfig = {
       grade: "A",
       year: "2024",
       testimonial: "My O/L English result was a dream. Ms. Rashika's structured classes and constant encouragement made all the difference.",
-      avatar:
-        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=80&q=80",
+      avatar: "/placeholder_images/tuition-adminsheet/settings-outcomes-d29.jpg",
     },
   ],
   schedule: [
@@ -257,8 +247,7 @@ export const tuitionConfig: TuitionConfig = {
       content:
         "My daughter's grades improved dramatically after joining Apex. The teachers are dedicated and the environment is excellent. Best decision we made!",
       rating: 5,
-      avatar:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80",
+      avatar: "/placeholder_images/tuition-adminsheet/settings-reviews-d7.jpg",
     },
     {
       id: "tt2",
@@ -267,8 +256,7 @@ export const tuitionConfig: TuitionConfig = {
       content:
         "I joined Apex in my A/L year and it was the best decision. The past paper sessions and personalised feedback helped me score 3 A's.",
       rating: 5,
-      avatar:
-        "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&q=80",
+      avatar: "/placeholder_images/tuition-adminsheet/settings-reviews-d13.jpg",
     },
     {
       id: "tt3",
@@ -277,8 +265,7 @@ export const tuitionConfig: TuitionConfig = {
       content:
         "Apex Academy is not just a tuition class — it's a second family. The teachers genuinely care about each student's future. 10/10!",
       rating: 5,
-      avatar:
-        "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=100&q=80",
+      avatar: "/placeholder_images/tuition-adminsheet/settings-reviews-d19.jpg",
     },
   ],
   achievements: [

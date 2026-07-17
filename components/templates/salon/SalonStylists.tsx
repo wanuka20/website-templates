@@ -1,6 +1,7 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
+import Image from "next/image";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { StaggerContainer, StaggerItem } from "@/components/shared/AnimatedSection";
 import { Scissors } from "lucide-react";
@@ -21,8 +22,13 @@ export function SalonStylists({ config }: { config: SalonConfig }) {
             <StaggerItem key={stylist.id}>
               <div className="group overflow-hidden rounded-2xl border bg-white dark:bg-card shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
                 <div className="relative h-72 overflow-hidden">
-                  <img src={stylist.image} alt={stylist.name}
-                    className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105" />
+                  <Image
+                    src={stylist.image}
+                    alt={stylist.name}
+                    fill
+                    sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 25vw"
+                    className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                   <div className="absolute bottom-0 p-4">
                     <Badge className="bg-rose-500 text-white text-xs">{stylist.experience}</Badge>

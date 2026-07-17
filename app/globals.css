@@ -83,7 +83,7 @@
   }
 
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+    @apply transition-shadow duration-200 hover:shadow-md;
   }
 
   .template-section {
@@ -112,28 +112,119 @@
 /* WhatsApp button pulse animation */
 @keyframes whatsapp-pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+    opacity: 0.65;
+    transform: scale(0.9);
   }
   70% {
-    box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
+    opacity: 0;
+    transform: scale(1.35);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    opacity: 0;
+    transform: scale(1.35);
   }
 }
 
 .whatsapp-pulse {
+  isolation: isolate;
+}
+
+.whatsapp-pulse::after {
+  position: absolute;
+  inset: -4px;
+  z-index: -1;
+  border: 2px solid rgba(37, 211, 102, 0.8);
+  border-radius: inherit;
+  content: "";
+  pointer-events: none;
   animation: whatsapp-pulse 2s infinite;
 }
 
-/* Smooth theme transitions */
-* {
-  transition-property: background-color, border-color, color, fill, stroke;
-  transition-duration: 200ms;
-  transition-timing-function: ease-in-out;
+@media (prefers-reduced-motion: no-preference) {
+  .hero-reveal {
+    animation: hero-reveal-up 0.6s cubic-bezier(0.21, 1.02, 0.73, 1) both;
+  }
+
+  .hero-reveal-from-top { animation-name: hero-reveal-down; }
+  .hero-reveal-from-left { animation-name: hero-reveal-left; }
+  .hero-delay-1 { animation-delay: 0.1s; }
+  .hero-delay-2 { animation-delay: 0.2s; }
+  .hero-delay-3 { animation-delay: 0.3s; }
+  .hero-delay-4 { animation-delay: 0.5s; }
+
+  .reveal {
+    animation-duration: 0.55s;
+    animation-delay: var(--reveal-delay, 0s);
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(0.21, 1.02, 0.73, 1);
+  }
+
+  .reveal-hidden { opacity: 0; }
+  .reveal-visible { animation-name: reveal-up; }
+  .reveal-down.reveal-visible { animation-name: reveal-down; }
+  .reveal-left.reveal-visible { animation-name: reveal-left; }
+  .reveal-right.reveal-visible { animation-name: reveal-right; }
+  .reveal-none.reveal-visible { animation-name: reveal-fade; }
+
+  .stagger-hidden > .stagger-item { opacity: 0; }
+  .stagger-visible > .stagger-item { animation: reveal-up 0.5s cubic-bezier(0.21, 1.02, 0.73, 1) both; }
+  .stagger-visible > .stagger-item:nth-child(2) { animation-delay: var(--stagger-delay, 0.1s); }
+  .stagger-visible > .stagger-item:nth-child(3) { animation-delay: calc(var(--stagger-delay, 0.1s) * 2); }
+  .stagger-visible > .stagger-item:nth-child(4) { animation-delay: calc(var(--stagger-delay, 0.1s) * 3); }
+  .stagger-visible > .stagger-item:nth-child(5) { animation-delay: calc(var(--stagger-delay, 0.1s) * 4); }
+  .stagger-visible > .stagger-item:nth-child(6) { animation-delay: calc(var(--stagger-delay, 0.1s) * 5); }
 }
 
-/* Override transition for animations */
-.no-transition {
-  transition: none !important;
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
 }
+
+@keyframes hero-reveal-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes hero-reveal-down {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes hero-reveal-left {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes reveal-down {
+  from { opacity: 0; transform: translateY(-24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes reveal-left {
+  from { opacity: 0; transform: translateX(-24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes reveal-right {
+  from { opacity: 0; transform: translateX(24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes reveal-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+

@@ -13,8 +13,7 @@ export const gymConfig: GymConfig = {
   heroSubtitle:
     "Join IronPeak Fitness — where champions are built. State-of-the-art equipment, expert trainers, and a community unlike any other.",
   heroCtaText: "Start Free Trial",
-  heroImage:
-    "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1600&q=80",
+  heroImage: "/placeholder_images/gym-adminsheet/settings-brand-d12.jpg",
   socialLinks: {
     facebook: "https://facebook.com/ironpeakfitness",
     instagram: "https://instagram.com/ironpeakfitness",
@@ -37,8 +36,7 @@ export const gymConfig: GymConfig = {
       "weight loss",
       "bodybuilding",
     ],
-    ogImage:
-      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&q=80",
+    ogImage: "/placeholder_images/gym-adminsheet/settings-brand-d16.jpg",
   },
   amenities: [
     "Olympic Weight Room",
@@ -111,8 +109,7 @@ export const gymConfig: GymConfig = {
       name: "Kamal Perera",
       specialization: "Strength & Conditioning",
       experience: "8 years",
-      image:
-        "https://images.unsplash.com/photo-1567013127542-490d757e51fc?w=400&q=80",
+      image: "/placeholder_images/gym-adminsheet/settings-team-d6.jpg",
       bio: "Former national-level powerlifter turned elite coach. Kamal has helped over 300 clients achieve their peak performance.",
       certifications: ["NSCA-CSCS", "ACE Certified PT", "FMS Level 2"],
     },
@@ -121,8 +118,7 @@ export const gymConfig: GymConfig = {
       name: "Dilani Jayawardena",
       specialization: "Weight Loss & Nutrition",
       experience: "6 years",
-      image:
-        "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80",
+      image: "/placeholder_images/gym-adminsheet/settings-team-d15.jpg",
       bio: "Certified nutritionist and personal trainer specialising in sustainable weight loss. Dilani's holistic approach has transformed hundreds of lives.",
       certifications: ["NASM-CPT", "Precision Nutrition L2", "Yoga Alliance 200HR"],
     },
@@ -131,8 +127,7 @@ export const gymConfig: GymConfig = {
       name: "Ruwan Silva",
       specialization: "Functional Fitness & MMA",
       experience: "10 years",
-      image:
-        "https://images.unsplash.com/photo-1530822847156-5df684ec5933?w=400&q=80",
+      image: "/placeholder_images/gym-adminsheet/settings-team-d24.jpg",
       bio: "Ex-national MMA champion with a decade of coaching experience. Ruwan brings intensity and expertise to every session.",
       certifications: ["NSCA-CPT", "CrossFit L2", "Boxing Coach Certified"],
     },
@@ -141,8 +136,7 @@ export const gymConfig: GymConfig = {
       name: "Priya Mendis",
       specialization: "Yoga & Flexibility",
       experience: "7 years",
-      image:
-        "https://images.unsplash.com/photo-1594381898411-846e7d193883?w=400&q=80",
+      image: "/placeholder_images/gym-adminsheet/settings-team-d33.jpg",
       bio: "Internationally certified yoga instructor who blends traditional practices with modern fitness science for mind-body transformation.",
       certifications: ["RYT-500", "Pilates Certified", "ACE Health Coach"],
     },
@@ -237,8 +231,7 @@ export const gymConfig: GymConfig = {
       content:
         "IronPeak completely transformed my body and confidence. Lost 20kg in 6 months with the Pro plan. The trainers are exceptional!",
       rating: 5,
-      avatar:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80",
+      avatar: "/placeholder_images/gym-adminsheet/settings-media-d7.jpg",
     },
     {
       id: "te2",
@@ -247,8 +240,7 @@ export const gymConfig: GymConfig = {
       content:
         "Worth every rupee! The Elite package with personalised meal plans made all the difference. I've never felt better at 35.",
       rating: 5,
-      avatar:
-        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80",
+      avatar: "/placeholder_images/gym-adminsheet/settings-media-d13.jpg",
     },
     {
       id: "te3",
@@ -257,44 +249,43 @@ export const gymConfig: GymConfig = {
       content:
         "Best gym in Colombo, hands down. Excellent equipment, great atmosphere, and coaches who genuinely care about your progress.",
       rating: 5,
-      avatar:
-        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80",
+      avatar: "/placeholder_images/gym-adminsheet/settings-media-d19.jpg",
     },
   ],
   galleryImages: [
     {
       id: "g1",
-      src: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80",
+      src: "/placeholder_images/gym-adminsheet/settings-media-d21.jpg",
       alt: "Weight room",
       category: "Facilities",
     },
     {
       id: "g2",
-      src: "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=600&q=80",
+      src: "/placeholder_images/gym-adminsheet/settings-media-d25.jpg",
       alt: "Cardio zone",
       category: "Facilities",
     },
     {
       id: "g3",
-      src: "https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=600&q=80",
+      src: "/placeholder_images/gym-adminsheet/settings-media-d29.jpg",
       alt: "Group class",
       category: "Classes",
     },
     {
       id: "g4",
-      src: "https://images.unsplash.com/photo-1594381898411-846e7d193883?w=600&q=80",
+      src: "/placeholder_images/gym-adminsheet/settings-media-d33.jpg",
       alt: "Yoga studio",
       category: "Classes",
     },
     {
       id: "g5",
-      src: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=600&q=80",
+      src: "/placeholder_images/gym-adminsheet/settings-media-d37.jpg",
       alt: "Personal training",
       category: "Training",
     },
     {
       id: "g6",
-      src: "https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=600&q=80",
+      src: "/placeholder_images/gym-adminsheet/settings-media-d41.jpg",
       alt: "Boxing area",
       category: "Training",
     },

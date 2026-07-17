@@ -28,7 +28,7 @@ export function Hero() {
           >
             <Badge
               variant="outline"
-              className="mb-6 border-blue-400/40 bg-blue-500/10 px-4 py-1.5 text-blue-300 backdrop-blur"
+              className="mb-6 border-blue-400/40 bg-blue-500/20 px-4 py-1.5 text-blue-200"
             >
               <Sparkles className="mr-1.5 h-3.5 w-3.5" />
               5 Professional Templates — Ready to Launch
@@ -76,7 +76,7 @@ export function Hero() {
               asChild
               size="xl"
               variant="outline"
-              className="rounded-full border-white/20 bg-white/5 text-white backdrop-blur hover:bg-white/10 hover:text-white"
+              className="rounded-full border-white/20 bg-white/10 text-white hover:bg-white/20 hover:text-white"
             >
               <Link href="/pricing">View Pricing</Link>
             </Button>

@@ -1,6 +1,7 @@
 "use client";
 
 import { Check } from "lucide-react";
+import Image from "next/image";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import type { GymConfig } from "@/types";
@@ -11,11 +12,13 @@ export function GymAbout({ config }: { config: GymConfig }) {
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <AnimatedSection direction="left">
-            <div className="relative">
-              <img
+            <div className="relative h-[480px]">
+              <Image
                 src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=700&q=80"
                 alt="Gym interior"
-                className="rounded-2xl shadow-2xl w-full object-cover h-[480px]"
+                fill
+                sizes="(max-width: 1023px) 100vw, 50vw"
+                className="rounded-2xl object-cover shadow-2xl"
               />
               <div className="absolute -bottom-6 -right-6 hidden lg:block">
                 <div className="rounded-2xl bg-orange-500 p-6 text-white shadow-xl">

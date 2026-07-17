@@ -13,8 +13,6 @@ import { GymContact } from "@/components/templates/gym/GymContact";
 import { GymFooter } from "@/components/templates/gym/GymFooter";
 import { WhatsAppButton } from "@/components/shared/WhatsAppButton";
 
-export const dynamic = "force-dynamic";
-
 export async function generateMetadata(): Promise<Metadata> {
   const config = await getGymContent();
 

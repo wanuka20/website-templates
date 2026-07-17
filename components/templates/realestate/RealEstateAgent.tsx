@@ -3,6 +3,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
+import Image from "next/image";
 import { Phone, Mail, Award, Globe } from "lucide-react";
 import { WhatsAppInline } from "@/components/shared/WhatsAppButton";
 import type { RealEstateConfig } from "@/types";
@@ -15,9 +16,14 @@ export function RealEstateAgent({ config }: { config: RealEstateConfig }) {
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <AnimatedSection direction="left">
-            <div className="relative">
-              <img src={agent.image} alt={agent.name}
-                className="rounded-2xl shadow-2xl w-full object-cover object-top h-[520px]" />
+            <div className="relative h-[520px]">
+              <Image
+                src={agent.image}
+                alt={agent.name}
+                fill
+                sizes="(max-width: 1023px) 100vw, 50vw"
+                className="rounded-2xl object-cover object-top shadow-2xl"
+              />
               <div className="absolute -bottom-6 -right-6 hidden lg:block">
                 <div className="rounded-2xl bg-emerald-600 p-5 text-white shadow-xl">
                   <div className="text-3xl font-black">{agent.totalSales}</div>

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Copy, ArrowRight } from "lucide-react";
@@ -16,7 +16,7 @@ const templates: TemplateCard[] = [
     category: "Gym & Fitness",
     description:
       "A high-energy fitness template with membership plans, trainer profiles, class schedules, and a dynamic gallery.",
-    image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80",
+    image: "/placeholder_images/gym-adminsheet/settings-brand-d12.jpg",
     previewUrl: "/templates/gym",
     tags: ["Membership", "Trainers", "Schedule", "Gallery"],
     color: "from-orange-500 to-red-600",
@@ -27,7 +27,7 @@ const templates: TemplateCard[] = [
     category: "Beauty & Salon",
     description:
       "A luxury salon template featuring services, stylist profiles, before/after gallery, and an elegant booking CTA.",
-    image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&q=80",
+    image: "/placeholder_images/salon-adminsheet/settings-brand-d12.jpg",
     previewUrl: "/templates/salon",
     tags: ["Services", "Stylists", "Booking", "Gallery"],
     color: "from-pink-500 to-rose-600",
@@ -38,7 +38,7 @@ const templates: TemplateCard[] = [
     category: "Restaurant & Dining",
     description:
       "A premium restaurant template with menu categories, featured dishes, gallery, and table reservations.",
-    image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80",
+    image: "/placeholder_images/restaurant-adminsheet/settings-brand-d12.jpg",
     previewUrl: "/templates/restaurant",
     tags: ["Menu", "Gallery", "Reservations", "Reviews"],
     color: "from-amber-500 to-orange-600",
@@ -49,7 +49,7 @@ const templates: TemplateCard[] = [
     category: "Education & Tuition",
     description:
       "A trustworthy tuition template with subjects, teacher profiles, student results, and class schedules.",
-    image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&q=80",
+    image: "/placeholder_images/tuition-adminsheet/settings-brand-d12.jpg",
     previewUrl: "/templates/tuition",
     tags: ["Subjects", "Teachers", "Results", "Schedule"],
     color: "from-blue-500 to-indigo-600",
@@ -60,7 +60,7 @@ const templates: TemplateCard[] = [
     category: "Real Estate",
     description:
       "A modern real estate template with property listings, agent profile, services, and inquiry forms.",
-    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80",
+    image: "/placeholder_images/real-estate-adminsheet/settings-brand-d12.jpg",
     previewUrl: "/templates/realestate",
     tags: ["Properties", "Agent", "Services", "Inquiry"],
     color: "from-emerald-500 to-teal-600",
@@ -80,24 +80,23 @@ export function TemplateShowcase() {
         <StaggerContainer className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {templates.map((template) => (
             <StaggerItem key={template.id}>
-              <motion.div
-                className="group overflow-hidden rounded-2xl border bg-card shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
-                whileHover={{ y: -4 }}
-              >
+              <div className="group overflow-hidden rounded-2xl border bg-card shadow-sm transition-shadow duration-200 hover:shadow-md">
                 {/* Image */}
                 <div className="relative h-52 overflow-hidden">
                   <div
                     className={`absolute inset-0 bg-gradient-to-br ${template.color} opacity-80`}
                   />
-                  <img
+                  <Image
                     src={template.image}
                     alt={template.name}
-                    className="h-full w-full object-cover mix-blend-overlay transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw"
+                    className="h-full w-full object-cover mix-blend-overlay"
                   />
                   <div className="absolute inset-0 flex items-end p-4">
                     <Badge
                       variant="outline"
-                      className="border-white/30 bg-black/30 text-white backdrop-blur-sm"
+                      className="border-white/30 bg-black/70 text-white"
                     >
                       {template.category}
                     </Badge>
@@ -132,7 +131,7 @@ export function TemplateShowcase() {
                     </Button>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             </StaggerItem>
           ))}
         </StaggerContainer>

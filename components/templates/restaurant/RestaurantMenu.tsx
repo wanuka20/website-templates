@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/shared/AnimatedSection";
@@ -39,7 +40,7 @@ export function RestaurantMenu({ config }: { config: RestaurantConfig }) {
             <StaggerItem key={item.id}>
               <div className="group flex gap-4 rounded-2xl border bg-card p-5 shadow-sm transition-all hover:shadow-md hover:border-amber-200 dark:hover:border-amber-800">
                 {item.image && (
-                  <img src={item.image} alt={item.name}
+                  <Image src={item.image} alt={item.name} width={80} height={80} sizes="80px"
                     className="h-20 w-20 flex-shrink-0 rounded-xl object-cover transition-transform group-hover:scale-105" />
                 )}
                 <div className="flex-1 min-w-0">

@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Menu, X, UtensilsCrossed } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { cn } from "@/lib/utils";
+import { useScrolled } from "@/hooks/useScrolled";
 import type { RestaurantConfig } from "@/types";
 
 const navLinks = [
@@ -17,18 +18,12 @@ const navLinks = [
 ];
 
 export function RestaurantNavbar({ config }: { config: RestaurantConfig }) {
-  const [scrolled, setScrolled] = useState(false);
+  const scrolled = useScrolled(50);
   const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handler, { passive: true });
-    return () => window.removeEventListener("scroll", handler);
-  }, []);
 
   return (
     <header className={cn("fixed top-0 z-50 w-full transition-all duration-300",
-      scrolled ? "bg-white/95 shadow-sm backdrop-blur dark:bg-zinc-900/95" : "bg-transparent")}>
+      scrolled ? "bg-white/95 shadow-sm dark:bg-zinc-900/95" : "bg-transparent")}> 
       <nav className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <a href="#hero" className={cn("flex items-center gap-2 font-bold text-xl", scrolled ? "text-foreground" : "text-white")}>
           <UtensilsCrossed className="h-5 w-5 text-amber-500" />

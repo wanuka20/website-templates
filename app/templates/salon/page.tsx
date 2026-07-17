@@ -12,8 +12,6 @@ import { SalonContact } from "@/components/templates/salon/SalonContact";
 import { SalonFooter } from "@/components/templates/salon/SalonFooter";
 import { WhatsAppButton } from "@/components/shared/WhatsAppButton";
 
-export const dynamic = "force-dynamic";
-
 export async function generateMetadata(): Promise<Metadata> {
   const config = await getSalonContent();
 

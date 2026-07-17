@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { Menu, X, Dumbbell } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { cn } from "@/lib/utils";
+import { useScrolled } from "@/hooks/useScrolled";
 import type { GymConfig } from "@/types";
 
 const navLinks = [
@@ -19,26 +20,26 @@ const navLinks = [
 ];
 
 export function GymNavbar({ config }: { config: GymConfig }) {
-  const [scrolled, setScrolled] = useState(false);
+  const scrolled = useScrolled(50);
   const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handler, { passive: true });
-    return () => window.removeEventListener("scroll", handler);
-  }, []);
 
   return (
     <header
       className={cn(
         "fixed top-0 z-50 w-full transition-all duration-300",
         scrolled
-          ? "bg-black/90 shadow-md backdrop-blur"
+          ? "bg-white/95 shadow-sm dark:bg-black/95"
           : "bg-transparent"
       )}
     >
       <nav className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <a href="#hero" className="flex items-center gap-2 font-extrabold text-xl text-white">
+        <a
+          href="#hero"
+          className={cn(
+            "flex items-center gap-2 font-extrabold text-xl",
+            scrolled ? "text-foreground dark:text-white" : "text-white"
+          )}
+        >
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-orange-500">
             <Dumbbell className="h-4 w-4 text-white" />
           </div>
@@ -50,7 +51,10 @@ export function GymNavbar({ config }: { config: GymConfig }) {
             <a
               key={link.href}
               href={link.href}
-              className="rounded-md px-3 py-2 text-sm font-medium text-white/80 transition-colors hover:text-orange-400"
+              className={cn(
+                "rounded-md px-3 py-2 text-sm font-medium transition-colors hover:text-orange-400",
+                scrolled ? "text-foreground/80 dark:text-white/80" : "text-white/80"
+              )}
             >
               {link.label}
             </a>
@@ -58,7 +62,13 @@ export function GymNavbar({ config }: { config: GymConfig }) {
         </div>
 
         <div className="flex items-center gap-2">
-          <ThemeToggle />
+          <ThemeToggle
+            className={cn(
+              scrolled
+                ? "text-foreground hover:bg-black/5 hover:text-foreground dark:text-white dark:hover:bg-white/10 dark:hover:text-white"
+                : "text-white hover:bg-white/10 hover:text-white"
+            )}
+          />
           <Button
             asChild
             size="sm"
@@ -68,7 +78,11 @@ export function GymNavbar({ config }: { config: GymConfig }) {
           </Button>
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="text-white md:hidden">
+              <Button
+                variant="ghost"
+                size="icon"
+                className={cn("md:hidden", scrolled ? "text-foreground dark:text-white" : "text-white")}
+              >
                 {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
               </Button>
             </SheetTrigger>

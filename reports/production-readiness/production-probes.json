@@ -1,0 +1,504 @@
+{
+  "generatedAt": "2026-07-16T23:50:08.809Z",
+  "baseURL": "http://127.0.0.1:3100",
+  "headers": {
+    "/": {
+      "status": 200,
+      "cacheControl": "s-maxage=31536000",
+      "contentSecurityPolicy": null,
+      "strictTransportSecurity": null,
+      "xFrameOptions": null,
+      "xContentTypeOptions": null,
+      "referrerPolicy": null,
+      "permissionsPolicy": null,
+      "nextCache": "HIT"
+    },
+    "/templates": {
+      "status": 200,
+      "cacheControl": "s-maxage=31536000",
+      "contentSecurityPolicy": null,
+      "strictTransportSecurity": null,
+      "xFrameOptions": null,
+      "xContentTypeOptions": null,
+      "referrerPolicy": null,
+      "permissionsPolicy": null,
+      "nextCache": "HIT"
+    },
+    "/pricing": {
+      "status": 200,
+      "cacheControl": "s-maxage=31536000",
+      "contentSecurityPolicy": null,
+      "strictTransportSecurity": null,
+      "xFrameOptions": null,
+      "xContentTypeOptions": null,
+      "referrerPolicy": null,
+      "permissionsPolicy": null,
+      "nextCache": "HIT"
+    },
+    "/contact": {
+      "status": 200,
+      "cacheControl": "s-maxage=31536000",
+      "contentSecurityPolicy": null,
+      "strictTransportSecurity": null,
+      "xFrameOptions": null,
+      "xContentTypeOptions": null,
+      "referrerPolicy": null,
+      "permissionsPolicy": null,
+      "nextCache": "HIT"
+    },
+    "/templates/gym": {
+      "status": 200,
+      "cacheControl": "s-maxage=30, stale-while-revalidate=31535970",
+      "contentSecurityPolicy": null,
+      "strictTransportSecurity": null,
+      "xFrameOptions": null,
+      "xContentTypeOptions": null,
+      "referrerPolicy": null,
+      "permissionsPolicy": null,
+      "nextCache": "STALE"
+    },
+    "/templates/restaurant": {
+      "status": 200,
+      "cacheControl": "s-maxage=30, stale-while-revalidate=31535970",
+      "contentSecurityPolicy": null,
+      "strictTransportSecurity": null,
+      "xFrameOptions": null,
+      "xContentTypeOptions": null,
+      "referrerPolicy": null,
+      "permissionsPolicy": null,
+      "nextCache": "STALE"
+    },
+    "/templates/salon": {
+      "status": 200,
+      "cacheControl": "s-maxage=30, stale-while-revalidate=31535970",
+      "contentSecurityPolicy": null,
+      "strictTransportSecurity": null,
+      "xFrameOptions": null,
+      "xContentTypeOptions": null,
+      "referrerPolicy": null,
+      "permissionsPolicy": null,
+      "nextCache": "STALE"
+    },
+    "/templates/realestate": {
+      "status": 200,
+      "cacheControl": "s-maxage=30, stale-while-revalidate=31535970",
+      "contentSecurityPolicy": null,
+      "strictTransportSecurity": null,
+      "xFrameOptions": null,
+      "xContentTypeOptions": null,
+      "referrerPolicy": null,
+      "permissionsPolicy": null,
+      "nextCache": "STALE"
+    },
+    "/templates/tuition": {
+      "status": 200,
+      "cacheControl": "s-maxage=30, stale-while-revalidate=31535970",
+      "contentSecurityPolicy": null,
+      "strictTransportSecurity": null,
+      "xFrameOptions": null,
+      "xContentTypeOptions": null,
+      "referrerPolicy": null,
+      "permissionsPolicy": null,
+      "nextCache": "STALE"
+    }
+  },
+  "timings": {
+    "/templates/gym": {
+      "runsMs": [
+        10,
+        6.3,
+        8.8,
+        7.9,
+        16.6
+      ],
+      "medianMs": 8.8
+    },
+    "/templates/restaurant": {
+      "runsMs": [
+        8.8,
+        8.6,
+        6.9,
+        7.8,
+        7.7
+      ],
+      "medianMs": 7.8
+    },
+    "/templates/salon": {
+      "runsMs": [
+        6.9,
+        8,
+        9,
+        6.3,
+        6
+      ],
+      "medianMs": 6.9
+    },
+    "/templates/realestate": {
+      "runsMs": [
+        8,
+        6.9,
+        9.7,
+        5.5,
+        5.9
+      ],
+      "medianMs": 6.9
+    },
+    "/templates/tuition": {
+      "runsMs": [
+        6,
+        6.8,
+        5.7,
+        6.3,
+        8.6
+      ],
+      "medianMs": 6.3
+    }
+  },
+  "postRefreshCache": {
+    "/templates/gym": "HIT",
+    "/templates/restaurant": "HIT",
+    "/templates/salon": "STALE",
+    "/templates/realestate": "HIT",
+    "/templates/tuition": "HIT"
+  },
+  "imageCache": {
+    "direct": {
+      "path": "/placeholder_images/gym-adminsheet/settings-brand-d12.jpg",
+      "status": 200,
+      "cacheControl": "public, max-age=0",
+      "etag": "W/\"41f811-19f67eb2856\"",
+      "nextCache": null,
+      "age": null
+    },
+    "optimized": {
+      "path": "/_next/image?url=%2Fplaceholder_images%2Fgym-adminsheet%2Fsettings-brand-d12.jpg&w=1200&q=75",
+      "status": 200,
+      "cacheControl": "public, max-age=14400, must-revalidate",
+      "etag": "JihlOBQXE43cMXVgk89I6sVY3Cu1EjwZrf9ouIzWdp8",
+      "nextCache": "HIT",
+      "age": null
+    },
+    "versioned": {
+      "path": "/_next/image?url=%2Fplaceholder_images%2Fgym-adminsheet%2Fsettings-brand-d12-v2.jpg&w=1200&q=75",
+      "status": 200,
+      "cacheControl": "public, max-age=14400, must-revalidate",
+      "etag": "nCb-0GlIuuyqWo9ulvuTyiTsg9dPmYqK2DEgLJwl3dw",
+      "nextCache": "HIT",
+      "age": null
+    }
+  },
+  "api": {
+    "status": 200,
+    "body": {
+      "ok": true,
+      "gym": {
+        "name": "IronPulse Gym 10",
+        "tagline": "Forge Your\nBest Self",
+        "description": "Sri Lanka's premier fitness destination. State-of-the-art equipment, world-class trainers, and a community that pushes you beyond your limits.",
+        "phone": "+94 77 123 4567",
+        "email": "info@ironpeakfitness.lk",
+        "address": "42 Galle Road",
+        "city": "Colombo 03, Sri Lanka",
+        "heroTitle": "Forge Your\nBody",
+        "heroSubtitle": "Join IronPeak Fitness — where champions are built. State-of-the-art equipment, expert trainers, and a community unlike any other.",
+        "heroCtaText": "Start Free Trial",
+        "heroImage": "/placeholder_images/gym-adminsheet/settings-brand-d12.jpg",
+        "logo": "",
+        "socialLinks": {
+          "facebook": "https://facebook.com/ironpeakfitness",
+          "instagram": "https://instagram.com/ironpeakfitness",
+          "twitter": "",
+          "youtube": "https://youtube.com/ironpeakfitness",
+          "linkedin": ""
+        },
+        "whatsapp": {
+          "phone": "94771234567",
+          "defaultMessage": "Hi IronPeak Fitness! I'd like to learn more about your membership plans and facilities."
+        },
+        "seo": {
+          "title": "IronPeak Fitness | Premier Gym in Colombo, Sri Lanka",
+          "description": "Join IronPeak Fitness — Colombo's top gym with expert trainers, modern equipment, and flexible membership plans. Start your free trial today!",
+          "keywords": [
+            "gym colombo",
+            "fitness center sri lanka",
+            "personal training",
+            "gym membership",
+            "weight loss",
+            "bodybuilding"
+          ],
+          "ogImage": "/placeholder_images/gym-adminsheet/settings-brand-d16.jpg"
+        },
+        "amenities": [
+          "Olympic Weight Room",
+          "Cardio Zone (50+ machines)",
+          "Group Fitness Studio",
+          "Indoor Swimming Pool",
+          "Sauna & Steam Room",
+          "Juice Bar",
+          "Locker Rooms",
+          "Free Parking",
+          "24/7 Access",
+          "Personal Training"
+        ],
+        "membership": [
+          {
+            "id": "basic",
+            "name": "Starter",
+            "price": 2000,
+            "currency": "LKR",
+            "period": "month",
+            "description": "Perfect for beginners starting their fitness journey.",
+            "features": [
+              "Full gym access (6am–10pm)",
+              "2 group classes per month",
+              "Locker room access",
+              "Fitness assessment",
+              "Mobile app access"
+            ],
+            "highlighted": false,
+            "badge": ""
+          },
+          {
+            "id": "pro",
+            "name": "Pro",
+            "price": 4500,
+            "currency": "LKR",
+            "period": "month",
+            "description": "Most popular plan for serious fitness enthusiasts.",
+            "features": [
+              "24/7 gym access",
+              "Unlimited group classes",
+              "1 PT session per month",
+              "Nutrition consultation",
+              "Sauna & steam room",
+              "Guest pass (2/month)",
+              "Priority booking"
+            ],
+            "highlighted": true,
+            "badge": "Most Popular"
+          },
+          {
+            "id": "elite",
+            "name": "Elite",
+            "price": 8500,
+            "currency": "LKR",
+            "period": "month",
+            "description": "The ultimate fitness experience with personal coaching.",
+            "features": [
+              "Everything in Pro",
+              "4 PT sessions per month",
+              "Customised meal plan",
+              "Body composition analysis",
+              "Exclusive Elite lounge",
+              "Unlimited guest passes",
+              "Recovery suite access"
+            ],
+            "highlighted": false,
+            "badge": "For Veterans"
+          }
+        ],
+        "trainers": [
+          {
+            "id": "t1",
+            "name": "Oshan Fernando",
+            "specialization": "Strength & Conditioning",
+            "experience": "8 years",
+            "image": "/placeholder_images/gym-adminsheet/settings-team-d6.jpg",
+            "bio": "Former national-level powerlifter turned elite coach. Kamal has helped over 300 clients achieve their peak performance.",
+            "certifications": [
+              "NSCA-CSCS",
+              "ACE Certified PT",
+              "FMS Level 2"
+            ]
+          },
+          {
+            "id": "t2",
+            "name": "Dilani Jayawardena",
+            "specialization": "Weight Loss & Nutrition",
+            "experience": "6 years",
+            "image": "/placeholder_images/gym-adminsheet/settings-team-d15.jpg",
+            "bio": "Certified nutritionist and personal trainer specialising in sustainable weight loss. Dilani's holistic approach has transformed hundreds of lives.",
+            "certifications": [
+              "NASM-CPT",
+              "Precision Nutrition L2",
+              "Yoga Alliance 200HR"
+            ]
+          },
+          {
+            "id": "t3",
+            "name": "Ruwan Silva",
+            "specialization": "Functional Fitness & MMA",
+            "experience": "10 years",
+            "image": "/placeholder_images/gym-adminsheet/settings-team-d24.jpg",
+            "bio": "Ex-national MMA champion with a decade of coaching experience. Ruwan brings intensity and expertise to every session.",
+            "certifications": [
+              "NSCA-CPT",
+              "CrossFit L2",
+              "Boxing Coach Certified"
+            ]
+          },
+          {
+            "id": "t4",
+            "name": "Priya Mendis",
+            "specialization": "Yoga & Flexibility",
+            "experience": "7 years",
+            "image": "/placeholder_images/gym-adminsheet/settings-team-d33.jpg",
+            "bio": "Internationally certified yoga instructor who blends traditional practices with modern fitness science for mind-body transformation.",
+            "certifications": [
+              "RYT-500",
+              "Pilates Certified",
+              "ACE Health Coach"
+            ]
+          }
+        ],
+        "classes": [
+          {
+            "id": "c1",
+            "name": "HIIT Blast",
+            "instructor": "Kamal Perera",
+            "day": "Monday",
+            "time": "6:00 AM",
+            "duration": "45 min",
+            "level": "Intermediate",
+            "spots": 20
+          },
+          {
+            "id": "c2",
+            "name": "Power Yoga",
+            "instructor": "Priya Mendis",
+            "day": "Monday",
+            "time": "7:00 PM",
+            "duration": "60 min",
+            "level": "All Levels",
+            "spots": 25
+          },
+          {
+            "id": "c3",
+            "name": "Zumba Dance",
+            "instructor": "Dilani Jayawardena",
+            "day": "Tuesday",
+            "time": "5:30 PM",
+            "duration": "50 min",
+            "level": "All Levels",
+            "spots": 30
+          },
+          {
+            "id": "c4",
+            "name": "MMA Conditioning",
+            "instructor": "Ruwan Silva",
+            "day": "Wednesday",
+            "time": "7:00 AM",
+            "duration": "60 min",
+            "level": "Advanced",
+            "spots": 15
+          },
+          {
+            "id": "c5",
+            "name": "Body Pump",
+            "instructor": "Kamal Perera",
+            "day": "Thursday",
+            "time": "6:00 AM",
+            "duration": "55 min",
+            "level": "Intermediate",
+            "spots": 20
+          },
+          {
+            "id": "c6",
+            "name": "Flexibility & Stretch",
+            "instructor": "Priya Mendis",
+            "day": "Friday",
+            "time": "7:00 PM",
+            "duration": "45 min",
+            "level": "Beginner",
+            "spots": 25
+          },
+          {
+            "id": "c7",
+            "name": "Bootcamp",
+            "instructor": "Ruwan Silva",
+            "day": "Saturday",
+            "time": "7:00 AM",
+            "duration": "60 min",
+            "level": "Intermediate",
+            "spots": 20
+          },
+          {
+            "id": "c8",
+            "name": "Meditation & Mindfulness",
+            "instructor": "Priya Mendis",
+            "day": "Sunday",
+            "time": "9:00 AM",
+            "duration": "45 min",
+            "level": "All Levels",
+            "spots": 30
+          }
+        ],
+        "testimonials": [
+          {
+            "id": "te1",
+            "name": "Ashan Wijesinghe",
+            "role": "Pro Member",
+            "content": "IronPeak completely transformed my body and confidence. Lost 20kg in 6 months with the Pro plan. The trainers are exceptional!",
+            "rating": 5,
+            "avatar": "/placeholder_images/gym-adminsheet/settings-media-d7.jpg"
+          },
+          {
+            "id": "te2",
+            "name": "Nadeesha Fernando",
+            "role": "Elite Member",
+            "content": "Worth every rupee! The Elite package with personalised meal plans made all the difference. I've never felt better at 35.",
+            "rating": 5,
+            "avatar": "/placeholder_images/gym-adminsheet/settings-media-d13.jpg"
+          },
+          {
+            "id": "te3",
+            "name": "Chamara Rajapaksha",
+            "role": "Pro Member",
+            "content": "Best gym in Colombo, hands down. Excellent equipment, great atmosphere, and coaches who genuinely care about your progress.",
+            "rating": 5,
+            "avatar": "/placeholder_images/gym-adminsheet/settings-media-d19.jpg"
+          }
+        ],
+        "galleryImages": [
+          {
+            "id": "g1",
+            "src": "/placeholder_images/gym-adminsheet/settings-media-d21.jpg",
+            "alt": "Weight room",
+            "category": "Facilities"
+          },
+          {
+            "id": "g2",
+            "src": "/placeholder_images/gym-adminsheet/settings-media-d25.jpg",
+            "alt": "Cardio zone",
+            "category": "Facilities"
+          },
+          {
+            "id": "g3",
+            "src": "/placeholder_images/gym-adminsheet/settings-media-d29.jpg",
+            "alt": "Group class",
+            "category": "Classes"
+          },
+          {
+            "id": "g4",
+            "src": "/placeholder_images/gym-adminsheet/settings-media-d33.jpg",
+            "alt": "Yoga studio",
+            "category": "Classes"
+          },
+          {
+            "id": "g5",
+            "src": "/placeholder_images/gym-adminsheet/settings-media-d37.jpg",
+            "alt": "Personal training",
+            "category": "Training"
+          },
+          {
+            "id": "g6",
+            "src": "/placeholder_images/gym-adminsheet/settings-media-d41.jpg",
+            "alt": "Boxing area",
+            "category": "Training"
+          }
+        ]
+      }
+    }
+  },
+  "notFoundStatus": 404
+}
