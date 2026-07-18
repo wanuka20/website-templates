@@ -1,25 +1,33 @@
 # Codex Working Instructions
 
-## Required task header
+## Required task approval
 
-Before analyzing or changing files for every new task, begin with:
+For every new task, first briefly assess the user's request and recommend a model and reasoning effort in this format:
 
-Recommended model: [Luna | Terra | Sol]
-Reasoning effort: [Low | Medium | High | Extra High]
+Recommended model: [Luna | Terra | Sol]  
+Reasoning effort: [Low | Medium | High | Extra High]  
 Why: [one concise sentence]
-
-Do not begin implementation before providing this header.
 
 Use:
 
-- Luna for small, mechanical, repetitive, or tightly scoped tasks.
+- Luna for small, mechanical, repetitive, or tightly scoped work.
 - Terra for normal feature development, debugging, testing, and refactoring.
-- Sol for architecture, security, difficult bugs, production incidents,
-  major migrations, and high-risk changes.
+- Sol for architecture, security, difficult bugs, production incidents, major migrations, and high-risk changes.
 - Default to Terra with Medium effort when uncertain.
 
-Do not repeat the header for minor follow-up instructions in the same task unless
-the recommended model or effort changes.
+After giving the recommendation, ask the user to confirm it or choose a different model and/or reasoning effort. Do not continue with any task activity until the user responds, including:
+
+- file inspection or other read-only commands;
+- questions, explanations, reviews, diagnosis, or planning;
+- editing or creating project files;
+- running commands that change project, system, production, or external-service state;
+- installing or updating dependencies;
+- deploying, pushing to Git, sending messages, or changing connected services;
+- deleting data or performing irreversible actions.
+
+The user can confirm by saying "Go", "Confirm", or equivalent clear approval, or can provide a different model and/or reasoning effort.
+
+After the user confirms, continue with the task. Do not repeat this approval step for minor follow-up instructions in the same task unless the recommended model or effort needs to change.
 
 ## Safety rules
 
@@ -49,6 +57,16 @@ For substantial work:
 
 When debugging, investigate the root cause before applying speculative fixes.
 Do not repeatedly make unrelated changes hoping one will work.
+
+## TODO.md
+
+- Read the full TODO before editing it.
+- Keep versions newest-first.
+- Add new work under a new `(In progress)` version at the top.
+- Move finished work to `Completed`; do not leave it under `Next steps`.
+- Keep planned and in-progress work under `Next steps`.
+- Only mark a version `(Pushed)` after it is actually pushed.
+- Update `version.txt` when a version is pushed.
 
 ## Communication
 

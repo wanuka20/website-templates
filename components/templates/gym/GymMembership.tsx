@@ -8,6 +8,22 @@ import { StaggerContainer, StaggerItem } from "@/components/shared/AnimatedSecti
 import { cn } from "@/lib/utils";
 import type { GymConfig } from "@/types";
 
+function resolvePlanLink(value?: string) {
+  const candidate = value?.trim();
+
+  if (!candidate) return "#contact";
+  if (candidate.startsWith("#")) return candidate;
+
+  try {
+    const url = new URL(candidate);
+    return url.protocol === "https:" || url.protocol === "http:"
+      ? url.toString()
+      : "#contact";
+  } catch {
+    return "#contact";
+  }
+}
+
 export function GymMembership({ config }: { config: GymConfig }) {
   return (
     <section
@@ -23,8 +39,12 @@ export function GymMembership({ config }: { config: GymConfig }) {
         />
 
         <StaggerContainer className="grid gap-8 md:grid-cols-3">
-          {config.membership.map((plan) => (
-            <StaggerItem key={plan.id}>
+          {config.membership.map((plan) => {
+            const planLink = resolvePlanLink(plan.link);
+            const linkIsExternal = planLink.startsWith("https://") || planLink.startsWith("http://");
+
+            return (
+              <StaggerItem key={plan.id}>
               <div
                 className={cn(
                   "relative flex flex-col overflow-hidden rounded-2xl p-8 transition-all duration-300 hover:-translate-y-1",
@@ -75,6 +95,7 @@ export function GymMembership({ config }: { config: GymConfig }) {
                 </ul>
 
                 <Button
+                  asChild
                   size="lg"
                   className={cn(
                     "w-full font-bold",
@@ -83,12 +104,19 @@ export function GymMembership({ config }: { config: GymConfig }) {
                       : "bg-orange-500 text-white hover:bg-orange-600"
                   )}
                 >
-                  Get Started
-                  {plan.highlighted && <Zap className="ml-1.5 h-4 w-4" />}
+                  <a
+                    href={planLink}
+                    target={linkIsExternal ? "_blank" : undefined}
+                    rel={linkIsExternal ? "noopener noreferrer" : undefined}
+                  >
+                    Get Started
+                    {plan.highlighted && <Zap className="ml-1.5 h-4 w-4" />}
+                  </a>
                 </Button>
               </div>
-            </StaggerItem>
-          ))}
+              </StaggerItem>
+            );
+          })}
         </StaggerContainer>
       </div>
     </section>

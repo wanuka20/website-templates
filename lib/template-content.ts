@@ -303,6 +303,7 @@ function buildGymPricingPlans(content: Record<string, unknown>): PricingPlan[] {
       currency: text(get(content, `membership.${index}.currency`), item.currency),
       period: text(get(content, `membership.${index}.period`), item.period),
       description: text(get(content, `membership.${index}.description`), item.description),
+      link: text(get(content, `membership.${index}.link`), item.link),
       features: listFromKeys(content, `membership.${index}.features`, item.features),
       highlighted: booleanValue(
         get(content, `membership.${index}.highlighted`),

@@ -1,6 +1,14 @@
-CURRENT VERSION: 0.5.1
+CURRENT VERSION: 0.5.2
 
 VERSION HISTORY:
+  - 2026-07-18 - v0.5.2: reliable lead submissions and verified lead-delivery recovery.
+    - Moved all five reference Apps Script files into `GoogleAppsScript/` and made lead values text-safe, so phone numbers beginning with `+` are stored correctly instead of becoming formulas or `#ERROR!`.
+    - Added the same-origin `/api/leads` proxy so the website only reports success after Apps Script returns a successful HTTP response with `{ "ok": true }`.
+    - Preserved form values after failed submissions and added distinct handling for HTTP errors, network failures, malformed responses, and delayed responses.
+    - Added a configurable 15-second contact-form timeout through `NEXT_PUBLIC_LEAD_SUBMISSION_TIMEOUT_MS`, with a separate timeout retry message and restored submit button.
+    - Added unit and Chromium regression tests for success, HTTP 500, network failure, duplicate clicks, malformed responses, and timeout behavior.
+    - Submitted and verified one labelled live lead per template, confirmed correct text phone values and exactly one row per Sheet, then deleted the five exact test rows and confirmed no markers remained.
+
   - 2026-07-18 - v0.5.1: flexible image hosting and complete Google Sheets-to-site content mappings.
     - Added `ALLOW_ANY_IMAGE_HOSTS=true` to allow any HTTPS image hostname through `next/image` when desired; the default remains the restricted `remotePatterns` allowlist when the variable is missing or not set to `true`.
     - Added reusable `BrandLogo` rendering with the existing template icon as a fallback, applied to desktop/mobile navbars and footers across all five templates.

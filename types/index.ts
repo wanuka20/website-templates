@@ -52,6 +52,8 @@ export interface PricingPlan {
   currency: string;
   period: string;
   description: string;
+  /** Optional destination for this plan's Get Started button. */
+  link?: string;
   features: string[];
   highlighted?: boolean;
   badge?: string;

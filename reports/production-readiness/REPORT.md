@@ -4,12 +4,12 @@
 
 **BLOCKED**
 
-The production build, type checking, linting, reproducible install, cache behavior, routes, desktop Chromium, WebKit, Mobile Chrome, and Mobile Safari are stable. Release is blocked by two reproducible P1 lead-flow defects:
+The production build, type checking, linting, reproducible install, cache behavior, routes, desktop Chromium, WebKit, Mobile Chrome, and Mobile Safari are stable. The original audit found three reproducible P1 lead-flow defects; all three are resolved and verified against the local production build. Release remains blocked only until the updated application is deployed and smoke-tested on Vercel.
 
-1. Phone numbers beginning with `+` are stored as `#ERROR!` in every production Leads sheet.
-2. An Apps Script HTTP 500 is reported to the visitor as “Message Sent!” because the browser submission uses an opaque `no-cors` response.
+1. Resolved: phone numbers beginning with `+` were stored as `#ERROR!` in every production Leads sheet.
+2. Resolved: Apps Script HTTP failures were falsely reported to visitors as successful submissions.
 
-No production application bug was fixed during this audit. Changes are limited to test infrastructure, dependencies/scripts for testing, reports, and deletion of the five temporary test rows.
+The follow-up remediation added a same-origin lead proxy and updated the shared browser submission helper. No Vercel deployment was performed during local verification.
 
 ## Gate results
 
@@ -18,7 +18,7 @@ No production application bug was fixed during this audit. Changes are limited t
 | Clean `npm ci` | Pass | 640 packages installed from lockfile |
 | ESLint | Pass | `npm run lint` |
 | TypeScript | Pass | `npm run typecheck` |
-| Vitest | Pass | 14/14 tests |
+| Vitest | Pass | 36/36 tests across five files |
 | Next production build | Pass | 11 routes generated; five templates use 30-second ISR |
 | Chromium routes | Pass | 15/15 |
 | WebKit desktop routes | Pass | 15/15 |
@@ -27,11 +27,12 @@ No production application bug was fixed during this audit. Changes are limited t
 | Firefox desktop | Not completed | Headless Firefox failed before navigation due local SWGL framebuffer/compositor errors |
 | Chromium interactions/resilience | Mixed | 12 passed, 10 failed, 1 skipped |
 | Axe and SEO assertions | Mixed | 6 passed, 14 failed |
-| HTTP 500 submission fixture | Failed | False success reproduced |
-| Live form integration | Mixed | 5/5 rows created exactly once; 3/5 did not show success within 4 seconds |
-| Live test cleanup | Pass | 5/5 rows deleted; post-cleanup searches returned zero matches |
+| HTTP 500 submission fixture | Pass | Error shown, no false success, and entered values retained |
+| Lead proxy route fixtures | Pass | HTTP error, `ok=false`, malformed JSON, invalid input, missing endpoint, and success covered |
+| Live proxy integration | Pass | Final pass: 5/5 forms succeeded and rows were created exactly once with correct template, business, source, and text-safe phone |
+| Live test cleanup | Pass | 5/5 exact rows deleted; post-cleanup searches returned zero matches |
 
-Final deterministic browser total, excluding live writes and superseded harness attempts: **80 passed, 25 failed, 9 skipped**. Unit total: **14 passed**.
+Final deterministic browser total from the original full audit, excluding live writes and superseded harness attempts: **80 passed, 25 failed, 9 skipped**. Current unit total after lead-proxy and timeout remediation: **37 passed**.
 
 ## Route/browser matrix
 
@@ -88,10 +89,19 @@ Test label: `CODEX PRODUCTION TEST - DELETE`
 
 All five rows had the correct template, business, name, email, subject, message, and source path. All five phone cells contained `#ERROR!`. Exact-row rereads were performed before deletion. Post-cleanup searches over `Leads!A1:Z200` returned zero matching rows in every spreadsheet.
 
+### Follow-up proxy verification — 2026-07-18
+
+After BUG-001 and BUG-002 were fixed, one new labelled submission was sent through the local production-built `/api/leads` proxy for each template. Gym row 3, Restaurant row 4, and Salon, Real Estate, and Tuition row 3 each contained the correct template, business name, source route, and exactly preserved `+94 00 000 0000` phone string. Each marker appeared exactly once. The five exact rows were reread, deleted, and a final `Leads!A1:I200` search confirmed zero remaining test markers in every spreadsheet.
+
+### Final live lead verification — 2026-07-18
+
+After the bounded timeout was added, all five forms again completed successfully through the local production build. Exactly one row appeared in each Leads tab: Gym row 8, Restaurant row 4, and row 3 in Salon, Real Estate, and Tuition. Every row contained the correct template, business, source route, and string-valued `+94 00 000 0000` phone value. Chromium fixtures for network failure, HTTP 500, and timeout all showed their expected error states without false success. The five rows were reread immediately before deletion, deleted exactly, and final searches over `Leads!A1:I200` returned zero test markers in all five spreadsheets.
+
 ## Bugs
 
 ### BUG-001 — P1 — Lead phone numbers are corrupted
 
+- Status: Resolved and live-verified on 2026-07-18.
 - Category: Functional / data integrity
 - Affected: All five template contact forms and all five `Leads` tabs
 - Browser/viewport: Chromium desktop; live Apps Script endpoints
@@ -100,9 +110,12 @@ All five rows had the correct template, business, name, email, subject, message,
 - Actual: The phone cell becomes `#ERROR!` in every sheet, consistent with formula interpretation of a leading `+`.
 - Evidence: Live verification rows listed above.
 - Suspected subsystem: Apps Script row-writing/value sanitization.
+- Resolution: All five Apps Script lead writers now store formula-like user input as text and format the Phone column as text.
+- Resolution verification: One labelled lead containing `+94 00 000 0000` was submitted to each template. All five live Phone cells had string-valued user-entered and effective values with no formula or error. The five exact test rows were deleted, and post-cleanup searches found zero test rows.
 
 ### BUG-002 — P1 — HTTP 500 is falsely reported as success
 
+- Status: Resolved and live-verified on 2026-07-18.
 - Category: Functional / integration reliability
 - Affected: All five template contact forms
 - Browser/viewport: Chromium desktop; mocked Apps Script fixture
@@ -111,9 +124,12 @@ All five rows had the correct template, business, name, email, subject, message,
 - Actual: The form displays “Message Sent!” because `mode: "no-cors"` exposes only an opaque response and the code never checks status or body.
 - Evidence: `reports/playwright/http-error-handling.json` and its failure screenshot/trace.
 - Suspected subsystem: `lib/googleSheets.ts` browser-to-Apps-Script transport.
+- Resolution: Browser submissions now call the same-origin `POST /api/leads` route. The server validates input, selects a fixed server-side Apps Script URL, checks the upstream HTTP response, parses its JSON, and returns success only for `{ "ok": true }`.
+- Resolution verification: Unit tests cover success and each upstream failure class. Targeted Chromium tests confirmed errors do not show success and preserve all entered values. One labelled submission per template passed through the production-built proxy and created exactly one correct live row; all five rows were then deleted and zero markers remained.
 
-### BUG-003 — P2 — Live form feedback can remain stuck on “Sending…”
+### BUG-003 — P1 — Live form feedback can remain stuck on “Sending…”
 
+- Status: Resolved and live-verified against the local production build on 2026-07-18; Vercel deployment verification pending.
 - Category: Functional / performance
 - Affected: All template forms; reproduced on Gym, Restaurant, and Salon in the first live pass
 - Browser/viewport: Chromium desktop
@@ -122,6 +138,8 @@ All five rows had the correct template, business, name, email, subject, message,
 - Actual: Three forms still showed disabled “Sending…” at four seconds. Restaurant and Salon rows had already been inserted; Gym required a retry and completed in about ten seconds.
 - Evidence: `reports/playwright/live-leads.json` and `live-lead-gym-retry.json`.
 - Suspected subsystem: Apps Script POST latency and missing client submission timeout.
+- Resolution: The shared lead helper now aborts a waiting browser request after 15 seconds by default. The timeout is configurable with `NEXT_PUBLIC_LEAD_SUBMISSION_TIMEOUT_MS`; the form restores the enabled state, preserves entered values, and shows a timeout-specific retry message.
+- Resolution verification: Unit coverage confirms abort behavior and a dedicated timeout error. A production-built Chromium test held `/api/leads` open beyond the limit and confirmed the distinct retry message, no success state, enabled submit button, and retained values. A deployed/live submission pass remains required.
 
 ### BUG-004 — P2 — Placeholder links are interactive but go nowhere
 
@@ -291,7 +309,7 @@ All five rows had the correct template, business, name, email, subject, message,
 
 ## Recommended release order
 
-1. Fix BUG-001 and BUG-002, then rerun live form verification and cleanup.
+1. BUG-001, BUG-002, and BUG-003 are resolved and locally production-verified. Deploy the lead changes to Vercel, then perform one controlled smoke submission, verify it in the appropriate Leads sheet, and clean it up.
 2. Triage all P2 issues, especially accessibility, placeholder links, LCP, security headers, SEO assets, and 200% reflow.
 3. Re-run `npm run test:production`, `npm run test:probes`, and `npm run test:lighthouse`.
 4. Complete Firefox validation in a different local/CI environment.

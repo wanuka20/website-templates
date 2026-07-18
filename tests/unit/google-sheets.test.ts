@@ -1,96 +1,116 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
-const urlKeys = [
-  "NEXT_PUBLIC_GOOGLE_APPS_SCRIPT_URL",
-  "NEXT_PUBLIC_GYM_GOOGLE_APPS_SCRIPT_URL",
-  "NEXT_PUBLIC_RESTAURANT_GOOGLE_APPS_SCRIPT_URL",
-  "NEXT_PUBLIC_SALON_GOOGLE_APPS_SCRIPT_URL",
-  "NEXT_PUBLIC_REALESTATE_GOOGLE_APPS_SCRIPT_URL",
-  "NEXT_PUBLIC_TUITION_GOOGLE_APPS_SCRIPT_URL",
-] as const;
-
-beforeEach(() => {
+afterEach(() => {
+  delete process.env.NEXT_PUBLIC_LEAD_SUBMISSION_TIMEOUT_MS;
   vi.resetModules();
-  for (const key of urlKeys) delete process.env[key];
+  vi.unstubAllGlobals();
 });
 
-afterEach(() => vi.unstubAllGlobals());
+function jsonResponse(body: unknown, status = 200) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { "Content-Type": "application/json" },
+  });
+}
 
-describe("contact Apps Script request construction", () => {
-  it("uses the template endpoint and sends correctly encoded source data", async () => {
-    process.env.NEXT_PUBLIC_GYM_GOOGLE_APPS_SCRIPT_URL = "https://example.test/gym-leads";
-    const fetchMock = vi.fn().mockResolvedValue(undefined);
+const submission = {
+  template: "gym" as const,
+  businessName: "Iron & Peak / Fitness",
+  data: {
+    name: "Test User",
+    email: "test+production@example.com",
+    phone: "+94 77 123 4567",
+    subject: "Question & quote",
+    message: "A message with spaces, ampersands & unicode: පුහුණු.",
+  },
+};
+
+describe("contact lead proxy request construction", () => {
+  it("uses the same-origin proxy and sends the complete lead payload", async () => {
+    const fetchMock = vi.fn().mockResolvedValue(jsonResponse({ ok: true }));
     vi.stubGlobal("fetch", fetchMock);
     vi.stubGlobal("window", { location: { pathname: "/templates/gym" } });
     const { submitLeadToGoogleSheet } = await import("@/lib/googleSheets");
 
-    await submitLeadToGoogleSheet({
-      template: "gym",
-      businessName: "Iron & Peak / Fitness",
-      data: {
-        name: "Test User",
-        email: "test+production@example.com",
-        phone: "+94 77 123 4567",
-        subject: "Question & quote",
-        message: "A message with spaces, ampersands & unicode: පුහුණු.",
-      },
-    });
+    await submitLeadToGoogleSheet(submission);
 
     const [url, options] = fetchMock.mock.calls[0] as [string, RequestInit];
-    expect(url).toBe("https://example.test/gym-leads");
+    expect(url).toBe("/api/leads");
     expect(options).toMatchObject({
       method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      headers: { "Content-Type": "application/json" },
     });
+    expect(options).not.toHaveProperty("mode");
     expect(JSON.parse(String(options.body))).toMatchObject({
       template: "gym",
       businessName: "Iron & Peak / Fitness",
       sourcePage: "/templates/gym",
+      phone: "+94 77 123 4567",
       subject: "Question & quote",
     });
   });
 
-  it("uses the shared endpoint when no template endpoint is set", async () => {
-    process.env.NEXT_PUBLIC_GOOGLE_APPS_SCRIPT_URL = "https://example.test/shared";
-    const fetchMock = vi.fn().mockResolvedValue(undefined);
-    vi.stubGlobal("fetch", fetchMock);
+  it("rejects an HTTP error response", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(jsonResponse({ ok: false }, 500)));
     const { submitLeadToGoogleSheet } = await import("@/lib/googleSheets");
 
-    await submitLeadToGoogleSheet({
-      template: "salon",
-      businessName: "Salon",
-      data: { name: "Test", email: "test@example.com", subject: "Test", message: "Long enough" },
-    });
-    expect(fetchMock).toHaveBeenCalledWith(
-      "https://example.test/shared",
-      expect.any(Object),
+    await expect(submitLeadToGoogleSheet(submission)).rejects.toThrow(
+      "The message could not be sent.",
     );
   });
 
-  it("rejects when no endpoint is configured", async () => {
+  it("rejects HTTP 200 when the proxy reports ok=false", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(jsonResponse({ ok: false })));
     const { submitLeadToGoogleSheet } = await import("@/lib/googleSheets");
-    await expect(
-      submitLeadToGoogleSheet({
-        template: "tuition",
-        businessName: "Tuition",
-        data: { name: "Test", email: "test@example.com", subject: "Test", message: "Long enough" },
-      }),
-    ).rejects.toThrow("Missing Google Apps Script URL for tuition");
+
+    await expect(submitLeadToGoogleSheet(submission)).rejects.toThrow(
+      "The message could not be sent.",
+    );
+  });
+
+  it("rejects malformed JSON instead of assuming success", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue(
+        new Response("not-json", {
+          status: 200,
+          headers: { "Content-Type": "text/plain" },
+        }),
+      ),
+    );
+    const { submitLeadToGoogleSheet } = await import("@/lib/googleSheets");
+
+    await expect(submitLeadToGoogleSheet(submission)).rejects.toThrow(
+      "The message service returned an invalid response.",
+    );
   });
 
   it("surfaces network failures to the form", async () => {
-    process.env.NEXT_PUBLIC_RESTAURANT_GOOGLE_APPS_SCRIPT_URL =
-      "https://example.test/restaurant-leads";
     vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new Error("offline")));
     const { submitLeadToGoogleSheet } = await import("@/lib/googleSheets");
 
-    await expect(
-      submitLeadToGoogleSheet({
-        template: "restaurant",
-        businessName: "Restaurant",
-        data: { name: "Test", email: "test@example.com", subject: "Test", message: "Long enough" },
-      }),
-    ).rejects.toThrow("offline");
+    await expect(submitLeadToGoogleSheet(submission)).rejects.toThrow("offline");
+  });
+
+  it("aborts a slow request and reports a dedicated timeout error", async () => {
+    process.env.NEXT_PUBLIC_LEAD_SUBMISSION_TIMEOUT_MS = "25";
+    const fetchMock = vi.fn(
+      (_url: string, options: RequestInit) =>
+        new Promise<Response>((_resolve, reject) => {
+          options.signal?.addEventListener("abort", () => {
+            reject(new DOMException("The operation was aborted.", "AbortError"));
+          });
+        }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    vi.stubGlobal("window", { location: { pathname: "/templates/gym" } });
+    const { LeadSubmissionTimeoutError, submitLeadToGoogleSheet } = await import(
+      "@/lib/googleSheets"
+    );
+
+    await expect(submitLeadToGoogleSheet(submission)).rejects.toBeInstanceOf(
+      LeadSubmissionTimeoutError,
+    );
+    expect(fetchMock.mock.calls[0][1]).toMatchObject({ signal: expect.any(AbortSignal) });
   });
 });

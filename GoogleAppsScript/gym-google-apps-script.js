@@ -1,4 +1,4 @@
-const SHEET_ID = "1blS_rZbJsM3S0SngnzepSMF7MJqAqiPzz0IsoQTv4aA";
+const SHEET_ID = "1BTSx4vl_wQmo9qiVxXA4zXaSgT-ORdG96C1msECLfO0";
 const TEMPLATE_ID = "gym";
 const TEMPLATE_LABEL = "Gym";
 const LEAD_SHEET_NAME = "Leads";
@@ -331,6 +331,13 @@ const SETTINGS_SHEETS = [
       ],
       [
         "Membership Plans",
+        "membership.1.link",
+        "Plan 1 button link",
+        "",
+        "Optional URL for this plan's Get Started button. Use a full https:// URL or an on-page anchor such as #contact."
+      ],
+      [
+        "Membership Plans",
         "membership.1.highlighted",
         "Plan 1 highlighted",
         "0",
@@ -419,6 +426,13 @@ const SETTINGS_SHEETS = [
         "Plan 2 description",
         "Most popular plan for serious fitness enthusiasts.",
         ""
+      ],
+      [
+        "Membership Plans",
+        "membership.2.link",
+        "Plan 2 button link",
+        "",
+        "Optional URL for this plan's Get Started button. Use a full https:// URL or an on-page anchor such as #contact."
       ],
       [
         "Membership Plans",
@@ -524,6 +538,13 @@ const SETTINGS_SHEETS = [
         "Plan 3 description",
         "The ultimate fitness experience with personal coaching.",
         ""
+      ],
+      [
+        "Membership Plans",
+        "membership.3.link",
+        "Plan 3 button link",
+        "",
+        "Optional URL for this plan's Get Started button. Use a full https:// URL or an on-page anchor such as #contact."
       ],
       [
         "Membership Plans",
@@ -1624,6 +1645,8 @@ function getLeadSheet() {
     formatLeadSheet(sheet);
   }
 
+  sheet.getRange("F:F").setNumberFormat("@");
+
   return sheet;
 }
 
@@ -1946,6 +1969,11 @@ function doGet(e) {
   }
 }
 
+function toSheetText(value) {
+  const text = value === null || value === undefined ? "" : String(value);
+  return /^\s*[=+\-@]/.test(text) ? "'" + text : text;
+}
+
 function doPost(e) {
   if (!e || !e.postData || !e.postData.contents) {
     return jsonResponse({
@@ -1960,14 +1988,14 @@ function doPost(e) {
 
   sheet.appendRow([
     new Date(),
-    data.template || TEMPLATE_ID,
-    data.businessName || "",
-    data.name || "",
-    data.email || "",
-    data.phone || "",
-    data.subject || "",
-    data.message || "",
-    data.sourcePage || "",
+    toSheetText(data.template || TEMPLATE_ID),
+    toSheetText(data.businessName || ""),
+    toSheetText(data.name || ""),
+    toSheetText(data.email || ""),
+    toSheetText(data.phone || ""),
+    toSheetText(data.subject || ""),
+    toSheetText(data.message || ""),
+    toSheetText(data.sourcePage || ""),
   ]);
 
   SpreadsheetApp.flush();
@@ -1983,7 +2011,7 @@ function testDoPost() {
         businessName: "Demo Gym",
         name: "Test Lead",
         email: "test@example.com",
-        phone: "0712345678",
+        phone: "+94 77 000 0000",
         subject: "Website enquiry",
         message: "Testing the " + TEMPLATE_LABEL + " website form",
         sourcePage: "/templates/" + TEMPLATE_ID,

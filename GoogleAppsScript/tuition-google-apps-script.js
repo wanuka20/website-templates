@@ -1573,6 +1573,8 @@ function getLeadSheet() {
     formatLeadSheet(sheet);
   }
 
+  sheet.getRange("F:F").setNumberFormat("@");
+
   return sheet;
 }
 
@@ -1866,6 +1868,11 @@ function doGet(e) {
   }
 }
 
+function toSheetText(value) {
+  const text = value === null || value === undefined ? "" : String(value);
+  return /^\s*[=+\-@]/.test(text) ? "'" + text : text;
+}
+
 function doPost(e) {
   if (!e || !e.postData || !e.postData.contents) {
     return jsonResponse({
@@ -1880,14 +1887,14 @@ function doPost(e) {
 
   sheet.appendRow([
     new Date(),
-    data.template || TEMPLATE_ID,
-    data.businessName || "",
-    data.name || "",
-    data.email || "",
-    data.phone || "",
-    data.subject || "",
-    data.message || "",
-    data.sourcePage || "",
+    toSheetText(data.template || TEMPLATE_ID),
+    toSheetText(data.businessName || ""),
+    toSheetText(data.name || ""),
+    toSheetText(data.email || ""),
+    toSheetText(data.phone || ""),
+    toSheetText(data.subject || ""),
+    toSheetText(data.message || ""),
+    toSheetText(data.sourcePage || ""),
   ]);
 
   SpreadsheetApp.flush();
@@ -1903,7 +1910,7 @@ function testDoPost() {
         businessName: "Demo Tuition",
         name: "Test Lead",
         email: "test@example.com",
-        phone: "0712345678",
+        phone: "+94 77 000 0000",
         subject: "Website enquiry",
         message: "Testing the " + TEMPLATE_LABEL + " website form",
         sourcePage: "/templates/" + TEMPLATE_ID,

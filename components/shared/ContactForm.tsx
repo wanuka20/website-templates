@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { CheckCircle, Loader2, Send } from "lucide-react";
+import { LeadSubmissionTimeoutError } from "@/lib/googleSheets";
 import { cn } from "@/lib/utils";
 import type { ContactFormData } from "@/types";
 
@@ -61,7 +62,11 @@ export function ContactForm({
       reset();
     } catch (err) {
       console.error("Form submission error:", err);
-      setSubmitError("Something went wrong. Please try again in a moment.");
+      setSubmitError(
+        err instanceof LeadSubmissionTimeoutError
+          ? "This is taking longer than expected. Please try again."
+          : "Something went wrong. Please try again in a moment.",
+      );
     } finally {
       setIsLoading(false);
     }

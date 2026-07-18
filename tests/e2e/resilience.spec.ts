@@ -42,25 +42,38 @@ test("200% zoom does not add horizontal page overflow", async ({ page }, testInf
 
 test("a failed contact request shows a usable error and does not show success", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "chromium", "Failure handling is browser-independent.");
-  await page.route("https://script.google.com/**", (route) => route.abort("failed"));
+  await page.route("**/api/leads", (route) => route.abort("failed"));
   await page.goto("/templates/gym");
   const form = page.locator("form").last();
   await form.locator("#name").fill("Failure Test");
   await form.locator("#email").fill("failure@example.com");
+  await form.locator("#phone").fill("+94 77 123 4567");
   await form.locator("#subject").fill("Failure handling");
   await form.locator("#message").fill("This request is intentionally forced to fail.");
   await form.locator('button[type="submit"]').click();
   await expect(form.getByText("Something went wrong. Please try again in a moment.")).toBeVisible();
   await expect(page.getByText("Message Sent!")).toHaveCount(0);
+  await expect(form.locator("#name")).toHaveValue("Failure Test");
+  await expect(form.locator("#email")).toHaveValue("failure@example.com");
+  await expect(form.locator("#phone")).toHaveValue("+94 77 123 4567");
+  await expect(form.locator("#subject")).toHaveValue("Failure handling");
+  await expect(form.locator("#message")).toHaveValue(
+    "This request is intentionally forced to fail.",
+  );
+  await expect(form.locator('button[type="submit"]')).toBeEnabled();
 });
 
 test("duplicate clicks create at most one browser request", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "chromium", "Submission concurrency is browser-independent.");
   let submissions = 0;
-  await page.route("https://script.google.com/**", async (route) => {
+  await page.route("**/api/leads", async (route) => {
     submissions += 1;
     await new Promise((resolve) => setTimeout(resolve, 250));
-    await route.fulfill({ status: 200, body: "{}" });
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: '{"ok":true}',
+    });
   });
   await page.goto("/templates/gym");
   const form = page.locator("form").last();
@@ -76,16 +89,50 @@ test("duplicate clicks create at most one browser request", async ({ page }, tes
 
 test("an Apps Script HTTP error is not reported as success", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "chromium", "HTTP failure handling is browser-independent.");
-  await page.route("https://script.google.com/**", (route) =>
+  await page.route("**/api/leads", (route) =>
     route.fulfill({ status: 500, contentType: "application/json", body: '{"ok":false}' }),
   );
   await page.goto("/templates/gym");
   const form = page.locator("form").last();
   await form.locator("#name").fill("HTTP Failure Test");
   await form.locator("#email").fill("failure@example.com");
+  await form.locator("#phone").fill("+94 77 123 4567");
   await form.locator("#subject").fill("HTTP failure handling");
   await form.locator("#message").fill("This mocked Apps Script request returns HTTP 500.");
   await form.locator('button[type="submit"]').click();
   await expect(form.getByText("Something went wrong. Please try again in a moment.")).toBeVisible();
   await expect(page.getByText("Message Sent!")).toHaveCount(0);
+  await expect(form.locator("#name")).toHaveValue("HTTP Failure Test");
+  await expect(form.locator("#email")).toHaveValue("failure@example.com");
+  await expect(form.locator("#phone")).toHaveValue("+94 77 123 4567");
+  await expect(form.locator("#subject")).toHaveValue("HTTP failure handling");
+  await expect(form.locator("#message")).toHaveValue(
+    "This mocked Apps Script request returns HTTP 500.",
+  );
+});
+
+test("a slow lead request shows a timeout retry message and preserves values", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "chromium", "Timeout behavior is browser-independent.");
+  await page.route("**/api/leads", () => new Promise(() => undefined));
+  await page.goto("/templates/gym");
+  const form = page.locator("form").last();
+  await form.locator("#name").fill("Timeout Test");
+  await form.locator("#email").fill("timeout@example.com");
+  await form.locator("#phone").fill("+94 77 123 4567");
+  await form.locator("#subject").fill("Timeout handling");
+  await form.locator("#message").fill("This mocked request takes longer than the allowed time.");
+  await form.locator('button[type="submit"]').click();
+
+  await expect(
+    form.getByText("This is taking longer than expected. Please try again."),
+  ).toBeVisible({ timeout: 17_000 });
+  await expect(page.getByText("Message Sent!")).toHaveCount(0);
+  await expect(form.locator("#name")).toHaveValue("Timeout Test");
+  await expect(form.locator("#email")).toHaveValue("timeout@example.com");
+  await expect(form.locator("#phone")).toHaveValue("+94 77 123 4567");
+  await expect(form.locator("#subject")).toHaveValue("Timeout handling");
+  await expect(form.locator("#message")).toHaveValue(
+    "This mocked request takes longer than the allowed time.",
+  );
+  await expect(form.locator('button[type="submit"]')).toBeEnabled();
 });

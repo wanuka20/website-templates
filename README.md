@@ -118,7 +118,7 @@ whatsapp: {
 
 The gym template can now read editable content from the Google Apps Script web app, using `config/gym.ts` as the fallback when the sheet is unavailable.
 
-1. Paste `google-apps-script.js` into the Apps Script project attached to your Google Sheet.
+1. Paste `GoogleAppsScript/gym-google-apps-script.js` into the Apps Script project attached to your Google Sheet.
 2. Deploy it as a web app, or update the existing deployment.
 3. Visit:
    ```text
@@ -129,7 +129,7 @@ The gym template can now read editable content from the Google Apps Script web a
    ```bash
    GOOGLE_SHEET_WEB_APP_URL=YOUR_WEB_APP_URL
    ```
-   If omitted, the app uses `NEXT_PUBLIC_GOOGLE_APPS_SCRIPT_URL`.
+   If omitted, the app uses `NEXT_PUBLIC_GOOGLE_APPS_SCRIPT_URL` as a legacy fallback.
    Google Sheets content is cached for five minutes by default. Configure the
    duration in seconds with `GOOGLE_SHEETS_REVALIDATE_SECONDS` in `.env.local`
    (and in your hosting provider's environment variables for production).
@@ -141,6 +141,11 @@ The gym template can now read editable content from the Google Apps Script web a
    ```text
    http://localhost:3000/api/gym-content
    ```
+
+Template contact forms submit to the same-origin `/api/leads` route. That route
+validates the form, sends it to the configured Apps Script from the server, and
+reports success only when Apps Script returns both a successful HTTP response
+and `{ "ok": true }`.
 
 ---
 

@@ -102,7 +102,10 @@ describe("Google Sheets content normalization and fallback", () => {
       "fetch",
       vi.fn((url: string) => {
         if (url.includes("template=gym")) {
-          return Promise.resolve(jsonResponse({ ok: true, content: { aboutImage: "https://example.com/gym.jpg" } }));
+          return Promise.resolve(jsonResponse({ ok: true, content: {
+            aboutImage: "https://example.com/gym.jpg",
+            "membership.1.link": "https://payments.example.com/starter",
+          } }));
         }
         if (url.includes("template=restaurant")) {
           return Promise.resolve(jsonResponse({ ok: true, content: {
@@ -142,6 +145,7 @@ describe("Google Sheets content normalization and fallback", () => {
     ]);
 
     expect(gym.aboutImage).toBe("https://example.com/gym.jpg");
+    expect(gym.membership[0].link).toBe("https://payments.example.com/starter");
     expect(restaurant.aboutImage1).toBe("https://example.com/restaurant-1.jpg");
     expect(restaurant.aboutImage2).toBe("https://example.com/restaurant-2.jpg");
     expect(salon.bookingUrl).toBe("https://www.fresha.com/a/salon");
