@@ -5,13 +5,13 @@ import { WhatsAppButton } from "@/components/shared/WhatsAppButton";
 import { whatsappConfig } from "@/config/whatsapp";
 import { Badge } from "@/components/ui/badge";
 import { FeaturesSection } from "@/components/home/FeaturesSection";
-import type { Metadata } from "next";
+import { generateStaticMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Pricing — Simple One-Time Payment",
-  description:
-    "Transparent pricing for our website templates. One-time payment, no subscriptions. Own your template forever.",
-};
+export const metadata = generateStaticMetadata(
+  "Pricing — Simple One-Time Payment",
+  "Transparent pricing for our website templates. One-time payment, no subscriptions. Own your template forever.",
+  "/pricing",
+);
 
 export default function PricingPage() {
   return (

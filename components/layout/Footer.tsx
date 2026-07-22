@@ -19,10 +19,11 @@ const footerLinks = {
 };
 
 const socialLinks = [
-  { icon: Facebook, href: "#", label: "Facebook" },
-  { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Twitter, href: "#", label: "Twitter" },
-  { icon: Youtube, href: "#", label: "YouTube" },
+  // Add this site's real profile URLs here when they are ready to publish.
+  { icon: Facebook, href: "", label: "Facebook" },
+  { icon: Instagram, href: "", label: "Instagram" },
+  { icon: Twitter, href: "", label: "X (Twitter)" },
+  { icon: Youtube, href: "", label: "YouTube" },
 ];
 
 export function Footer() {
@@ -46,16 +47,28 @@ export function Footer() {
               Professional, ready-made website templates for small businesses. Launch your online presence today.
             </p>
             <div className="flex items-center gap-3">
-              {socialLinks.map(({ icon: Icon, href, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  aria-label={label}
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:border-primary hover:text-primary"
-                >
-                  <Icon className="h-4 w-4" />
-                </a>
-              ))}
+              {socialLinks.map(({ icon: Icon, href, label }) =>
+                href ? (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:border-primary hover:text-primary"
+                  >
+                    <Icon className="h-4 w-4" />
+                  </a>
+                ) : (
+                  <span
+                    key={label}
+                    aria-hidden="true"
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted-foreground"
+                  >
+                    <Icon className="h-4 w-4" />
+                  </span>
+                ),
+              )}
             </div>
           </div>
 
@@ -107,8 +120,8 @@ export function Footer() {
             © {year} WebsiteTemplates. All rights reserved.
           </p>
           <div className="flex items-center gap-4 text-sm text-muted-foreground">
-            <Link href="#" className="hover:text-foreground transition-colors">Privacy Policy</Link>
-            <Link href="#" className="hover:text-foreground transition-colors">Terms of Service</Link>
+            <Link href="/privacy" className="hover:text-foreground transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-foreground transition-colors">Terms of Service</Link>
           </div>
         </div>
       </div>

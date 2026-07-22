@@ -41,9 +41,9 @@ export function RestaurantAbout({ config }: { config: RestaurantConfig }) {
               Our chefs bring decades of expertise to every plate, ensuring an experience that&apos;s truly unforgettable.
             </p>
             <div className="mt-8 rounded-2xl border bg-card p-6">
-              <h4 className="mb-4 font-bold flex items-center gap-2">
+              <h3 className="mb-4 font-bold flex items-center gap-2">
                 <Clock className="h-5 w-5 text-amber-500" />Opening Hours
-              </h4>
+              </h3>
               <div className="space-y-2">
                 {config.openingHours.map((hours) => (
                   <div key={hours.day} className="flex justify-between text-sm">

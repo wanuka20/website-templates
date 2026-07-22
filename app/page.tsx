@@ -7,13 +7,13 @@ import { PricingSection } from "@/components/home/PricingSection";
 import { ContactSection } from "@/components/home/ContactSection";
 import { WhatsAppButton } from "@/components/shared/WhatsAppButton";
 import { whatsappConfig } from "@/config/whatsapp";
-import type { Metadata } from "next";
+import { generateStaticMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "WebsiteTemplates — Professional Business Websites in Minutes",
-  description:
-    "Launch your business online with our professional website templates. Built for gyms, salons, restaurants, tuition centres, and real estate agents.",
-};
+export const metadata = generateStaticMetadata(
+  "WebsiteTemplates — Professional Business Websites in Minutes",
+  "Launch your business online with our professional website templates. Built for gyms, salons, restaurants, tuition centres, and real estate agents.",
+  "/",
+);
 
 export default function HomePage() {
   return (

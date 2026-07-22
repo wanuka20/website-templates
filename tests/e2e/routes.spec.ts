@@ -64,6 +64,20 @@ test("API, static asset, and 404 behavior", async ({ request, page }) => {
   await expect(page.getByText("This page could not be found.")).toBeVisible();
 });
 
+test("production security headers protect public responses", async ({ request }, testInfo) => {
+  test.skip(testInfo.project.name !== "chromium", "Headers are browser-independent.");
+  const response = await request.get("/");
+  const headers = response.headers();
+
+  expect(headers["x-content-type-options"]).toBe("nosniff");
+  expect(headers["referrer-policy"]).toBe("strict-origin-when-cross-origin");
+  expect(headers["permissions-policy"]).toContain("camera=()");
+  expect(headers["x-frame-options"]).toBe("DENY");
+  expect(headers["content-security-policy"]).toContain("frame-ancestors 'none'");
+  expect(headers["content-security-policy"]).toContain("object-src 'none'");
+  expect(headers["content-security-policy"]).toContain("form-action 'self'");
+});
+
 for (const route of templateRoutes) {
   test(`${route} internal anchors resolve to unique targets`, async ({ page }) => {
     await page.goto(route, { waitUntil: "domcontentloaded" });

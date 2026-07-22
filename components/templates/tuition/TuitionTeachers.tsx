@@ -6,6 +6,7 @@ import { SectionHeader } from "@/components/shared/SectionHeader";
 import { StaggerContainer, StaggerItem } from "@/components/shared/AnimatedSection";
 import { GraduationCap, Users } from "lucide-react";
 import type { TuitionConfig } from "@/types";
+import { displayNumber } from "@/lib/content-placeholders";
 
 export function TuitionTeachers({ config }: { config: TuitionConfig }) {
   return (
@@ -38,7 +39,7 @@ export function TuitionTeachers({ config }: { config: TuitionConfig }) {
                   <div className="mt-4 flex items-center justify-between border-t pt-3">
                     <StarRating rating={teacher.rating} size="sm" />
                     <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                      <Users className="h-3 w-3" />{teacher.studentsCount}+ students
+                      <Users className="h-3 w-3" />{displayNumber(teacher.studentsCount)}+ students
                     </div>
                   </div>
                   <div className="mt-2 flex items-center gap-1 text-xs text-muted-foreground">

@@ -63,6 +63,17 @@ test("a failed contact request shows a usable error and does not show success", 
   await expect(form.locator('button[type="submit"]')).toBeEnabled();
 });
 
+test("the contact honeypot is hidden from visitors and keyboard navigation", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "chromium", "Honeypot semantics are browser-independent.");
+  await page.goto("/templates/gym");
+  const honeypot = page.locator('form').last().locator('input[name="website"]');
+
+  const boundingBox = await honeypot.boundingBox();
+  expect(boundingBox?.x).toBeLessThan(0);
+  await expect(honeypot).toHaveAttribute("tabindex", "-1");
+  await expect(honeypot.locator("xpath=..")).toHaveAttribute("aria-hidden", "true");
+});
+
 test("duplicate clicks create at most one browser request", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "chromium", "Submission concurrency is browser-independent.");
   let submissions = 0;

@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useState } from "react";
+import { useId, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -19,11 +19,21 @@ const contactSchema = z.object({
   phone: z.string().optional(),
   subject: z.string().min(3, "Subject must be at least 3 characters"),
   message: z.string().min(10, "Message must be at least 10 characters"),
+  website: z.string().optional(),
 });
+
+type ContactFormValues = ContactFormData & {
+  website: string;
+};
+
+export interface ContactFormSubmission {
+  data: ContactFormData;
+  honeypot: string;
+}
 
 interface ContactFormProps {
   className?: string;
-  onSubmit?: (data: ContactFormData) => Promise<void>;
+  onSubmit?: (submission: ContactFormSubmission) => Promise<void>;
   accentColor?: string;
   light?: boolean;
 }
@@ -34,6 +44,7 @@ export function ContactForm({
   accentColor,
   light = false,
 }: ContactFormProps) {
+  const formId = useId();
   const [submitted, setSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [submitError, setSubmitError] = useState("");
@@ -43,16 +54,17 @@ export function ContactForm({
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<ContactFormData>({
+  } = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
+    defaultValues: { website: "" },
   });
 
-  const onSubmit = async (data: ContactFormData) => {
+  const onSubmit = async ({ website, ...data }: ContactFormValues) => {
     setIsLoading(true);
     setSubmitError("");
     try {
       if (externalSubmit) {
-        await externalSubmit(data);
+        await externalSubmit({ data, honeypot: website });
       } else {
         // Default: log to console. Replace with email integration (e.g. Resend, SendGrid)
         console.log("Contact form submission:", data);
@@ -78,10 +90,11 @@ export function ContactForm({
   );
   const labelClass = cn(light && "text-white/80");
   const errorClass = "text-red-400 text-sm mt-1";
+  const errorId = (field: string) => `${formId}-${field}-error`;
 
   if (submitted) {
     return (
-      <div className={cn("flex flex-col items-center justify-center py-12 text-center", className)}>
+      <div role="status" aria-live="polite" className={cn("flex flex-col items-center justify-center py-12 text-center", className)}>
         <CheckCircle className={cn("mb-4 h-16 w-16", light ? "text-green-400" : "text-green-500")} />
         <h3 className={cn("text-xl font-semibold", light ? "text-white" : "text-foreground")}>
           Message Sent!
@@ -105,6 +118,15 @@ export function ContactForm({
       onSubmit={handleSubmit(onSubmit)}
       className={cn("space-y-5", className)}
     >
+      <div aria-hidden="true" className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden">
+        <Label htmlFor="website">Website</Label>
+        <Input
+          id="website"
+          tabIndex={-1}
+          autoComplete="off"
+          {...register("website")}
+        />
+      </div>
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="space-y-2">
           <Label htmlFor="name" className={labelClass}>
@@ -114,10 +136,12 @@ export function ContactForm({
             id="name"
             placeholder="John Smith"
             className={inputClass}
+            aria-invalid={errors.name ? true : undefined}
+            aria-describedby={errors.name ? errorId("name") : undefined}
             {...register("name")}
           />
           {errors.name && (
-            <p className={errorClass}>{errors.name.message}</p>
+            <p id={errorId("name")} role="alert" className={errorClass}>{errors.name.message}</p>
           )}
         </div>
         <div className="space-y-2">
@@ -129,10 +153,12 @@ export function ContactForm({
             type="email"
             placeholder="john@example.com"
             className={inputClass}
+            aria-invalid={errors.email ? true : undefined}
+            aria-describedby={errors.email ? errorId("email") : undefined}
             {...register("email")}
           />
           {errors.email && (
-            <p className={errorClass}>{errors.email.message}</p>
+            <p id={errorId("email")} role="alert" className={errorClass}>{errors.email.message}</p>
           )}
         </div>
       </div>
@@ -157,10 +183,12 @@ export function ContactForm({
             id="subject"
             placeholder="How can we help?"
             className={inputClass}
+            aria-invalid={errors.subject ? true : undefined}
+            aria-describedby={errors.subject ? errorId("subject") : undefined}
             {...register("subject")}
           />
           {errors.subject && (
-            <p className={errorClass}>{errors.subject.message}</p>
+            <p id={errorId("subject")} role="alert" className={errorClass}>{errors.subject.message}</p>
           )}
         </div>
       </div>
@@ -174,10 +202,12 @@ export function ContactForm({
           placeholder="Tell us more about what you need..."
           rows={5}
           className={inputClass}
+          aria-invalid={errors.message ? true : undefined}
+          aria-describedby={errors.message ? errorId("message") : undefined}
           {...register("message")}
         />
         {errors.message && (
-          <p className={errorClass}>{errors.message.message}</p>
+          <p id={errorId("message")} role="alert" className={errorClass}>{errors.message.message}</p>
         )}
       </div>
 
@@ -185,6 +215,7 @@ export function ContactForm({
         type="submit"
         size="lg"
         disabled={isLoading}
+        aria-busy={isLoading || undefined}
         className="w-full gap-2"
         style={accentColor ? { backgroundColor: accentColor, borderColor: accentColor } : undefined}
       >
@@ -201,7 +232,7 @@ export function ContactForm({
         )}
       </Button>
       {submitError && (
-        <p className={cn("text-sm font-medium", light ? "text-red-200" : "text-red-500")}>
+        <p role="alert" aria-live="assertive" className={cn("text-sm font-medium", light ? "text-red-200" : "text-red-500")}>
           {submitError}
         </p>
       )}

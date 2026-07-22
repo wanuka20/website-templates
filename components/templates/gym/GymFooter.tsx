@@ -17,7 +17,7 @@ export function GymFooter({ config }: { config: GymConfig }) {
             <SocialLinks links={config.socialLinks} className="mt-4 flex items-center gap-3" linkClassName="text-white/50 hover:text-orange-400 transition-colors" />
           </div>
           <div>
-            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white/40">Quick Links</h4>
+            <p className="mb-4 text-sm font-semibold uppercase tracking-wider text-white/70">Quick Links</p>
             <ul className="space-y-2 text-sm text-white/60">
               {["About", "Membership", "Trainers", "Classes", "Gallery", "Contact"].map((item) => (
                 <li key={item}>
@@ -29,7 +29,7 @@ export function GymFooter({ config }: { config: GymConfig }) {
             </ul>
           </div>
           <div>
-            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white/40">Contact</h4>
+            <p className="mb-4 text-sm font-semibold uppercase tracking-wider text-white/70">Contact</p>
             <div className="space-y-2 text-sm text-white/60">
               <p>{config.phone}</p>
               <p>{config.email}</p>
@@ -38,7 +38,7 @@ export function GymFooter({ config }: { config: GymConfig }) {
             </div>
           </div>
         </div>
-        <div className="mt-8 border-t border-white/10 pt-8 text-center text-xs text-white/30">
+        <div className="mt-8 border-t border-white/20 pt-8 text-center text-xs text-white/60">
           © {new Date().getFullYear()} {config.name}. All rights reserved.
         </div>
       </div>

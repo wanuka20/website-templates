@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { StaggerContainer, StaggerItem } from "@/components/shared/AnimatedSection";
 import type { TuitionConfig } from "@/types";
+import { displayNumber } from "@/lib/content-placeholders";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Calculator,
@@ -40,7 +41,7 @@ export function TuitionSubjects({ config }: { config: TuitionConfig }) {
                     ))}
                   </div>
                   <div className="text-xs text-muted-foreground border-t pt-3">
-                    <span className="font-semibold text-blue-600">{subject.studentsCount}+</span> students enrolled
+                    <span className="font-semibold text-blue-600">{displayNumber(subject.studentsCount)}+</span> students enrolled
                   </div>
                 </div>
               </StaggerItem>

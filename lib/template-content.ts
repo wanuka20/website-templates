@@ -111,23 +111,52 @@ async function fetchGoogleSheets(
   }
 }
 
+type SheetField = { key: string; value: unknown };
+
+const MISSING_IMAGE = "/content-placeholder.svg";
+
+function fieldValue(value: unknown) {
+  return typeof value === "object" && value !== null && "key" in value && "value" in value
+    ? (value as SheetField)
+    : undefined;
+}
+
+function isFallbackMarker(value: unknown) {
+  return typeof value === "string" && value.trim() === "#FALLBACK";
+}
+
+function missingText(value: unknown) {
+  const key = fieldValue(value)?.key;
+  return key ? `[Missing: ${key}]` : "[Missing content]";
+}
+
+function rawValue(value: unknown) {
+  return fieldValue(value)?.value ?? value;
+}
+
 function text(value: unknown, fallback = "") {
-  return typeof value === "string" && value.trim() ? value.trim() : fallback;
+  const raw = rawValue(value);
+  if (isFallbackMarker(raw)) return fallback;
+  return typeof raw === "string" && raw.trim() ? raw.trim() : missingText(value);
 }
 
 function numberValue(value: unknown, fallback: number) {
+  const raw = rawValue(value);
+  if (isFallbackMarker(raw)) return fallback;
   const parsed =
-    typeof value === "number" ? value : Number(String(value ?? "").replace(/,/g, ""));
+    typeof raw === "number" ? raw : Number(String(raw ?? "").replace(/,/g, ""));
 
-  return Number.isFinite(parsed) ? parsed : fallback;
+  return Number.isFinite(parsed) ? parsed : Number.NaN;
 }
 
 function booleanValue(value: unknown, fallback = false) {
-  if (typeof value === "boolean") {
-    return value;
+  const raw = rawValue(value);
+  if (isFallbackMarker(raw)) return fallback;
+  if (typeof raw === "boolean") {
+    return raw;
   }
 
-  const normalized = String(value ?? "").trim().toLowerCase();
+  const normalized = String(raw ?? "").trim().toLowerCase();
 
   if (["true", "yes", "1", "y"].includes(normalized)) {
     return true;
@@ -137,15 +166,18 @@ function booleanValue(value: unknown, fallback = false) {
     return false;
   }
 
-  return fallback;
+  return false;
 }
 
 function normalizeImageUrl(value: unknown, fallback = "") {
-  const imageUrl = text(value, fallback);
+  const raw = rawValue(value);
+  const imageUrl = isFallbackMarker(raw)
+    ? fallback
+    : typeof raw === "string" && raw.trim()
+      ? raw.trim()
+      : MISSING_IMAGE;
 
-  if (!imageUrl) {
-    return "";
-  }
+  if (imageUrl.startsWith("[Missing:")) return MISSING_IMAGE;
 
   const driveFileMatch = imageUrl.match(/drive\.google\.com\/file\/d\/([^/]+)/);
   const driveIdMatch = imageUrl.match(/[?&]id=([^&]+)/);
@@ -161,9 +193,7 @@ function normalizeImageUrl(value: unknown, fallback = "") {
 }
 
 function get(content: Record<string, unknown>, key: string) {
-  return Object.prototype.hasOwnProperty.call(content, key)
-    ? content[key]
-    : undefined;
+  return { key, value: Object.prototype.hasOwnProperty.call(content, key) ? content[key] : undefined };
 }
 
 function listFromKeys(
@@ -174,13 +204,24 @@ function listFromKeys(
   const values = Object.entries(content)
     .map(([key, value]) => {
       const match = key.match(new RegExp(`^${prefix.replace(".", "\\.")}\\.(\\d+)$`));
-      return match ? { order: Number(match[1]), value: text(value) } : null;
+      return match
+        ? { order: Number(match[1]), value: text({ key, value }, fallback[Number(match[1]) - 1]) }
+        : null;
     })
     .filter((item): item is { order: number; value: string } => !!item && !!item.value)
     .sort((a, b) => a.order - b.order)
     .map((item) => item.value);
 
-  return values.length ? values : fallback;
+  return values.length ? values : [missingText({ key: `${prefix}.1`, value: undefined })];
+}
+
+function indexesOrFallback(
+  content: Record<string, unknown>,
+  prefix: string,
+  fallbackLength: number,
+) {
+  const indexes = objectIndexes(content, prefix);
+  return indexes.length ? indexes : Array.from({ length: fallbackLength }, (_, index) => index + 1);
 }
 
 function objectIndexes(content: Record<string, unknown>, prefix: string) {
@@ -242,7 +283,7 @@ function buildTestimonials(
   content: Record<string, unknown>,
   fallback: Testimonial[],
 ): Testimonial[] {
-  const items = objectIndexes(content, "testimonials").map((index): Testimonial | null => {
+  const items = indexesOrFallback(content, "testimonials", fallback.length).map((index): Testimonial | null => {
     const item = fallback[index - 1];
 
     if (!item) {
@@ -261,14 +302,14 @@ function buildTestimonials(
 
   return items.filter((item): item is Testimonial => !!item).length
     ? items.filter((item): item is Testimonial => !!item)
-    : fallback;
+    : [];
 }
 
 function buildGalleryImages(
   content: Record<string, unknown>,
   fallback: GalleryImage[],
 ): GalleryImage[] {
-  const items = objectIndexes(content, "galleryImages").map((index): GalleryImage | null => {
+  const items = indexesOrFallback(content, "galleryImages", fallback.length).map((index): GalleryImage | null => {
     const item = fallback[index - 1];
 
     if (!item) {
@@ -285,11 +326,11 @@ function buildGalleryImages(
 
   return items.filter((item): item is GalleryImage => !!item).length
     ? items.filter((item): item is GalleryImage => !!item)
-    : fallback;
+    : [];
 }
 
 function buildGymPricingPlans(content: Record<string, unknown>): PricingPlan[] {
-  const items = objectIndexes(content, "membership").map((index): PricingPlan | null => {
+  const items = indexesOrFallback(content, "membership", gymConfig.membership.length).map((index): PricingPlan | null => {
     const item = gymConfig.membership[index - 1];
 
     if (!item) {
@@ -315,11 +356,11 @@ function buildGymPricingPlans(content: Record<string, unknown>): PricingPlan[] {
 
   return items.filter((item): item is PricingPlan => !!item).length
     ? items.filter((item): item is PricingPlan => !!item)
-    : gymConfig.membership;
+    : [];
 }
 
 function buildGymTrainers(content: Record<string, unknown>): GymTrainer[] {
-  const items = objectIndexes(content, "trainers").map((index): GymTrainer | null => {
+  const items = indexesOrFallback(content, "trainers", gymConfig.trainers.length).map((index): GymTrainer | null => {
     const item = gymConfig.trainers[index - 1];
 
     if (!item) {
@@ -346,7 +387,7 @@ function buildGymTrainers(content: Record<string, unknown>): GymTrainer[] {
 
   return items.filter((item): item is GymTrainer => !!item).length
     ? items.filter((item): item is GymTrainer => !!item)
-    : gymConfig.trainers;
+    : [];
 }
 
 function normalizeGymLevel(value: unknown, fallback: GymClass["level"]) {
@@ -360,11 +401,11 @@ function normalizeGymLevel(value: unknown, fallback: GymClass["level"]) {
 
   return allowed.includes(level as GymClass["level"])
     ? (level as GymClass["level"])
-    : fallback;
+    : (level as GymClass["level"]);
 }
 
 function buildGymClasses(content: Record<string, unknown>): GymClass[] {
-  const items = objectIndexes(content, "classes").map((index): GymClass | null => {
+  const items = indexesOrFallback(content, "classes", gymConfig.classes.length).map((index): GymClass | null => {
     const item = gymConfig.classes[index - 1];
 
     if (!item) {
@@ -385,7 +426,7 @@ function buildGymClasses(content: Record<string, unknown>): GymClass[] {
 
   return items.filter((item): item is GymClass => !!item).length
     ? items.filter((item): item is GymClass => !!item)
-    : gymConfig.classes;
+    : [];
 }
 
 function normalizeGymConfig(content: Record<string, unknown>): GymConfig {
@@ -402,7 +443,7 @@ function normalizeGymConfig(content: Record<string, unknown>): GymConfig {
 }
 
 function buildOpeningHours(content: Record<string, unknown>): OpeningHours[] {
-  const items = objectIndexes(content, "openingHours").map((index): OpeningHours | null => {
+  const items = indexesOrFallback(content, "openingHours", restaurantConfig.openingHours.length).map((index): OpeningHours | null => {
     const item = restaurantConfig.openingHours[index - 1];
 
     if (!item) {
@@ -419,11 +460,11 @@ function buildOpeningHours(content: Record<string, unknown>): OpeningHours[] {
 
   return items.filter((item): item is OpeningHours => !!item).length
     ? items.filter((item): item is OpeningHours => !!item)
-    : restaurantConfig.openingHours;
+    : [];
 }
 
 function buildMenu(content: Record<string, unknown>): MenuItem[] {
-  const items = objectIndexes(content, "menu").map((index): MenuItem | null => {
+  const items = indexesOrFallback(content, "menu", restaurantConfig.menu.length).map((index): MenuItem | null => {
     const item = restaurantConfig.menu[index - 1];
 
     if (!item) {
@@ -446,7 +487,7 @@ function buildMenu(content: Record<string, unknown>): MenuItem[] {
 
   return items.filter((item): item is MenuItem => !!item).length
     ? items.filter((item): item is MenuItem => !!item)
-    : restaurantConfig.menu;
+    : [];
 }
 
 function normalizeRestaurantConfig(content: Record<string, unknown>): RestaurantConfig {
@@ -479,7 +520,7 @@ function buildSalonServices(
   prefix: "services" | "pricing",
   fallback: SalonService[],
 ): SalonService[] {
-  const items = objectIndexes(content, prefix).map((index): SalonService | null => {
+  const items = indexesOrFallback(content, prefix, fallback.length).map((index): SalonService | null => {
     const item = fallback[index - 1];
 
     if (!item) {
@@ -499,11 +540,11 @@ function buildSalonServices(
 
   return items.filter((item): item is SalonService => !!item).length
     ? items.filter((item): item is SalonService => !!item)
-    : fallback;
+    : [];
 }
 
 function buildStylists(content: Record<string, unknown>): SalonStylist[] {
-  const items = objectIndexes(content, "stylists").map((index): SalonStylist | null => {
+  const items = indexesOrFallback(content, "stylists", salonConfig.stylists.length).map((index): SalonStylist | null => {
     const item = salonConfig.stylists[index - 1];
 
     if (!item) {
@@ -523,11 +564,11 @@ function buildStylists(content: Record<string, unknown>): SalonStylist[] {
 
   return items.filter((item): item is SalonStylist => !!item).length
     ? items.filter((item): item is SalonStylist => !!item)
-    : salonConfig.stylists;
+    : [];
 }
 
 function buildBeforeAfter(content: Record<string, unknown>): BeforeAfterImage[] {
-  const items = objectIndexes(content, "beforeAfter").map(
+  const items = indexesOrFallback(content, "beforeAfter", salonConfig.beforeAfter.length).map(
     (index): BeforeAfterImage | null => {
       const item = salonConfig.beforeAfter[index - 1];
 
@@ -546,7 +587,7 @@ function buildBeforeAfter(content: Record<string, unknown>): BeforeAfterImage[] 
 
   return items.filter((item): item is BeforeAfterImage => !!item).length
     ? items.filter((item): item is BeforeAfterImage => !!item)
-    : salonConfig.beforeAfter;
+    : [];
 }
 
 function normalizeSalonConfig(content: Record<string, unknown>): SalonConfig {
@@ -605,24 +646,16 @@ function buildAgent(content: Record<string, unknown>): AgentProfile {
 
 function normalizePropertyType(value: unknown, fallback: Property["type"]) {
   const propertyType = text(value, fallback);
-  const allowed: Property["type"][] = ["House", "Apartment", "Villa", "Commercial", "Land"];
-
-  return allowed.includes(propertyType as Property["type"])
-    ? (propertyType as Property["type"])
-    : fallback;
+  return propertyType as Property["type"];
 }
 
 function normalizePropertyStatus(value: unknown, fallback: Property["status"]) {
   const status = text(value, fallback);
-  const allowed: Property["status"][] = ["For Sale", "For Rent", "Sold", "Rented"];
-
-  return allowed.includes(status as Property["status"])
-    ? (status as Property["status"])
-    : fallback;
+  return status as Property["status"];
 }
 
 function buildProperties(content: Record<string, unknown>): Property[] {
-  const items = objectIndexes(content, "properties").map((index): Property | null => {
+  const items = indexesOrFallback(content, "properties", realestateConfig.properties.length).map((index): Property | null => {
     const item = realestateConfig.properties[index - 1];
 
     if (!item) {
@@ -664,11 +697,11 @@ function buildProperties(content: Record<string, unknown>): Property[] {
 
   return items.filter((item): item is Property => !!item).length
     ? items.filter((item): item is Property => !!item)
-    : realestateConfig.properties;
+    : [];
 }
 
 function buildRealEstateServices(content: Record<string, unknown>): RealEstateService[] {
-  const items = objectIndexes(content, "services").map(
+  const items = indexesOrFallback(content, "services", realestateConfig.services.length).map(
     (index): RealEstateService | null => {
       const item = realestateConfig.services[index - 1];
 
@@ -690,7 +723,7 @@ function buildRealEstateServices(content: Record<string, unknown>): RealEstateSe
 
   return items.filter((item): item is RealEstateService => !!item).length
     ? items.filter((item): item is RealEstateService => !!item)
-    : realestateConfig.services;
+    : [];
 }
 
 function normalizeRealEstateConfig(content: Record<string, unknown>): RealEstateConfig {
@@ -705,7 +738,7 @@ function normalizeRealEstateConfig(content: Record<string, unknown>): RealEstate
 }
 
 function buildSubjects(content: Record<string, unknown>): Subject[] {
-  const items = objectIndexes(content, "subjects").map((index): Subject | null => {
+  const items = indexesOrFallback(content, "subjects", tuitionConfig.subjects.length).map((index): Subject | null => {
     const item = tuitionConfig.subjects[index - 1];
 
     if (!item) {
@@ -727,11 +760,11 @@ function buildSubjects(content: Record<string, unknown>): Subject[] {
 
   return items.filter((item): item is Subject => !!item).length
     ? items.filter((item): item is Subject => !!item)
-    : tuitionConfig.subjects;
+    : [];
 }
 
 function buildTeachers(content: Record<string, unknown>): Teacher[] {
-  const items = objectIndexes(content, "teachers").map((index): Teacher | null => {
+  const items = indexesOrFallback(content, "teachers", tuitionConfig.teachers.length).map((index): Teacher | null => {
     const item = tuitionConfig.teachers[index - 1];
 
     if (!item) {
@@ -759,11 +792,11 @@ function buildTeachers(content: Record<string, unknown>): Teacher[] {
 
   return items.filter((item): item is Teacher => !!item).length
     ? items.filter((item): item is Teacher => !!item)
-    : tuitionConfig.teachers;
+    : [];
 }
 
 function buildResults(content: Record<string, unknown>): StudentResult[] {
-  const items = objectIndexes(content, "results").map((index): StudentResult | null => {
+  const items = indexesOrFallback(content, "results", tuitionConfig.results.length).map((index): StudentResult | null => {
     const item = tuitionConfig.results[index - 1];
 
     if (!item) {
@@ -783,11 +816,11 @@ function buildResults(content: Record<string, unknown>): StudentResult[] {
 
   return items.filter((item): item is StudentResult => !!item).length
     ? items.filter((item): item is StudentResult => !!item)
-    : tuitionConfig.results;
+    : [];
 }
 
 function buildSchedule(content: Record<string, unknown>): ClassSchedule[] {
-  const items = objectIndexes(content, "schedule").map((index): ClassSchedule | null => {
+  const items = indexesOrFallback(content, "schedule", tuitionConfig.schedule.length).map((index): ClassSchedule | null => {
     const item = tuitionConfig.schedule[index - 1];
 
     if (!item) {
@@ -811,11 +844,11 @@ function buildSchedule(content: Record<string, unknown>): ClassSchedule[] {
 
   return items.filter((item): item is ClassSchedule => !!item).length
     ? items.filter((item): item is ClassSchedule => !!item)
-    : tuitionConfig.schedule;
+    : [];
 }
 
 function buildAchievements(content: Record<string, unknown>): Achievement[] {
-  const items = objectIndexes(content, "achievements").map((index): Achievement | null => {
+  const items = indexesOrFallback(content, "achievements", tuitionConfig.achievements.length).map((index): Achievement | null => {
     const item = tuitionConfig.achievements[index - 1];
 
     if (!item) {
@@ -832,7 +865,7 @@ function buildAchievements(content: Record<string, unknown>): Achievement[] {
 
   return items.filter((item): item is Achievement => !!item).length
     ? items.filter((item): item is Achievement => !!item)
-    : tuitionConfig.achievements;
+    : [];
 }
 
 function normalizeTuitionConfig(content: Record<string, unknown>): TuitionConfig {

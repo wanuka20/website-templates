@@ -54,6 +54,14 @@ For substantial work:
    - tests run;
    - unresolved problems;
    - risks or manual steps.
+7. Explain the completed work in simple language:
+   - what changed and why it matters;
+   - which files, pages, or features were affected;
+   - how the user can test the change step by step;
+   - exactly where to look to confirm it is working;
+   - any remaining risks, limitations, or required manual steps.
+
+Use beginner-friendly language. Avoid unexplained technical terms. If a technical term is necessary, explain it briefly.
 
 When debugging, investigate the root cause before applying speculative fixes.
 Do not repeatedly make unrelated changes hoping one will work.

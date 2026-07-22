@@ -4,6 +4,7 @@ import { Mail, Phone, MapPin, MessageCircle } from "lucide-react";
 import { ContactForm } from "@/components/shared/ContactForm";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
+import { getGoogleMapsSearchUrl } from "@/lib/contact-links";
 
 const contactInfo = [
   {
@@ -22,7 +23,7 @@ const contactInfo = [
     icon: MapPin,
     label: "Location",
     value: "Colombo, Sri Lanka",
-    href: "#",
+    href: getGoogleMapsSearchUrl("Colombo, Sri Lanka"),
   },
   {
     icon: MessageCircle,
@@ -62,8 +63,8 @@ export function ContactSection() {
                     <a
                       key={item.label}
                       href={item.href}
-                      target={item.href.startsWith("http") ? "_blank" : undefined}
-                      rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                      target={item.href?.startsWith("http") ? "_blank" : undefined}
+                      rel={item.href?.startsWith("http") ? "noopener noreferrer" : undefined}
                       className="group flex items-start gap-3 rounded-xl border bg-card p-4 transition-all hover:border-primary hover:shadow-sm"
                     >
                       <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">

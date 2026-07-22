@@ -158,9 +158,10 @@ describe("Google Sheets content normalization and fallback", () => {
     });
     expect(tuition.achievements[0].icon).toBe("Users");
     expect(tuition.testimonials[0].name).toBe("Sheet Student");
+    expect([gym, restaurant, salon, realestate, tuition].every((config) => config.name === "[Missing: name]")).toBe(true);
   });
 
-  it("falls back field-by-field for empty, malformed, and partial values", async () => {
+  it("shows missing-field markers for blank and malformed Sheet values", async () => {
     process.env.GYM_GOOGLE_SHEET_WEB_APP_URL = "https://example.test/gym";
     vi.stubGlobal(
       "fetch",
@@ -180,9 +181,44 @@ describe("Google Sheets content normalization and fallback", () => {
     const { getGymContent } = await loadModule();
     const content = await getGymContent();
     expect(content.name).toBe("Partially Updated Gym");
-    expect(content.heroTitle).toBe(gymConfig.heroTitle);
-    expect(content.membership[0].price).toBe(gymConfig.membership[0].price);
+    expect(content.heroTitle).toBe("[Missing: heroTitle]");
+    expect(Number.isNaN(content.membership[0].price)).toBe(true);
     expect(content.membership[0].highlighted).toBe(false);
+  });
+
+  it("uses local demo data only when a Sheet field explicitly says #FALLBACK", async () => {
+    process.env.GYM_GOOGLE_SHEET_WEB_APP_URL = "https://example.test/gym";
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue(
+        jsonResponse({
+          ok: true,
+          content: {
+            name: "#FALLBACK",
+            heroImage: "#FALLBACK",
+            "membership.1.price": "#FALLBACK",
+            "trainers.1.bio": "#FALLBACK",
+          },
+        }),
+      ),
+    );
+
+    const { getGymContent } = await loadModule();
+    const content = await getGymContent();
+
+    expect(content.name).toBe(gymConfig.name);
+    expect(content.heroImage).toBe(gymConfig.heroImage);
+    expect(content.membership[0].price).toBe(gymConfig.membership[0].price);
+    expect(content.trainers[0].bio).toBe(gymConfig.trainers[0].bio);
+    expect(content.heroTitle).toBe("[Missing: heroTitle]");
+  });
+
+  it("uses a visible local placeholder for missing Sheet images", async () => {
+    process.env.GYM_GOOGLE_SHEET_WEB_APP_URL = "https://example.test/gym";
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(jsonResponse({ ok: true, content: {} })));
+
+    const { getGymContent } = await loadModule();
+    expect((await getGymContent()).heroImage).toBe("/content-placeholder.svg");
   });
 
   it.each([

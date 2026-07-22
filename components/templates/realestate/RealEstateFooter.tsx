@@ -16,7 +16,7 @@ export function RealEstateFooter({ config }: { config: RealEstateConfig }) {
             <SocialLinks links={config.socialLinks} className="mt-4 flex gap-3" linkClassName="text-white/50 hover:text-emerald-400 transition-colors" />
           </div>
           <div>
-            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white/40">Services</h4>
+            <p className="mb-4 text-sm font-semibold uppercase tracking-wider text-white/70">Services</p>
             <ul className="space-y-2 text-sm text-white/60">
               {config.services.map((s) => (
                 <li key={s.id}><a href="#services" className="hover:text-emerald-400 transition-colors">{s.name}</a></li>
@@ -24,7 +24,7 @@ export function RealEstateFooter({ config }: { config: RealEstateConfig }) {
             </ul>
           </div>
           <div>
-            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white/40">Contact</h4>
+            <p className="mb-4 text-sm font-semibold uppercase tracking-wider text-white/70">Contact</p>
             <div className="space-y-2 text-sm text-white/60">
               <p>{config.agent.name}</p>
               <p>{config.agent.phone}</p>
@@ -33,7 +33,7 @@ export function RealEstateFooter({ config }: { config: RealEstateConfig }) {
             </div>
           </div>
         </div>
-        <div className="mt-8 border-t border-emerald-900 pt-8 text-center text-xs text-white/30">
+        <div className="mt-8 border-t border-emerald-700 pt-8 text-center text-xs text-white/60">
           © {new Date().getFullYear()} {config.name}. All rights reserved. Licensed Realtor.
         </div>
       </div>

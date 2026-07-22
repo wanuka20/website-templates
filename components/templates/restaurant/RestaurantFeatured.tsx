@@ -5,6 +5,7 @@ import Image from "next/image";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { StaggerContainer, StaggerItem } from "@/components/shared/AnimatedSection";
 import { Flame, Leaf, Star } from "lucide-react";
+import { displayNumber } from "@/lib/content-placeholders";
 import type { RestaurantConfig } from "@/types";
 
 export function RestaurantFeatured({ config }: { config: RestaurantConfig }) {
@@ -38,7 +39,7 @@ export function RestaurantFeatured({ config }: { config: RestaurantConfig }) {
                     </div>
                     <div className="absolute bottom-3 right-3">
                       <div className="rounded-full bg-black/80 px-3 py-1 text-white font-bold text-sm">
-                        LKR {dish.price.toLocaleString()}
+                        LKR {displayNumber(dish.price)}
                       </div>
                     </div>
                   </div>

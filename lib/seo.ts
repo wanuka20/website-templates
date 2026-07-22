@@ -1,13 +1,46 @@
 import type { Metadata } from "next";
 import type { SEOConfig } from "@/types";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://websitetemplates.vercel.app";
+export const SITE_URL = new URL(
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://websitetemplates.vercel.app",
+).origin;
+
+function getAbsoluteUrl(path: string) {
+  return new URL(path, SITE_URL).toString();
+}
+
+export function generateStaticMetadata(
+  title: string,
+  description: string,
+  path: string,
+): Metadata {
+  const url = getAbsoluteUrl(path);
+
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: "WebsiteTemplates",
+      locale: "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+  };
+}
 
 export function generateMetadata(
   config: SEOConfig,
   path: string = "/"
 ): Metadata {
-  const url = `${SITE_URL}${path}`;
+  const url = getAbsoluteUrl(path);
 
   return {
     title: config.title,

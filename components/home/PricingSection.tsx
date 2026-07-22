@@ -181,7 +181,7 @@ export function PricingSection() {
 
         <p className="mt-8 text-center text-sm text-muted-foreground">
           Prices in Sri Lankan Rupees (LKR). Need a custom template?{" "}
-          <Link href="/contact" className="text-primary underline-offset-4 hover:underline">
+          <Link href="/contact" className="text-primary underline underline-offset-4 hover:no-underline">
             Contact us
           </Link>
           .

@@ -5,6 +5,7 @@ import { SectionHeader } from "@/components/shared/SectionHeader";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { Clock, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { isMissingNumber } from "@/lib/content-placeholders";
 import type { GymConfig } from "@/types";
 
 const levelColors = {
@@ -92,7 +93,7 @@ export function GymSchedule({ config }: { config: GymConfig }) {
                         <div className="flex items-center gap-1">
                           <Users className="h-3.5 w-3.5 text-muted-foreground" />
                           <span className={cls.spots < 5 ? "text-red-500 font-semibold" : ""}>
-                            {cls.spots} left
+                            {isMissingNumber(cls.spots) ? "[Missing number]" : `${cls.spots} left`}
                           </span>
                         </div>
                       </td>

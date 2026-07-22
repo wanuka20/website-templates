@@ -66,6 +66,7 @@ describe("POST /api/leads", () => {
     );
     const options = fetchMock.mock.calls[0][1] as RequestInit;
     expect(JSON.parse(String(options.body))).toMatchObject(validLead);
+    expect(JSON.parse(String(options.body))).not.toHaveProperty("website");
   });
 
   it("turns an Apps Script HTTP error into HTTP 502", async () => {
@@ -108,6 +109,20 @@ describe("POST /api/leads", () => {
     const response = await POST(request({ ...validLead, email: "not-an-email" }));
 
     expect(response.status).toBe(400);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("silently accepts a filled honeypot without contacting Apps Script", async () => {
+    process.env.GYM_GOOGLE_SHEET_WEB_APP_URL =
+      "https://script.google.com/macros/s/test-gym/exec";
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+    const { POST } = await import("@/app/api/leads/route");
+
+    const response = await POST(request({ website: "https://spam.example" }));
+
+    expect(response.status).toBe(200);
+    await expect(response.json()).resolves.toEqual({ ok: true });
     expect(fetchMock).not.toHaveBeenCalled();
   });
 

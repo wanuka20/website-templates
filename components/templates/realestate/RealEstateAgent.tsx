@@ -53,9 +53,9 @@ export function RealEstateAgent({ config }: { config: RealEstateConfig }) {
             <p className="mt-6 text-muted-foreground leading-relaxed whitespace-pre-line text-sm">{agent.bio}</p>
 
             <div className="mt-6">
-              <h4 className="mb-3 font-semibold flex items-center gap-2">
+              <h3 className="mb-3 font-semibold flex items-center gap-2">
                 <Award className="h-4 w-4 text-emerald-500" />Certifications
-              </h4>
+              </h3>
               <div className="flex flex-wrap gap-2">
                 {agent.certifications.map((cert) => (
                   <Badge key={cert} variant="secondary" className="text-xs">{cert}</Badge>
@@ -64,9 +64,9 @@ export function RealEstateAgent({ config }: { config: RealEstateConfig }) {
             </div>
 
             <div className="mt-4">
-              <h4 className="mb-3 font-semibold flex items-center gap-2">
+              <h3 className="mb-3 font-semibold flex items-center gap-2">
                 <Globe className="h-4 w-4 text-emerald-500" />Languages
-              </h4>
+              </h3>
               <div className="flex gap-2">
                 {agent.languages.map((lang) => (
                   <Badge key={lang} className="bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 text-xs">{lang}</Badge>

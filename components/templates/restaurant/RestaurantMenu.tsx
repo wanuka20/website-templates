@@ -7,6 +7,7 @@ import { SectionHeader } from "@/components/shared/SectionHeader";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/shared/AnimatedSection";
 import { Flame, Leaf } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { displayNumber } from "@/lib/content-placeholders";
 import type { RestaurantConfig } from "@/types";
 
 export function RestaurantMenu({ config }: { config: RestaurantConfig }) {
@@ -47,7 +48,7 @@ export function RestaurantMenu({ config }: { config: RestaurantConfig }) {
                   <div className="flex items-start justify-between gap-2">
                     <h3 className="font-bold text-base leading-tight">{item.name}</h3>
                     <div className="shrink-0 font-bold text-amber-600">
-                      LKR {item.price.toLocaleString()}
+                      LKR {displayNumber(item.price)}
                     </div>
                   </div>
                   <p className="mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2">{item.description}</p>

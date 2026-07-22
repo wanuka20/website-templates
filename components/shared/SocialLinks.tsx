@@ -16,13 +16,29 @@ const socialNetworks = [
   { key: "linkedin", label: "LinkedIn", Icon: Linkedin },
 ] as const;
 
+function isExternalSocialUrl(value: string | undefined): value is string {
+  if (!value) {
+    return false;
+  }
+
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" || url.protocol === "http:";
+  } catch {
+    return false;
+  }
+}
+
 export function SocialLinks({
   links,
   className = "flex items-center gap-3",
   iconClassName = "h-5 w-5",
   linkClassName,
 }: SocialLinksProps) {
-  const visibleLinks = socialNetworks.filter(({ key }) => Boolean(links[key]));
+  const visibleLinks = socialNetworks.flatMap(({ key, label, Icon }) => {
+    const href = links[key];
+    return isExternalSocialUrl(href) ? [{ key, label, Icon, href }] : [];
+  });
 
   if (!visibleLinks.length) {
     return null;
@@ -30,10 +46,10 @@ export function SocialLinks({
 
   return (
     <div className={className}>
-      {visibleLinks.map(({ key, label, Icon }) => (
+      {visibleLinks.map(({ key, label, Icon, href }) => (
         <a
           key={key}
-          href={links[key]}
+          href={href}
           target="_blank"
           rel="noopener noreferrer"
           aria-label={label}

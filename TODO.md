@@ -10,6 +10,8 @@
 - [ ] Remove Google Sheets from the production request path
   - Keep read-only exports and rollback documentation for an agreed retention period.
   - Remove obsolete Apps Script environment variables only after the database rollout is proven.
+- [ ] Add durable per-IP rate limiting to the database-backed lead path
+  - Use shared database storage; do not use an in-memory Vercel counter.
 - [ ] Complete the database-backed production-readiness gate
   - Re-run linting, type checking, unit tests, browser tests, accessibility checks, production builds, lead tests, domain tests, and backup restoration.
   - Launch the first real pilot customer only after every isolation and rollback test passes.
@@ -156,27 +158,39 @@
 - [ ] Keep marketplace-page work out of this release
   - Limit homepage, template-gallery, pricing, and marketplace-branding changes to fixes required for navigation, correctness, security, or accessibility.
 
-# v.0.5.3  (Upcoming)
+# v.0.5.3  (In progress)
 ## Production Quality
-- [ ] Add spam protection to public lead forms
-  - Add server-side validation, rate limiting, and a honeypot field.
-- [ ] Fix accessibility violations
-  - Add `aria-invalid` and `aria-describedby` to form fields.
-  - Add accessible error/live regions.
-  - Fix contrast, link names, heading order, and nested interactive elements.
-- [ ] Remove placeholder `href="#"` links
-  - Add real destinations or render them as non-links.
-- [ ] Add production security headers
-  - Add CSP, X-Content-Type-Options, Referrer-Policy, Permissions-Policy, and frame protection.
-- [ ] Add SEO infrastructure
-  - Add canonical URLs, `robots.txt`, `sitemap.xml`, and favicon/metadata assets.
-- [ ] Fix Gym content inconsistency
-  - Align business name, trainer names, biographies, schedules, and lead data.
-- [ ] Fix Restaurant horizontal overflow at 200% zoom.
+### Completed
+- [x] Add server-side validation and a silent honeypot to public lead forms
+  - The shared ContactForm sends a hidden, keyboard-inaccessible `website` field to the server proxy.
+  - Filled honeypots receive a success response but never reach Apps Script or Google Sheets.
+- [x] Fix accessibility violations across public routes
+  - Added accessible form-error associations, assertive error announcements, and polite success announcements.
+  - Corrected heading order, landmarks, link distinction, CTA contrast, and nested controls; the Chromium Axe suite now passes on every public route.
+- [x] Remove placeholder `href="#"` links
+  - Contact locations and template addresses now open encoded Google Maps searches; hours render as non-interactive cards.
+  - Added preliminary Privacy Policy and Terms of Service routes, and unconfigured social icons remain visible without creating dead keyboard-focusable links.
+  - Added regression coverage confirming every public route has zero rendered `a[href="#"]` elements.
+- [x] Add production security headers
+  - Added an enforced CSP, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, and both modern and legacy frame protections through `next.config.ts`.
+  - Verified actual production headers and Chromium rendering across all public routes without CSP-related request, image, or runtime failures.
+- [x] Add SEO infrastructure
+  - Added explicit canonical and social-sharing metadata to the homepage, gallery, pricing, contact, and legal pages; the five template routes retain their content-driven metadata.
+  - Added generated `/robots.txt`, `/sitemap.xml`, and a browser-tab icon through Next.js metadata routes.
+  - Verified all public canonical tags, Open Graph metadata, robots, sitemap entries, and the icon from a production build.
+- [x] Make Google Sheets content gaps explicit across all five templates
+  - A successful Sheet response now renders `[Missing: exact.sheet.key]` for blank or invalid text fields, a visible missing-image tile for images, and a missing-number marker for numeric fields.
+  - Entering exactly `#FALLBACK` in any Sheet-backed field deliberately restores its matching local config value; local demo data remains available during Apps Script outages.
+- [x] Fix Restaurant horizontal overflow at 200% zoom
+  - Made the Restaurant footer columns shrinkable and allowed its email address to wrap, eliminating the 15 px horizontal overflow without hiding content.
+- [x] Correct the homepage Next.js version claim
+  - Updated the metadata description from Next.js 15 to the installed Next.js 16.
+- [x] Document image replacement and cache behavior
+  - Added a Sheets image-update workflow, explicit `#FALLBACK` and missing-image behavior, cache expectations, and local/Vercel troubleshooting steps to the README.
+
+### Next steps
 - [ ] Verify Vercel preview deployment
   - Test HTTPS, headers, ISR, image caching, custom-domain behavior, and lead submission.
-- [ ] Update incorrect Next.js 15 metadata to Next.js 16 or remove the version claim.
-- [ ] Document image replacement and cache behavior.)
 
 # v.0.5.2  (Pushed)
 ## Reliable lead submissions

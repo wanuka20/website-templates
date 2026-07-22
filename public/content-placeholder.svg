@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="Missing image">
+  <rect width="1200" height="800" fill="#e5e7eb"/>
+  <path d="M360 520l130-150 100 100 150-190 190 240H360z" fill="#9ca3af"/>
+  <circle cx="450" cy="280" r="52" fill="#9ca3af"/>
+  <text x="600" y="680" text-anchor="middle" fill="#4b5563" font-family="Arial, sans-serif" font-size="42">Missing image</text>
+</svg>

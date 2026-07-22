@@ -17,7 +17,7 @@ export function SalonFooter({ config }: { config: SalonConfig }) {
             <SocialLinks links={config.socialLinks} className="mt-4 flex gap-3" linkClassName="text-white/50 hover:text-rose-400 transition-colors" />
           </div>
           <div>
-            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white/40">Services</h4>
+            <p className="mb-4 text-sm font-semibold uppercase tracking-wider text-white/70">Services</p>
             <ul className="space-y-2 text-sm text-white/60">
               {config.serviceCategories.map((cat) => (
                 <li key={cat}><a href="#services" className="hover:text-rose-400 transition-colors">{cat}</a></li>
@@ -25,7 +25,7 @@ export function SalonFooter({ config }: { config: SalonConfig }) {
             </ul>
           </div>
           <div>
-            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white/40">Contact</h4>
+            <p className="mb-4 text-sm font-semibold uppercase tracking-wider text-white/70">Contact</p>
             <div className="space-y-2 text-sm text-white/60">
               <p>{config.phone}</p>
               <p>{config.email}</p>
@@ -33,7 +33,7 @@ export function SalonFooter({ config }: { config: SalonConfig }) {
             </div>
           </div>
         </div>
-        <div className="mt-8 border-t border-white/10 pt-8 text-center text-xs text-white/30">
+        <div className="mt-8 border-t border-white/20 pt-8 text-center text-xs text-white/60">
           © {new Date().getFullYear()} {config.name}. All rights reserved.
         </div>
       </div>

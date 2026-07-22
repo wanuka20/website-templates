@@ -8,6 +8,7 @@ import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import type { SalonConfig } from "@/types";
 import { isExternalBookingUrl, resolveBookingUrl } from "@/lib/booking-url";
+import { displayNumber } from "@/lib/content-placeholders";
 
 export function SalonPricing({ config }: { config: SalonConfig }) {
   const categories = config.serviceCategories;
@@ -51,7 +52,7 @@ export function SalonPricing({ config }: { config: SalonConfig }) {
                             <Clock className="h-3.5 w-3.5" />{item.duration}
                           </div>
                           <div className="w-32 text-right font-bold text-rose-500">
-                            LKR {item.price.toLocaleString()}
+                            LKR {displayNumber(item.price)}
                           </div>
                         </div>
                       </div>

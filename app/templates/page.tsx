@@ -7,13 +7,13 @@ import { whatsappConfig } from "@/config/whatsapp";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Copy } from "lucide-react";
-import type { Metadata } from "next";
+import { generateStaticMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Template Gallery — Browse All Business Templates",
-  description:
-    "Browse our collection of 5 professional business website templates. Preview before you buy.",
-};
+export const metadata = generateStaticMetadata(
+  "Template Gallery — Browse All Business Templates",
+  "Browse our collection of 5 professional business website templates. Preview before you buy.",
+  "/templates",
+);
 
 const templates = [
   {

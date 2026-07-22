@@ -20,7 +20,12 @@ const leadSchema = z.object({
   phone: z.string().trim().max(50).optional(),
   subject: z.string().trim().min(3).max(200),
   message: z.string().trim().min(10).max(5_000),
+  website: z.string().optional(),
 });
+
+const honeypotSchema = z.object({
+  website: z.string().optional(),
+}).passthrough();
 
 const templateEnvironmentKeys: Record<LeadTemplate, string> = {
   gym: "GYM_GOOGLE_SHEET_WEB_APP_URL",
@@ -81,6 +86,12 @@ export async function POST(request: Request) {
     );
   }
 
+  const honeypot = honeypotSchema.safeParse(requestBody);
+
+  if (honeypot.success && honeypot.data.website?.trim()) {
+    return NextResponse.json({ ok: true });
+  }
+
   const parsed = leadSchema.safeParse(requestBody);
 
   if (!parsed.success) {
@@ -90,7 +101,13 @@ export async function POST(request: Request) {
     );
   }
 
-  const { template } = parsed.data;
+  const { website, ...lead } = parsed.data;
+  const { template } = lead;
+
+  if (website?.trim()) {
+    return NextResponse.json({ ok: true });
+  }
+
   const webAppUrl = getAppsScriptUrl(template);
 
   if (!webAppUrl || !isAllowedAppsScriptUrl(webAppUrl)) {
@@ -109,7 +126,7 @@ export async function POST(request: Request) {
       headers: {
         "Content-Type": "text/plain;charset=utf-8",
       },
-      body: JSON.stringify(parsed.data),
+      body: JSON.stringify(lead),
       cache: "no-store",
       redirect: "follow",
     });

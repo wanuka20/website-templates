@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { StaggerContainer, StaggerItem } from "@/components/shared/AnimatedSection";
 import { cn } from "@/lib/utils";
+import { displayNumber } from "@/lib/content-placeholders";
 import type { GymConfig } from "@/types";
 
 function resolvePlanLink(value?: string) {
@@ -72,7 +73,7 @@ export function GymMembership({ config }: { config: GymConfig }) {
                   <div className="flex items-end gap-1">
                     <span className="text-xs font-medium opacity-70">{plan.currency}</span>
                     <span className="text-4xl font-black">
-                      {plan.price.toLocaleString()}
+                      {displayNumber(plan.price)}
                     </span>
                   </div>
                   <span className={cn("text-xs", plan.highlighted ? "text-white/70" : "text-white/50")}>

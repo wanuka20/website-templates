@@ -8,6 +8,7 @@ import { Clock, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { SalonConfig } from "@/types";
 import { isExternalBookingUrl, resolveBookingUrl } from "@/lib/booking-url";
+import { displayNumber } from "@/lib/content-placeholders";
 
 export function SalonServices({ config }: { config: SalonConfig }) {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -52,7 +53,7 @@ export function SalonServices({ config }: { config: SalonConfig }) {
                   <div className="flex items-center gap-1 text-xs text-muted-foreground">
                     <Clock className="h-3 w-3" />{service.duration}
                   </div>
-                  <div className="font-bold text-rose-500">LKR {service.price.toLocaleString()}</div>
+                  <div className="font-bold text-rose-500">LKR {displayNumber(service.price)}</div>
                 </div>
                 <a href={bookingUrl} target={bookingIsExternal ? "_blank" : undefined} rel={bookingIsExternal ? "noopener noreferrer" : undefined}
                   className="mt-4 flex items-center gap-1 text-xs font-medium text-rose-500 opacity-0 transition-opacity group-hover:opacity-100">

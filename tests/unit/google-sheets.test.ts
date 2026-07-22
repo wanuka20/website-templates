@@ -50,6 +50,18 @@ describe("contact lead proxy request construction", () => {
     });
   });
 
+  it("includes the honeypot only in the proxy payload", async () => {
+    const fetchMock = vi.fn().mockResolvedValue(jsonResponse({ ok: true }));
+    vi.stubGlobal("fetch", fetchMock);
+    const { submitLeadToGoogleSheet } = await import("@/lib/googleSheets");
+
+    await submitLeadToGoogleSheet({ ...submission, honeypot: "bot-filled-value" });
+
+    expect(JSON.parse(String(fetchMock.mock.calls[0][1].body))).toMatchObject({
+      website: "bot-filled-value",
+    });
+  });
+
   it("rejects an HTTP error response", async () => {
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue(jsonResponse({ ok: false }, 500)));
     const { submitLeadToGoogleSheet } = await import("@/lib/googleSheets");

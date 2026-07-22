@@ -4,13 +4,13 @@ import { ContactSection } from "@/components/home/ContactSection";
 import { WhatsAppButton } from "@/components/shared/WhatsAppButton";
 import { whatsappConfig } from "@/config/whatsapp";
 import { Badge } from "@/components/ui/badge";
-import type { Metadata } from "next";
+import { generateStaticMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Contact Us — WebsiteTemplates",
-  description:
-    "Get in touch with WebsiteTemplates. Questions about our templates? Need a custom solution? We're here to help.",
-};
+export const metadata = generateStaticMetadata(
+  "Contact Us — WebsiteTemplates",
+  "Get in touch with WebsiteTemplates. Questions about our templates? Need a custom solution? We're here to help.",
+  "/contact",
+);
 
 export default function ContactPage() {
   return (

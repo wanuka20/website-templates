@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
+import { SITE_URL } from "@/lib/seo";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
     template: "%s | WebsiteTemplates",
   },
   description:
-    "Professional, ready-made website templates for small businesses. Gym, salon, restaurant, tuition, and real estate templates built with Next.js 15.",
+    "Professional, ready-made website templates for small businesses. Gym, salon, restaurant, tuition, and real estate templates built with Next.js 16.",
   keywords: [
     "website templates",
     "business website",
@@ -18,9 +19,7 @@ export const metadata: Metadata = {
     "salon website",
     "restaurant website",
   ],
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://websitetemplates.vercel.app"
-  ),
+  metadataBase: new URL(SITE_URL),
   openGraph: {
     type: "website",
     locale: "en_US",

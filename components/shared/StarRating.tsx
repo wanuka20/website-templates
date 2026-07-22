@@ -1,5 +1,6 @@
 import { Star } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { isMissingNumber } from "@/lib/content-placeholders";
 
 interface StarRatingProps {
   rating: number;
@@ -22,7 +23,11 @@ export function StarRating({
 }: StarRatingProps) {
   return (
     <div className={cn("flex items-center gap-0.5", className)}>
-      {Array.from({ length: maxRating }).map((_, i) => (
+      {isMissingNumber(rating) ? (
+        <span className="text-xs text-muted-foreground">[Missing rating]</span>
+      ) : (
+        <>
+          {Array.from({ length: maxRating }).map((_, i) => (
         <Star
           key={i}
           className={cn(
@@ -32,7 +37,9 @@ export function StarRating({
               : "fill-muted text-muted-foreground"
           )}
         />
-      ))}
+          ))}
+        </>
+      )}
     </div>
   );
 }

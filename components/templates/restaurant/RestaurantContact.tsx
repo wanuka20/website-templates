@@ -6,6 +6,7 @@ import { SectionHeader } from "@/components/shared/SectionHeader";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { WhatsAppInline } from "@/components/shared/WhatsAppButton";
 import { submitLeadToGoogleSheet } from "@/lib/googleSheets";
+import { getGoogleMapsSearchUrl } from "@/lib/contact-links";
 import type { RestaurantConfig } from "@/types";
 
 export function RestaurantContact({ config }: { config: RestaurantConfig }) {
@@ -23,10 +24,11 @@ export function RestaurantContact({ config }: { config: RestaurantConfig }) {
               {[
                 { icon: Phone, label: "Reservations", value: config.reservationPhone, href: `tel:${config.reservationPhone}` },
                 { icon: Mail, label: "Email", value: config.email, href: `mailto:${config.email}` },
-                { icon: MapPin, label: "Address", value: `${config.address}, ${config.city}`, href: "#" },
-                { icon: Clock, label: "Kitchen Hours", value: "Open from 12:00 PM daily", href: "#" },
-              ].map(({ icon: Icon, label, value, href }) => (
-                <a key={label} href={href} className="flex items-start gap-4 rounded-xl border bg-card p-5 hover:border-amber-300 hover:shadow-sm transition-all">
+                { icon: MapPin, label: "Address", value: `${config.address}, ${config.city}`, href: getGoogleMapsSearchUrl(config.address, config.city) },
+                { icon: Clock, label: "Kitchen Hours", value: "Open from 12:00 PM daily" },
+              ].map(({ icon: Icon, label, value, href }) => {
+                const content = (
+                  <>
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-amber-100 text-amber-600 dark:bg-amber-900/30">
                     <Icon className="h-5 w-5" />
                   </div>
@@ -34,10 +36,21 @@ export function RestaurantContact({ config }: { config: RestaurantConfig }) {
                     <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{label}</div>
                     <div className="mt-0.5 font-medium text-sm">{value}</div>
                   </div>
-                </a>
-              ))}
+                  </>
+                );
+
+                return href ? (
+                  <a key={label} href={href} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noopener noreferrer" : undefined} className="flex items-start gap-4 rounded-xl border bg-card p-5 hover:border-amber-300 hover:shadow-sm transition-all">
+                    {content}
+                  </a>
+                ) : (
+                  <div key={label} className="flex items-start gap-4 rounded-xl border bg-card p-5">
+                    {content}
+                  </div>
+                );
+              })}
               <div className="rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 p-6 text-white">
-                <h4 className="mb-2 font-bold">Instant Reservation via WhatsApp</h4>
+                <h3 className="mb-2 font-bold">Instant Reservation via WhatsApp</h3>
                 <p className="mb-4 text-sm text-white/80">Tell us your preferred date, time, and party size — we&apos;ll confirm immediately.</p>
                 <WhatsAppInline config={config.whatsapp} label="Reserve on WhatsApp" className="w-full justify-center" />
               </div>
@@ -48,11 +61,12 @@ export function RestaurantContact({ config }: { config: RestaurantConfig }) {
               <h3 className="mb-6 text-xl font-bold">Make a Reservation</h3>
               <ContactForm
                 accentColor="#f59e0b"
-                onSubmit={(data) =>
+                onSubmit={({ data, honeypot }) =>
                   submitLeadToGoogleSheet({
                     template: "restaurant",
                     businessName: config.name,
                     data,
+                    honeypot,
                   })
                 }
               />

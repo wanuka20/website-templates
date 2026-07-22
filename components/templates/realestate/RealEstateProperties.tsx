@@ -8,6 +8,7 @@ import { SectionHeader } from "@/components/shared/SectionHeader";
 import { StaggerContainer, StaggerItem } from "@/components/shared/AnimatedSection";
 import { Bed, Bath, Maximize, MapPin, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { displayNumber, isMissingNumber } from "@/lib/content-placeholders";
 import type { RealEstateConfig, Property } from "@/types";
 
 const statusColors: Record<string, string> = {
@@ -24,6 +25,7 @@ function PropertyCard({ property }: { property: Property }) {
   const currentImage = images[activeImage] ?? property.images[0];
 
   const formatPrice = (p: number, currency: string, status: string) => {
+    if (isMissingNumber(p)) return "[Missing number]";
     const formattedPrice = p >= 1000000 ? `${(p / 1000000).toFixed(1)}M` : p.toLocaleString();
 
     if (status === "For Rent" || status === "Rented") {
@@ -108,21 +110,21 @@ function PropertyCard({ property }: { property: Property }) {
           </div>
         )}
         <div className="flex items-center gap-4 text-xs text-muted-foreground border-t pt-3">
-          {property.bedrooms && (
+          {(property.bedrooms || isMissingNumber(property.bedrooms ?? Number.NaN)) && (
             <div className="flex items-center gap-1">
-              <Bed className="h-3.5 w-3.5" />{property.bedrooms} bed
+              <Bed className="h-3.5 w-3.5" />{displayNumber(property.bedrooms ?? Number.NaN)} bed
             </div>
           )}
-          {property.bathrooms && (
+          {(property.bathrooms || isMissingNumber(property.bathrooms ?? Number.NaN)) && (
             <div className="flex items-center gap-1">
-              <Bath className="h-3.5 w-3.5" />{property.bathrooms} bath
+              <Bath className="h-3.5 w-3.5" />{displayNumber(property.bathrooms ?? Number.NaN)} bath
             </div>
           )}
           <div className="flex items-center gap-1">
-            <Maximize className="h-3.5 w-3.5" />{property.area} {property.areaUnit}
+            <Maximize className="h-3.5 w-3.5" />{displayNumber(property.area)} {property.areaUnit}
           </div>
         </div>
-        <Button size="sm" className="mt-4 w-full gap-1.5 bg-emerald-600 text-white hover:bg-emerald-700">
+        <Button asChild size="sm" className="mt-4 w-full gap-1.5 bg-emerald-600 text-white hover:bg-emerald-700">
           <a href="#contact" className="flex items-center gap-1.5 w-full justify-center">
             Enquire Now <ArrowRight className="h-3.5 w-3.5" />
           </a>

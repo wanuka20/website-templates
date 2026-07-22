@@ -15,6 +15,7 @@ interface SubmitLeadOptions {
   template: LeadTemplate;
   businessName: string;
   data: ContactFormData;
+  honeypot?: string;
 }
 
 function getLeadSubmissionTimeoutMs() {
@@ -32,6 +33,7 @@ export async function submitLeadToGoogleSheet({
   template,
   businessName,
   data,
+  honeypot,
 }: SubmitLeadOptions) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), getLeadSubmissionTimeoutMs());
@@ -52,6 +54,7 @@ export async function submitLeadToGoogleSheet({
             ? window.location.pathname
             : "",
         ...data,
+        website: honeypot,
       }),
       signal: controller.signal,
     });

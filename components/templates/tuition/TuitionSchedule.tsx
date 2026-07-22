@@ -5,6 +5,7 @@ import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { Clock, Users, Badge as BadgeIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { isMissingNumber } from "@/lib/content-placeholders";
 import type { TuitionConfig } from "@/types";
 
 export function TuitionSchedule({ config }: { config: TuitionConfig }) {
@@ -46,7 +47,7 @@ export function TuitionSchedule({ config }: { config: TuitionConfig }) {
                         <div className="flex items-center gap-1">
                           <Users className="h-3.5 w-3.5 text-muted-foreground" />
                           <span className={cls.seatsAvailable < 5 ? "text-red-500 font-bold" : "text-green-600 font-medium"}>
-                            {cls.seatsAvailable} left
+                            {isMissingNumber(cls.seatsAvailable) ? "[Missing number]" : `${cls.seatsAvailable} left`}
                           </span>
                         </div>
                       </td>

@@ -7,6 +7,7 @@ import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { WhatsAppInline } from "@/components/shared/WhatsAppButton";
 import { Badge } from "@/components/ui/badge";
 import { submitLeadToGoogleSheet } from "@/lib/googleSheets";
+import { getGoogleMapsSearchUrl } from "@/lib/contact-links";
 import type { RealEstateConfig } from "@/types";
 
 export function RealEstateContact({ config }: { config: RealEstateConfig }) {
@@ -24,9 +25,10 @@ export function RealEstateContact({ config }: { config: RealEstateConfig }) {
               {[
                 { icon: Phone, label: "Direct Line", value: config.agent.phone, href: `tel:${config.agent.phone}` },
                 { icon: Mail, label: "Email", value: config.agent.email, href: `mailto:${config.agent.email}` },
-                { icon: MapPin, label: "Office", value: `${config.address}, ${config.city}`, href: "#" },
-              ].map(({ icon: Icon, label, value, href }) => (
-                <a key={label} href={href} className="flex items-start gap-4 rounded-xl border bg-card p-5 hover:border-emerald-300 hover:shadow-sm transition-all">
+                { icon: MapPin, label: "Office", value: `${config.address}, ${config.city}`, href: getGoogleMapsSearchUrl(config.address, config.city) },
+              ].map(({ icon: Icon, label, value, href }) => {
+                const content = (
+                  <>
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30">
                     <Icon className="h-5 w-5" />
                   </div>
@@ -34,13 +36,24 @@ export function RealEstateContact({ config }: { config: RealEstateConfig }) {
                     <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{label}</div>
                     <div className="mt-0.5 font-medium text-sm">{value}</div>
                   </div>
-                </a>
-              ))}
+                  </>
+                );
+
+                return href ? (
+                  <a key={label} href={href} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noopener noreferrer" : undefined} className="flex items-start gap-4 rounded-xl border bg-card p-5 hover:border-emerald-300 hover:shadow-sm transition-all">
+                    {content}
+                  </a>
+                ) : (
+                  <div key={label} className="flex items-start gap-4 rounded-xl border bg-card p-5">
+                    {content}
+                  </div>
+                );
+              })}
 
               <div className="rounded-2xl border bg-card p-5">
-                <h4 className="mb-3 font-semibold flex items-center gap-2">
+                <h3 className="mb-3 font-semibold flex items-center gap-2">
                   <MapIcon className="h-4 w-4 text-emerald-500" />Areas We Cover
-                </h4>
+                </h3>
                 <div className="flex flex-wrap gap-1.5">
                   {config.areas.map((area) => (
                     <Badge key={area} variant="secondary" className="text-xs">{area}</Badge>
@@ -49,7 +62,7 @@ export function RealEstateContact({ config }: { config: RealEstateConfig }) {
               </div>
 
               <div className="rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-700 p-6 text-white">
-                <h4 className="mb-2 font-bold">WhatsApp Property Search</h4>
+                <h3 className="mb-2 font-bold">WhatsApp Property Search</h3>
                 <p className="mb-4 text-sm text-white/80">Tell us your budget, preferred location and property type. We&apos;ll send you matching listings right away.</p>
                 <WhatsAppInline config={config.whatsapp} label="Search via WhatsApp" className="w-full justify-center" />
               </div>
@@ -60,11 +73,12 @@ export function RealEstateContact({ config }: { config: RealEstateConfig }) {
               <h3 className="mb-6 text-xl font-bold">Property Inquiry Form</h3>
               <ContactForm
                 accentColor="#059669"
-                onSubmit={(data) =>
+                onSubmit={({ data, honeypot }) =>
                   submitLeadToGoogleSheet({
                     template: "realestate",
                     businessName: config.name,
                     data,
+                    honeypot,
                   })
                 }
               />

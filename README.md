@@ -149,6 +149,73 @@ and `{ "ok": true }`.
 
 ---
 
+## Replacing Images and Understanding Caching
+
+Use the **Value** column in the relevant template's Google Sheets Settings tab
+to replace an image. Image fields have keys such as `heroImage`, `logo`,
+`menu.1.image`, `trainers.1.image`, `galleryImages.1.src`, and
+`testimonials.1.avatar`. The Help column identifies image rows.
+
+### Safe replacement workflow
+
+1. Upload the new image somewhere publicly accessible. A direct HTTPS image URL
+   or a Google Drive sharing URL is supported. The image must be viewable
+   without signing in.
+2. Prefer a **new file URL** for each replacement. For Google Drive, upload a
+   new file rather than replacing the contents of the old one, so it receives a
+   new file ID.
+3. Paste the URL into the row's **Value** cell. A rich-text hyperlink in that
+   cell also works; the Apps Script reads the link destination.
+4. Wait for the Sheets content cache to revalidate, then reload the affected
+   page. The default is five minutes (`GOOGLE_SHEETS_REVALIDATE_SECONDS=300`).
+   Revalidation is request-triggered: the first visit after that period can
+   briefly receive the previous page while Next.js refreshes it; reload once
+   more after a few seconds.
+
+### What each value means
+
+- A normal URL displays that image.
+- `#FALLBACK` deliberately shows the matching local demo image from `config/`.
+- A blank, invalid, or missing image value displays the visible **Missing image**
+  tile. This is intentional, so incomplete Sheet content is not mistaken for
+  demo data.
+- A local path such as `/placeholder_images/...` only works when that file is
+  committed under `public/` and included in the deployed build. It is useful for
+  project-owned placeholders, not for ad-hoc customer uploads.
+
+### Why an old image can remain visible
+
+There are two separate caches:
+
+1. **Content cache:** Next.js caches the Apps Script response, so the site may
+   continue using the previous image URL until the revalidation period passes.
+2. **Image cache:** browsers and Vercel's image optimizer cache the file behind
+   an image URL. Replacing the file at the same URL may therefore continue to
+   show the old pixels even after the Sheet value has refreshed.
+
+Using a new image URL avoids both ambiguity and cache-busting tricks. Do not add
+random query strings to Google Drive links; use a new Drive file ID instead.
+
+### If the change still does not appear
+
+1. Confirm the Sheet cell contains the exact public image URL, with no extra
+   spaces.
+2. Open the URL in an incognito/private browser window. If it asks for sign-in,
+   the website cannot use it.
+3. Wait at least the configured `GOOGLE_SHEETS_REVALIDATE_SECONDS`, visit the
+   page once, wait a few seconds, then reload.
+4. Test in a private window to bypass your normal browser cache.
+5. For local testing only, run `npm.cmd run dev:fresh`. This clears the local
+   Next.js cache and starts development again; it does not clear Vercel's cache.
+
+The default image-host allowlist supports `images.unsplash.com`,
+`plus.unsplash.com`, and `drive.google.com`. A new external image host requires
+a code/deployment change to `next.config.ts` (or the intentionally broad
+`ALLOW_ANY_IMAGE_HOSTS=true` setting), so prefer the existing supported sources
+while the project is in this pilot stage.
+
+---
+
 ## Adding Email Integration
 
 The contact form currently logs submissions to the console. To add email:

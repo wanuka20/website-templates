@@ -6,6 +6,7 @@ import { SectionHeader } from "@/components/shared/SectionHeader";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { WhatsAppInline } from "@/components/shared/WhatsAppButton";
 import { submitLeadToGoogleSheet } from "@/lib/googleSheets";
+import { getGoogleMapsSearchUrl } from "@/lib/contact-links";
 import type { TuitionConfig } from "@/types";
 
 export function TuitionContact({ config }: { config: TuitionConfig }) {
@@ -23,9 +24,10 @@ export function TuitionContact({ config }: { config: TuitionConfig }) {
               {[
                 { icon: Phone, label: "Phone", value: config.phone, href: `tel:${config.phone}` },
                 { icon: Mail, label: "Email", value: config.email, href: `mailto:${config.email}` },
-                { icon: MapPin, label: "Address", value: `${config.address}, ${config.city}`, href: "#" },
-              ].map(({ icon: Icon, label, value, href }) => (
-                <a key={label} href={href} className="flex items-start gap-4 rounded-xl border bg-card p-5 hover:border-blue-300 hover:shadow-sm transition-all">
+                { icon: MapPin, label: "Address", value: `${config.address}, ${config.city}`, href: getGoogleMapsSearchUrl(config.address, config.city) },
+              ].map(({ icon: Icon, label, value, href }) => {
+                const content = (
+                  <>
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-blue-600 dark:bg-blue-900/30">
                     <Icon className="h-5 w-5" />
                   </div>
@@ -33,10 +35,21 @@ export function TuitionContact({ config }: { config: TuitionConfig }) {
                     <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{label}</div>
                     <div className="mt-0.5 font-medium text-sm">{value}</div>
                   </div>
-                </a>
-              ))}
+                  </>
+                );
+
+                return href ? (
+                  <a key={label} href={href} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noopener noreferrer" : undefined} className="flex items-start gap-4 rounded-xl border bg-card p-5 hover:border-blue-300 hover:shadow-sm transition-all">
+                    {content}
+                  </a>
+                ) : (
+                  <div key={label} className="flex items-start gap-4 rounded-xl border bg-card p-5">
+                    {content}
+                  </div>
+                );
+              })}
               <div className="rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 p-6 text-white">
-                <h4 className="mb-2 font-bold">WhatsApp Registration</h4>
+                <h3 className="mb-2 font-bold">WhatsApp Registration</h3>
                 <p className="mb-4 text-sm text-blue-100">Message us your child&apos;s name, grade, and subjects to start the registration process immediately.</p>
                 <WhatsAppInline config={config.whatsapp} label="Register via WhatsApp" className="w-full justify-center" />
               </div>
@@ -47,11 +60,12 @@ export function TuitionContact({ config }: { config: TuitionConfig }) {
               <h3 className="mb-6 text-xl font-bold">Registration Enquiry</h3>
               <ContactForm
                 accentColor="#2563eb"
-                onSubmit={(data) =>
+                onSubmit={({ data, honeypot }) =>
                   submitLeadToGoogleSheet({
                     template: "tuition",
                     businessName: config.name,
                     data,
+                    honeypot,
                   })
                 }
               />
