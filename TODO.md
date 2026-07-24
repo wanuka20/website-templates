@@ -12,6 +12,8 @@
   - Remove obsolete Apps Script environment variables only after the database rollout is proven.
 - [ ] Add durable per-IP rate limiting to the database-backed lead path
   - Use shared database storage; do not use an in-memory Vercel counter.
+- [ ] Verify customer custom-domain behavior after the database migration
+  - Test domain verification, HTTPS, redirects, site resolution, caching, metadata, and lead routing on a real customer domain.
 - [ ] Complete the database-backed production-readiness gate
   - Re-run linting, type checking, unit tests, browser tests, accessibility checks, production builds, lead tests, domain tests, and backup restoration.
   - Launch the first real pilot customer only after every isolation and rollback test passes.
@@ -158,7 +160,7 @@
 - [ ] Keep marketplace-page work out of this release
   - Limit homepage, template-gallery, pricing, and marketplace-branding changes to fixes required for navigation, correctness, security, or accessibility.
 
-# v.0.5.3  (In progress)
+# v.0.5.3  (Pushed)
 ## Production Quality
 ### Completed
 - [x] Add server-side validation and a silent honeypot to public lead forms
@@ -187,10 +189,9 @@
   - Updated the metadata description from Next.js 15 to the installed Next.js 16.
 - [x] Document image replacement and cache behavior
   - Added a Sheets image-update workflow, explicit `#FALLBACK` and missing-image behavior, cache expectations, and local/Vercel troubleshooting steps to the README.
-
-### Next steps
-- [ ] Verify Vercel preview deployment
-  - Test HTTPS, headers, ISR, image caching, custom-domain behavior, and lead submission.
+- [x] Verify Vercel preview deployment
+  - Verified the deployed preview over HTTPS, security headers, ISR/cache behavior, optimized image caching, all public routes, and one successful lead submission for each template; every labelled test lead was removed afterwards.
+  - Customer custom-domain behavior is intentionally deferred to v0.6.5, when the database-backed site and domain model exists.
 
 # v.0.5.2  (Pushed)
 ## Reliable lead submissions

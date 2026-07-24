@@ -1,6 +1,13 @@
-CURRENT VERSION: 0.5.2
+CURRENT VERSION: 0.5.3
 
 VERSION HISTORY:
+  - 2026-07-23 - v0.5.3: production quality, accessibility, and deployment readiness.
+    - Added server-side lead validation coverage and a silent honeypot, with durable shared per-IP rate limiting deferred to the future database-backed path.
+    - Remediated public-route accessibility issues, removed placeholder links, added legal placeholders, and restored the templates' bright primary colour identity.
+    - Added production security headers, canonical metadata, robots, sitemap, browser icon, and image/cache documentation.
+    - Made missing Google Sheets content explicit while retaining an intentional `#FALLBACK` escape hatch for local defaults.
+    - Verified the Vercel preview's HTTPS, headers, ISR, optimized image caching, public routes, and one cleaned-up live lead submission for each template.
+
   - 2026-07-18 - v0.5.2: reliable lead submissions and verified lead-delivery recovery.
     - Moved all five reference Apps Script files into `GoogleAppsScript/` and made lead values text-safe, so phone numbers beginning with `+` are stored correctly instead of becoming formulas or `#ERROR!`.
     - Added the same-origin `/api/leads` proxy so the website only reports success after Apps Script returns a successful HTTP response with `{ "ok": true }`.
