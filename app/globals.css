@@ -86,8 +86,17 @@
     @apply transition-shadow duration-200 hover:shadow-md;
   }
 
-  .template-section {
+.template-section {
     @apply scroll-mt-20;
+  }
+
+  .gym-template input,
+  .gym-template textarea {
+    @apply rounded-none border-white/20 bg-black/30;
+  }
+
+  .gym-template aside a {
+    @apply rounded-none border border-red-600 bg-[#111] shadow-none;
   }
 }
 

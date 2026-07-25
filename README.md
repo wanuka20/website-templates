@@ -6,7 +6,7 @@ A production-ready website template marketplace with 5 fully functional business
 
 | Template | Route | Theme |
 |---|---|---|
-| Gym | `/templates/gym` | Orange / Dark |
+| Gym | `/templates/gym` | Switchable: Editorial Red / Classic Orange |
 | Salon | `/templates/salon` | Rose / Luxury |
 | Restaurant | `/templates/restaurant` | Amber / Premium |
 | Tuition Class | `/templates/tuition` | Blue / Trustworthy |
@@ -99,6 +99,38 @@ export const gymConfig: GymConfig = {
 ```
 
 A non-technical person can edit this file without touching any UI code.
+
+---
+
+## Switching Gym Designs
+
+The Gym template has two complete visual presentations that use the same Google
+Sheets content, form submission flow, links, and navigation:
+
+- `editorial` — the new premium black/red fitness design.
+- `classic` — the original orange-led Gym presentation.
+
+Open `config/gym-design.ts` and change one line:
+
+```typescript
+export const gymDesign: GymDesign = "editorial";
+```
+
+Replace `"editorial"` with `"classic"` to use the original look. The two
+top-level renderers are:
+
+- `components/templates/gym/EditorialGymTemplate.tsx`
+- `components/templates/gym/ClassicGymTemplate.tsx`
+
+The same structure is ready for every template family. Salon, Restaurant, Real
+Estate, and Tuition currently use their unchanged `default` designs, selected
+from `config/salon-design.ts`, `config/restaurant-design.ts`,
+`config/realestate-design.ts`, and `config/tuition-design.ts`.
+
+To add another design to any template later, create a new top-level renderer,
+add its name to that template's `*Design` type in `config/`, and register it in
+the typed renderer map in the matching `app/templates/*/page.tsx` file. This
+keeps design choice separate from content and Google Sheets integration.
 
 ---
 

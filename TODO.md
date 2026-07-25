@@ -142,8 +142,17 @@
   - Ensure future server logs record an ISO UTC timestamp for reliable machine processing plus an `Asia/Colombo` timestamp for operations and support.
   - Add tests covering the expected Sri Lanka timestamp format and date boundary around midnight.
 
-# v.0.5.4  (Upcoming)
+# v.0.5.4  (In progress)
 ## Business Template Visual Enhancement
+### Completed
+- [x] Add switchable Gym visual designs
+  - Added `config/gym-design.ts` as the single place to select the active Gym presentation: `"editorial"` for the new black/red design or `"classic"` for the original orange-led design.
+  - Kept each design in its own top-level renderer (`EditorialGymTemplate.tsx` and `ClassicGymTemplate.tsx`), both using the same Google Sheets content, lead form, anchors, contact links, membership links, and WhatsApp behavior.
+  - Added the same typed renderer-map structure for Salon, Restaurant, Real Estate, and Tuition, each starting with its unchanged `default` design and ready for future variants.
+  - Made every page renderer map type-checked so future designs can be added as a file, a design name, and one map entry without changing the data or backend integration.
+
+### Next steps
+- [ ] Continue the remaining visual-enhancement work
 - [ ] Review and polish all five business templates
   - Audit Gym, Restaurant, Salon, Real Estate, and Tuition independently on desktop, tablet, and mobile.
   - Improve visual hierarchy, spacing, typography, imagery, section flow, and consistency without redesigning stable components unnecessarily.

@@ -1,16 +1,17 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Play, Users, Star, Award } from "lucide-react";
 import type { GymConfig } from "@/types";
 
 export function GymHero({ config }: { config: GymConfig }) {
+  const titleWords = config.heroTitle.split(/(\s+)/);
+  const lastWord = [...titleWords].reverse().find((word) => word.trim());
+
   return (
     <section
       id="hero"
-      className="relative flex min-h-screen items-center justify-center overflow-hidden"
+      className="relative flex min-h-screen items-end overflow-hidden bg-[#080808] pt-20 lg:items-center"
     >
-      {/* Background */}
       <div className="absolute inset-0">
         <Image
           src={config.heroImage}
@@ -18,68 +19,56 @@ export function GymHero({ config }: { config: GymConfig }) {
           fill
           priority
           sizes="100vw"
-          className="object-cover"
+          className="object-cover object-[68%_center] grayscale-[0.15] lg:object-[72%_center]"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/30" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#080808] via-[#080808]/85 to-black/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-black/30" />
+        <div className="absolute inset-x-0 bottom-0 h-px bg-red-600/70" />
       </div>
 
-      <div className="relative container mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
-        <div className="max-w-2xl">
+      <div className="relative container mx-auto max-w-7xl px-4 pb-8 pt-20 sm:px-6 sm:pb-12 lg:px-8 lg:py-20">
+        <div className="max-w-3xl">
           <div className="hero-reveal hero-reveal-from-left">
-            <Badge className="mb-6 bg-orange-500/20 text-orange-400 border-orange-500/40">
-              🔥 Join 1,200+ Members
-            </Badge>
+            <span className="mb-7 inline-flex border border-red-600/70 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.24em] text-red-400">
+              {config.tagline}
+            </span>
           </div>
 
-          <h1
-            className="hero-reveal hero-delay-1 mb-6 text-5xl font-black leading-none tracking-tight text-white sm:text-6xl lg:text-7xl"
-            style={{ whiteSpace: "pre-line" }}
-          >
-            {config.heroTitle}
+          <h1 className="hero-reveal hero-delay-1 mb-5 max-w-3xl text-5xl font-black uppercase leading-[0.83] tracking-[-0.075em] text-white sm:text-7xl lg:text-7xl xl:text-8xl">
+            {titleWords.map((word, index) =>
+              word === lastWord ? <span key={index} className="text-red-600">{word}</span> : word,
+            )}
           </h1>
 
-          <p
-            className="hero-reveal hero-delay-2 mb-10 max-w-xl text-lg leading-relaxed text-white/80"
-          >
+          <p className="hero-reveal hero-delay-2 mb-7 max-w-lg text-sm leading-relaxed text-zinc-300 sm:text-base">
             {config.heroSubtitle}
           </p>
 
-          <div className="hero-reveal hero-delay-3 flex flex-col gap-4 sm:flex-row">
-            <Button
-              asChild
-              size="xl"
-              className="gap-2 bg-orange-500 text-white font-bold hover:bg-orange-600 shadow-lg shadow-orange-500/30"
-            >
+          <div className="hero-reveal hero-delay-3 flex flex-col gap-3 sm:flex-row">
+            <Button asChild size="xl" className="h-14 gap-2 rounded-none bg-red-600 px-7 font-bold uppercase tracking-[0.12em] text-white hover:bg-red-700">
               <a href="#membership">
                 {config.heroCtaText}
                 <ArrowRight className="h-5 w-5" />
               </a>
             </Button>
-            <Button
-              asChild
-              size="xl"
-              variant="outline"
-              className="gap-2 border-white/30 bg-white/15 text-white hover:bg-white/25"
-            >
+            <Button asChild size="xl" variant="outline" className="h-14 gap-2 rounded-none border-zinc-500 bg-black/20 px-7 font-bold uppercase tracking-[0.12em] text-white hover:border-white hover:bg-white hover:text-black">
               <a href="#classes">
-                <Play className="h-5 w-5 fill-white" />
+                <Play className="h-5 w-5 fill-current" />
                 View Schedule
               </a>
             </Button>
           </div>
 
-          {/* Stats */}
-          <div className="hero-reveal hero-delay-4 mt-16 grid grid-cols-3 gap-6 border-t border-white/20 pt-8">
+          <div className="hero-reveal hero-delay-4 mt-9 grid max-w-xl grid-cols-3 gap-4 border-t border-white/20 pt-5 sm:mt-12 sm:gap-7">
             {[
               { icon: Users, value: "1,200+", label: "Active Members" },
               { icon: Award, value: "15+", label: "Expert Trainers" },
               { icon: Star, value: "4.9★", label: "Member Rating" },
             ].map(({ icon: Icon, value, label }) => (
               <div key={label}>
-                <Icon className="mb-1 h-5 w-5 text-orange-400" />
-                <div className="text-2xl font-extrabold text-white">{value}</div>
-                <div className="text-xs text-white/60">{label}</div>
+                <Icon className="mb-1 h-4 w-4 text-red-500" />
+                <div className="text-2xl font-black tracking-tight text-white sm:text-3xl">{value}</div>
+                <div className="text-[10px] font-medium uppercase tracking-wider text-zinc-400">{label}</div>
               </div>
             ))}
           </div>

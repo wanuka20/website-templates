@@ -1,16 +1,14 @@
 import type { Metadata } from "next";
+import type { ComponentType } from "react";
 import { getTuitionContent } from "@/lib/template-content";
 import { generateMetadata as genMeta } from "@/lib/seo";
-import { TuitionNavbar } from "@/components/templates/tuition/TuitionNavbar";
-import { TuitionHero } from "@/components/templates/tuition/TuitionHero";
-import { TuitionSubjects } from "@/components/templates/tuition/TuitionSubjects";
-import { TuitionTeachers } from "@/components/templates/tuition/TuitionTeachers";
-import { TuitionResults } from "@/components/templates/tuition/TuitionResults";
-import { TuitionTestimonials } from "@/components/templates/tuition/TuitionTestimonials";
-import { TuitionSchedule } from "@/components/templates/tuition/TuitionSchedule";
-import { TuitionContact } from "@/components/templates/tuition/TuitionContact";
-import { TuitionFooter } from "@/components/templates/tuition/TuitionFooter";
-import { WhatsAppButton } from "@/components/shared/WhatsAppButton";
+import { tuitionDesign, type TuitionDesign } from "@/config/tuition-design";
+import { TuitionDefaultTemplate } from "@/components/templates/tuition/TuitionDefaultTemplate";
+import type { TuitionConfig } from "@/types";
+
+const tuitionTemplates: Record<TuitionDesign, ComponentType<{ config: TuitionConfig }>> = {
+  default: TuitionDefaultTemplate,
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   const config = await getTuitionContent();
@@ -20,21 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function TuitionTemplatePage() {
   const tuitionConfig = await getTuitionContent();
+  const TuitionTemplate = tuitionTemplates[tuitionDesign];
 
-  return (
-    <div className="flex min-h-screen flex-col">
-      <TuitionNavbar config={tuitionConfig} />
-      <main>
-        <TuitionHero config={tuitionConfig} />
-        <TuitionSubjects config={tuitionConfig} />
-        <TuitionTeachers config={tuitionConfig} />
-        <TuitionResults config={tuitionConfig} />
-        <TuitionTestimonials config={tuitionConfig} />
-        <TuitionSchedule config={tuitionConfig} />
-        <TuitionContact config={tuitionConfig} />
-      </main>
-      <TuitionFooter config={tuitionConfig} />
-      <WhatsAppButton config={tuitionConfig.whatsapp} />
-    </div>
-  );
+  return <TuitionTemplate config={tuitionConfig} />;
 }
