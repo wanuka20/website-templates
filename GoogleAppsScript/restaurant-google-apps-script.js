@@ -108,6 +108,13 @@ const SETTINGS_SHEETS = [
         "Optional logo image URL."
       ],
       [
+        "Theme",
+        "themeTemplate",
+        "Theme Template",
+        "default",
+        "Allowed value: default. Blank or invalid values use default."
+      ],
+      [
         "Business Details",
         "cuisine",
         "Cuisine",

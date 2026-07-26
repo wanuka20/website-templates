@@ -36,6 +36,15 @@ interface ContactFormProps {
   onSubmit?: (submission: ContactFormSubmission) => Promise<void>;
   accentColor?: string;
   light?: boolean;
+  copy?: {
+    subjectLabel?: string;
+    subjectPlaceholder?: string;
+    messageLabel?: string;
+    messagePlaceholder?: string;
+    submitLabel?: string;
+    successTitle?: string;
+    successMessage?: string;
+  };
 }
 
 export function ContactForm({
@@ -43,6 +52,7 @@ export function ContactForm({
   onSubmit: externalSubmit,
   accentColor,
   light = false,
+  copy,
 }: ContactFormProps) {
   const formId = useId();
   const [submitted, setSubmitted] = useState(false);
@@ -97,10 +107,11 @@ export function ContactForm({
       <div role="status" aria-live="polite" className={cn("flex flex-col items-center justify-center py-12 text-center", className)}>
         <CheckCircle className={cn("mb-4 h-16 w-16", light ? "text-green-400" : "text-green-500")} />
         <h3 className={cn("text-xl font-semibold", light ? "text-white" : "text-foreground")}>
-          Message Sent!
+          {copy?.successTitle ?? "Message Sent!"}
         </h3>
         <p className={cn("mt-2 text-sm", light ? "text-white/70" : "text-muted-foreground")}>
-          Thank you for reaching out. We&apos;ll get back to you within 24 hours.
+          {copy?.successMessage ??
+            "Thank you for reaching out. We'll get back to you within 24 hours."}
         </p>
         <Button
           variant="outline"
@@ -177,11 +188,11 @@ export function ContactForm({
         </div>
         <div className="space-y-2">
           <Label htmlFor="subject" className={labelClass}>
-            Subject <span className="text-red-400">*</span>
+            {copy?.subjectLabel ?? "Subject"} <span className="text-red-400">*</span>
           </Label>
           <Input
             id="subject"
-            placeholder="How can we help?"
+            placeholder={copy?.subjectPlaceholder ?? "How can we help?"}
             className={inputClass}
             aria-invalid={errors.subject ? true : undefined}
             aria-describedby={errors.subject ? errorId("subject") : undefined}
@@ -195,11 +206,11 @@ export function ContactForm({
 
       <div className="space-y-2">
         <Label htmlFor="message" className={labelClass}>
-          Message <span className="text-red-400">*</span>
+          {copy?.messageLabel ?? "Message"} <span className="text-red-400">*</span>
         </Label>
         <Textarea
           id="message"
-          placeholder="Tell us more about what you need..."
+          placeholder={copy?.messagePlaceholder ?? "Tell us more about what you need..."}
           rows={5}
           className={inputClass}
           aria-invalid={errors.message ? true : undefined}
@@ -227,7 +238,7 @@ export function ContactForm({
         ) : (
           <>
             <Send className="h-4 w-4" />
-            Send Message
+            {copy?.submitLabel ?? "Send Message"}
           </>
         )}
       </Button>

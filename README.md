@@ -8,7 +8,7 @@ A production-ready website template marketplace with 5 fully functional business
 |---|---|---|
 | Gym | `/templates/gym` | Switchable: Editorial Red / Classic Orange |
 | Salon | `/templates/salon` | Rose / Luxury |
-| Restaurant | `/templates/restaurant` | Amber / Premium |
+| Restaurant | `/templates/restaurant` | Switchable: Editorial Sri Lankan / Default Amber |
 | Tuition Class | `/templates/tuition` | Blue / Trustworthy |
 | Real Estate | `/templates/realestate` | Emerald / Modern |
 
@@ -102,7 +102,9 @@ A non-technical person can edit this file without touching any UI code.
 
 ---
 
-## Switching Gym Designs
+## Switching Template Designs
+
+### Gym
 
 The Gym template has two complete visual presentations that use the same Google
 Sheets content, form submission flow, links, and navigation:
@@ -122,9 +124,43 @@ top-level renderers are:
 - `components/templates/gym/EditorialGymTemplate.tsx`
 - `components/templates/gym/ClassicGymTemplate.tsx`
 
-The same structure is ready for every template family. Salon, Restaurant, Real
-Estate, and Tuition currently use their unchanged `default` designs, selected
-from `config/salon-design.ts`, `config/restaurant-design.ts`,
+### Restaurant
+
+The Restaurant template has two complete visual presentations using the same
+Google Sheets content, SEO metadata, menu filtering, reservation lead flow,
+honeypot, contact links, navigation anchors, dark mode, and WhatsApp URLs:
+
+- `editorial` — the ivory, olive, and powder-blue Sri Lankan dining-journal design.
+- `default` — the original amber premium Restaurant design.
+
+The code fallback is selected in `config/restaurant-design.ts`:
+
+```typescript
+export const restaurantDesign: RestaurantDesign = "editorial";
+```
+
+Replace `"editorial"` with `"default"` to make the original presentation the
+fallback. A valid Google Sheets `themeTemplate` value takes precedence over
+this line; blank or invalid Sheet values use the code fallback. This allows the
+same deployed code to select a supported design per Sheet without changing the
+Restaurant content or lead integrations.
+
+The two top-level renderers are:
+
+- `components/templates/restaurant/RestaurantEditorialTemplate.tsx`
+- `components/templates/restaurant/RestaurantDefaultTemplate.tsx`
+
+The editorial renderer intentionally keeps the existing contact-form data
+contract. Its date/time/guest prompt is still submitted through the existing
+`subject` field, and special requests use the existing required `message`
+field. No Apps Script, Google Sheets lead column, API route, or WhatsApp
+contract was added or replaced.
+
+### Adding another design
+
+The same typed structure is used across all template families. Salon supports
+`default` and `liquid-glass`; Real Estate and Tuition currently use their
+unchanged `default` designs, selected from `config/salon-design.ts`,
 `config/realestate-design.ts`, and `config/tuition-design.ts`.
 
 To add another design to any template later, create a new top-level renderer,

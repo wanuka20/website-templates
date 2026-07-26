@@ -1,4 +1,5 @@
 export interface BusinessConfig {
+  themeTemplate?: string;
   name: string;
   tagline: string;
   description: string;

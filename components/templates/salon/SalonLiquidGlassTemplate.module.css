@@ -1,0 +1,1295 @@
+.root {
+  --salon-ink: #28242a;
+  --salon-porcelain: #f7f3f1;
+  min-height: 100vh;
+  overflow: clip;
+  color: var(--salon-ink);
+  background:
+    radial-gradient(circle at 8% 18%, color-mix(in srgb, var(--salon-pink) 48%, transparent), transparent 30rem),
+    radial-gradient(circle at 90% 45%, color-mix(in srgb, var(--salon-blue) 50%, transparent), transparent 32rem),
+    linear-gradient(135deg, #f7f3f1, #fae9ee 47%, #e5f0f4);
+}
+
+:global(.dark) .root {
+  --salon-ink: #f7f3f1;
+  --salon-porcelain: #28242a;
+  background:
+    radial-gradient(circle at 10% 20%, color-mix(in srgb, var(--salon-pink) 26%, transparent), transparent 30rem),
+    radial-gradient(circle at 90% 50%, color-mix(in srgb, var(--salon-blue) 22%, transparent), transparent 32rem),
+    #1f1c21;
+}
+
+.root h1,
+.root h2,
+.root h3,
+.wordmark {
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.root a,
+.root button {
+  outline-offset: 4px;
+}
+
+.root a:focus-visible,
+.root button:focus-visible {
+  outline: 3px solid var(--salon-pink);
+}
+
+.header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  padding: 1rem clamp(1rem, 4vw, 4rem);
+}
+
+.navbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: min(100%, 1240px);
+  min-height: 64px;
+  margin: auto;
+  padding: 0.45rem 0.55rem 0.45rem 1.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  border-radius: 999px;
+  background: rgba(247, 243, 241, 0.48);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 18px 45px rgba(70, 43, 55, 0.16);
+  backdrop-filter: blur(22px) saturate(145%);
+  -webkit-backdrop-filter: blur(22px) saturate(145%);
+}
+
+.wordmark {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-width: max-content;
+  color: var(--salon-ink);
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.wordmark small {
+  display: block;
+  margin-top: 0.25rem;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.52rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.logo {
+  width: 1.8rem;
+  height: 1.8rem;
+  object-fit: contain;
+  color: var(--salon-pink);
+}
+
+.navDivider {
+  width: 1px;
+  height: 28px;
+  margin: 0 1.15rem;
+  background: rgba(40, 36, 42, 0.2);
+}
+
+.desktopLinks {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: clamp(0.2rem, 1vw, 1.15rem);
+}
+
+.desktopLinks a {
+  padding: 0.65rem 0.45rem;
+  color: var(--salon-ink);
+  font-size: 0.82rem;
+  font-weight: 650;
+}
+
+.desktopLinks a:hover {
+  color: var(--salon-pink);
+}
+
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.themeToggle {
+  border: 1px solid rgba(255, 255, 255, 0.64);
+  border-radius: 999px;
+  color: var(--salon-ink);
+  background: rgba(255, 255, 255, 0.32);
+}
+
+.primaryButton,
+.secondaryButton {
+  position: relative;
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  overflow: hidden;
+  padding: 0.75rem 1.35rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 750;
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.primaryButton {
+  border: 1px solid rgba(255, 236, 243, 0.88);
+  color: #28242a;
+  background:
+    radial-gradient(ellipse at 50% 118%, color-mix(in srgb, var(--salon-pink) 58%, white) 0%, color-mix(in srgb, var(--salon-pink) 58%, transparent) 42%, transparent 68%),
+    linear-gradient(180deg, color-mix(in srgb, var(--salon-pink) 76%, black) 0%, color-mix(in srgb, var(--salon-pink) 54%, transparent) 48%, color-mix(in srgb, var(--salon-pink) 76%, white) 100%);
+  box-shadow:
+    inset 0 2px 1px rgba(255, 246, 249, 0.76),
+    inset 0 -3px 5px rgba(255, 211, 224, 0.68),
+    inset 0 0 14px rgba(255, 255, 255, 0.18),
+    0 8px 18px color-mix(in srgb, var(--salon-pink) 42%, transparent),
+    0 12px 26px color-mix(in srgb, var(--salon-pink) 30%, transparent);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(12px) saturate(145%);
+  -webkit-backdrop-filter: blur(12px) saturate(145%);
+}
+
+.primaryButton::before,
+.filters button[aria-pressed="true"]::before,
+.filters button[aria-selected="true"]::before,
+.formPanel :global(button[type="submit"])::before {
+  position: absolute;
+  top: 4px;
+  right: 10%;
+  left: 10%;
+  height: 34%;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.08));
+  content: "";
+  pointer-events: none;
+  opacity: 0.78;
+}
+
+.primaryButton:hover,
+.secondaryButton:hover {
+  transform: translateY(-2px);
+}
+
+.primaryButton:hover {
+  background:
+    radial-gradient(ellipse at 50% 118%, color-mix(in srgb, var(--salon-pink) 45%, white) 0%, color-mix(in srgb, var(--salon-pink) 65%, transparent) 44%, transparent 70%),
+    linear-gradient(180deg, color-mix(in srgb, var(--salon-pink) 80%, black), color-mix(in srgb, var(--salon-pink) 62%, transparent) 50%, color-mix(in srgb, var(--salon-pink) 82%, white));
+  box-shadow:
+    inset 0 2px 1px rgba(255, 248, 250, 0.86),
+    inset 0 -3px 6px rgba(255, 220, 230, 0.76),
+    inset 0 0 16px rgba(255, 255, 255, 0.22),
+    0 10px 22px color-mix(in srgb, var(--salon-pink) 45%, transparent),
+    0 15px 32px color-mix(in srgb, var(--salon-pink) 40%, transparent);
+}
+
+.primaryButton svg,
+.secondaryButton svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.menuButton {
+  display: none;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  color: var(--salon-ink);
+  background: rgba(255, 255, 255, 0.42);
+}
+
+.menuButton svg {
+  width: 1.25rem;
+}
+
+.mobileMenu {
+  position: absolute;
+  top: calc(100% + 0.75rem);
+  right: 0;
+  display: grid;
+  width: min(20rem, calc(100vw - 2rem));
+  padding: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 1.25rem;
+  background: rgba(247, 243, 241, 0.92);
+  box-shadow: 0 20px 50px rgba(40, 36, 42, 0.22);
+  backdrop-filter: blur(20px);
+}
+
+.mobileMenu a {
+  min-height: 44px;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  color: #28242a;
+  font-weight: 650;
+}
+
+.mobileMenu a:hover {
+  background: color-mix(in srgb, var(--salon-pink) 18%, transparent);
+}
+
+.hero {
+  position: relative;
+  min-height: min(900px, 100svh);
+  overflow: hidden;
+}
+
+.heroImage {
+  object-fit: cover;
+  object-position: center 28%;
+}
+
+.heroWash {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(247, 243, 241, 0.82) 0%, rgba(247, 243, 241, 0.28) 56%, transparent 75%),
+    radial-gradient(circle at 12% 28%, color-mix(in srgb, var(--salon-pink) 45%, transparent), transparent 38%);
+}
+
+:global(.dark) .heroWash {
+  background: linear-gradient(90deg, rgba(31, 28, 33, 0.9), rgba(31, 28, 33, 0.3) 65%, transparent);
+}
+
+.heroContent {
+  position: relative;
+  display: flex;
+  width: min(100% - 2rem, 1240px);
+  min-height: min(900px, 100svh);
+  align-items: center;
+  margin: auto;
+  padding: 7rem 0 3rem;
+}
+
+.heroPanel {
+  width: min(100%, 590px);
+  padding: clamp(1.5rem, 4vw, 3.2rem);
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  border-radius: 2rem 1.45rem 2rem 1.45rem;
+  color: #28242a;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.63), rgba(255, 255, 255, 0.28)),
+    linear-gradient(160deg, color-mix(in srgb, var(--salon-pink) 20%, transparent), color-mix(in srgb, var(--salon-blue) 15%, transparent));
+  box-shadow: inset 0 1px 0 #fff, 0 30px 80px rgba(74, 44, 55, 0.2);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+}
+
+:global(.dark) .heroPanel {
+  color: #f7f3f1;
+  background: rgba(40, 36, 42, 0.58);
+}
+
+.eyebrow,
+.sectionHeading > p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  margin-bottom: 0.55rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.heroPanel .eyebrow {
+  justify-content: flex-start;
+}
+
+.eyebrow svg {
+  width: 0.9rem;
+}
+
+.heroPanel h1 {
+  max-width: 12ch;
+  font-size: clamp(3rem, 6vw, 5.75rem);
+  font-weight: 400;
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+}
+
+.heroDescription {
+  max-width: 46ch;
+  margin-top: 1.35rem;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.heroButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.65rem;
+}
+
+.secondaryButton {
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  color: #28242a;
+  background: rgba(255, 255, 255, 0.42);
+  box-shadow: inset 0 1px 0 #fff;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(40, 36, 42, 0.18);
+}
+
+.stats > div {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.05rem 0.5rem;
+  padding: 0 0.8rem;
+  border-right: 1px solid rgba(40, 36, 42, 0.18);
+}
+
+.stats > div:first-child {
+  padding-left: 0;
+}
+
+.stats > div:last-child {
+  border: 0;
+}
+
+.stats svg {
+  grid-row: span 2;
+  width: 1rem;
+  margin-top: 0.25rem;
+}
+
+.stats span {
+  font-family: Georgia, serif;
+  font-size: 1.3rem;
+}
+
+.stats small {
+  font-size: 0.65rem;
+}
+
+.locationPill {
+  position: absolute;
+  right: 0;
+  bottom: 3rem;
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(40, 36, 42, 0.42);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.52);
+  backdrop-filter: blur(16px);
+}
+
+.locationPill svg {
+  width: 1rem;
+}
+
+.sections {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.75rem);
+  width: min(100% - 2rem, 1360px);
+  margin: -1rem auto 0;
+  padding-bottom: 1.5rem;
+}
+
+.glassSection {
+  position: relative;
+  scroll-margin-top: 6rem;
+  overflow: hidden;
+  padding: clamp(3rem, 6vw, 5.25rem) clamp(1rem, 4vw, 3.5rem);
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  border-radius: 2.4rem 1.6rem 2.4rem 1.6rem;
+  background: rgba(255, 255, 255, 0.24);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.92), 0 22px 55px rgba(75, 51, 62, 0.12);
+  isolation: isolate;
+  backdrop-filter: blur(24px) saturate(135%);
+  -webkit-backdrop-filter: blur(24px) saturate(135%);
+}
+
+.glassSection::before,
+.glassSection::after {
+  position: absolute;
+  z-index: -1;
+  width: 48%;
+  height: 70%;
+  border-radius: 50%;
+  content: "";
+  filter: blur(60px);
+  opacity: 0.8;
+  transform: translateZ(0);
+}
+
+.glassSection::before {
+  top: -28%;
+  left: -8%;
+  background: var(--salon-pink);
+}
+
+.glassSection::after {
+  right: -10%;
+  bottom: -34%;
+  background: var(--salon-blue);
+}
+
+.pricing::before,
+.gallery::before {
+  background: var(--salon-blue);
+}
+
+.pricing::after,
+.gallery::after {
+  background: var(--salon-pink);
+  opacity: 0.55;
+}
+
+.reviews::after {
+  opacity: 0.42;
+}
+
+.sectionHeading {
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  text-align: center;
+}
+
+.sectionHeading h2 {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.sectionHeading > div {
+  max-width: 55ch;
+  margin: 0.8rem auto 0;
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.filters button {
+  position: relative;
+  overflow: hidden;
+  min-height: 40px;
+  padding: 0.55rem 1.15rem;
+  border: 1px solid rgba(255, 255, 255, 0.74);
+  border-radius: 999px;
+  color: var(--salon-ink);
+  background: rgba(255, 255, 255, 0.38);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.filters button[aria-pressed="true"],
+.filters button[aria-selected="true"] {
+  border-color: rgba(255, 236, 243, 0.88);
+  color: #28242a;
+  background:
+    radial-gradient(ellipse at 50% 120%, color-mix(in srgb, var(--salon-pink) 55%, white), transparent 68%),
+    linear-gradient(180deg, color-mix(in srgb, var(--salon-pink) 74%, black), color-mix(in srgb, var(--salon-pink) 70%, white));
+  box-shadow:
+    inset 0 1px 1px rgba(255, 250, 252, 0.82),
+    inset 0 -2px 4px rgba(255, 211, 224, 0.6),
+    0 7px 17px color-mix(in srgb, var(--salon-pink) 38%, transparent);
+  backdrop-filter: blur(10px) saturate(145%);
+  -webkit-backdrop-filter: blur(10px) saturate(145%);
+}
+
+.serviceGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.serviceCard,
+.stylistCard,
+.galleryCard,
+.reviewCard,
+.priceList,
+.bookingCard,
+.contactDetails,
+.whatsappCard,
+.formPanel {
+  border: 1px solid rgba(255, 255, 255, 0.76);
+  background: rgba(255, 255, 255, 0.48);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.88), 0 12px 30px rgba(70, 45, 56, 0.08);
+  backdrop-filter: blur(15px) saturate(125%);
+  -webkit-backdrop-filter: blur(15px) saturate(125%);
+}
+
+:global(.dark) .serviceCard,
+:global(.dark) .stylistCard,
+:global(.dark) .galleryCard,
+:global(.dark) .reviewCard,
+:global(.dark) .priceList,
+:global(.dark) .bookingCard,
+:global(.dark) .contactDetails,
+:global(.dark) .whatsappCard,
+:global(.dark) .formPanel {
+  background: rgba(40, 36, 42, 0.66);
+}
+
+.serviceCard {
+  display: flex;
+  min-height: 250px;
+  flex-direction: column;
+  padding: 1.15rem;
+  border-radius: 1.2rem;
+  transition: transform 180ms ease, background 180ms ease;
+}
+
+.serviceCard:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.category,
+.experience,
+.tags span {
+  align-self: flex-start;
+  padding: 0.25rem 0.55rem;
+  border: 1px solid color-mix(in srgb, var(--salon-pink) 42%, transparent);
+  border-radius: 999px;
+  color: color-mix(in srgb, var(--salon-pink) 68%, black);
+  background: color-mix(in srgb, var(--salon-pink) 14%, transparent);
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+
+:global(.dark) .category,
+:global(.dark) .experience,
+:global(.dark) .tags span {
+  color: color-mix(in srgb, var(--salon-pink) 55%, white);
+}
+
+.serviceCard h3 {
+  margin-top: 0.85rem;
+  font-size: 1.25rem;
+  line-height: 1.08;
+}
+
+.serviceCard > p {
+  flex: 1;
+  margin-top: 0.55rem;
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+.serviceMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  font-size: 0.75rem;
+}
+
+.serviceMeta span,
+.priceRow > span {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.serviceMeta svg,
+.priceRow svg {
+  width: 0.8rem;
+  height: 0.8rem;
+}
+
+.serviceCard > a {
+  display: flex;
+  min-height: 40px;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.55rem;
+  color: var(--salon-pink);
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.serviceCard > a svg {
+  width: 0.9rem;
+}
+
+.pricingLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(260px, 0.75fr);
+  gap: 1rem;
+}
+
+.priceList,
+.bookingCard {
+  border-radius: 1.35rem;
+}
+
+.priceList {
+  overflow: hidden;
+}
+
+.priceRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 110px 120px;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.15rem;
+  border-bottom: 1px solid rgba(40, 36, 42, 0.12);
+}
+
+.priceRow:last-child {
+  border: 0;
+}
+
+.priceRow h3 {
+  font-size: 1rem;
+}
+
+.priceRow p,
+.priceRow span {
+  margin-top: 0.15rem;
+  font-size: 0.72rem;
+}
+
+.priceRow strong {
+  text-align: right;
+  font-size: 0.82rem;
+}
+
+.emptyState {
+  padding: 2rem;
+  text-align: center;
+}
+
+.bookingCard {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.iconTile {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border-radius: 0.75rem;
+  color: #fff;
+  background: var(--salon-pink);
+}
+
+.iconTile svg {
+  width: 1.15rem;
+}
+
+.bookingCard h3 {
+  margin-top: 1rem;
+  font-size: 1.55rem;
+  line-height: 1.05;
+}
+
+.bookingCard p {
+  margin: 0.75rem 0 1.2rem;
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+.stylistGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.stylistCard {
+  overflow: hidden;
+  border-radius: 1.25rem;
+}
+
+.stylistImage {
+  position: relative;
+  aspect-ratio: 4 / 4.2;
+  overflow: hidden;
+}
+
+.coverImage {
+  object-fit: cover;
+}
+
+.stylistBody {
+  padding: 1rem;
+}
+
+.stylistBody h3 {
+  font-size: 1.2rem;
+}
+
+.stylistBody > p {
+  margin-top: 0.55rem;
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
+.stylistBody .role {
+  margin-top: 0.15rem;
+  color: var(--salon-pink);
+  font-weight: 800;
+}
+
+:global(.dark) .stylistBody .role {
+  color: color-mix(in srgb, var(--salon-pink) 72%, white);
+}
+
+.experience {
+  display: inline-flex;
+  margin-top: 0.8rem;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.6rem;
+}
+
+.galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.galleryCard {
+  overflow: hidden;
+  border-radius: 1.25rem;
+}
+
+.pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.pair > div {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+}
+
+.pair span {
+  position: absolute;
+  top: 0.65rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.25rem 0.55rem;
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(40, 36, 42, 0.62);
+  font-size: 0.65rem;
+  font-weight: 750;
+  backdrop-filter: blur(8px);
+}
+
+.galleryCard h3 {
+  padding: 0.85rem;
+  text-align: center;
+  font-size: 1.05rem;
+}
+
+.reviewGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.reviewCard {
+  padding: 1.35rem;
+  border-radius: 1.25rem;
+}
+
+.reviewCard > svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--salon-pink);
+}
+
+.rating {
+  display: flex;
+  gap: 0.15rem;
+  margin-top: 0.55rem;
+}
+
+.rating svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  color: color-mix(in srgb, var(--salon-pink) 28%, transparent);
+}
+
+.rating svg[data-filled="true"] {
+  fill: var(--salon-pink);
+  color: var(--salon-pink);
+}
+
+.reviewCard > p {
+  min-height: 5.5rem;
+  margin-top: 0.85rem;
+  font-size: 0.8rem;
+  line-height: 1.65;
+}
+
+.reviewer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.avatar {
+  position: relative;
+  display: grid;
+  width: 46px;
+  height: 46px;
+  flex: 0 0 46px;
+  overflow: hidden;
+  place-items: center;
+  border: 2px solid var(--salon-pink);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.65);
+  font-size: 0.65rem;
+  font-weight: 800;
+}
+
+.reviewer strong,
+.reviewer span {
+  display: block;
+}
+
+.reviewer strong {
+  font-size: 0.82rem;
+}
+
+.reviewer span {
+  margin-top: 0.1rem;
+  font-size: 0.7rem;
+}
+
+.contactLayout {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.78fr) minmax(0, 1.4fr);
+  gap: 1rem;
+}
+
+.contactInfo {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.contactDetails,
+.whatsappCard,
+.formPanel {
+  padding: 1.3rem;
+  border-radius: 1.25rem;
+}
+
+.contactDetails > a,
+.contactDetails > div {
+  display: flex;
+  min-height: 44px;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.55rem;
+  color: var(--salon-ink);
+  font-size: 0.75rem;
+}
+
+.contactDetails svg {
+  width: 1.05rem;
+  flex: 0 0 1.05rem;
+  color: var(--salon-pink);
+}
+
+.contactDetails span,
+.contactDetails small {
+  display: block;
+}
+
+.contactDetails small {
+  margin-bottom: 0.15rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.whatsappCard > svg {
+  width: 2rem;
+  height: 2rem;
+  color: #25d366;
+}
+
+.whatsappCard h3,
+.formPanel h3 {
+  margin-top: 0.7rem;
+  font-size: 1.45rem;
+}
+
+.whatsappCard p {
+  margin: 0.4rem 0 1rem;
+  font-size: 0.78rem;
+}
+
+.whatsappCard a {
+  border-radius: 0.65rem;
+}
+
+.formPanel {
+  position: relative;
+}
+
+.formPanel h3 {
+  margin: 0 0 1.2rem;
+}
+
+.formPanel :global(input),
+.formPanel :global(textarea) {
+  border-color: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.46);
+}
+
+.formPanel :global(button[type="submit"]) {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 236, 243, 0.88);
+  border-radius: 999px;
+  color: #28242a;
+  background-image:
+    radial-gradient(ellipse at 50% 120%, rgba(255, 210, 224, 0.92), transparent 68%),
+    linear-gradient(180deg, rgba(200, 109, 139, 0.74), rgba(232, 157, 180, 0.72));
+  box-shadow:
+    inset 0 2px 1px rgba(255, 250, 252, 0.8),
+    inset 0 -3px 5px rgba(255, 211, 224, 0.62),
+    0 9px 20px rgba(157, 72, 99, 0.27);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(12px) saturate(145%);
+  -webkit-backdrop-filter: blur(12px) saturate(145%);
+}
+
+:global(.dark) .formPanel :global(input),
+:global(.dark) .formPanel :global(textarea) {
+  background: rgba(22, 20, 23, 0.46);
+}
+
+.footer {
+  padding: 3rem max(1rem, calc((100vw - 1240px) / 2));
+  border-top: 1px solid rgba(255, 255, 255, 0.72);
+  background: rgba(247, 243, 241, 0.54);
+  backdrop-filter: blur(18px);
+}
+
+:global(.dark) .footer {
+  background: rgba(31, 28, 33, 0.72);
+}
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: 2fr repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.footerGrid h2 {
+  margin-bottom: 0.7rem;
+  font-size: 1rem;
+}
+
+.footerGrid > div > a:not(.wordmark),
+.footerGrid > div > p {
+  display: block;
+  margin-top: 0.4rem;
+  color: var(--salon-ink);
+  font-size: 0.72rem;
+  opacity: 0.74;
+}
+
+.socials {
+  display: flex;
+  gap: 0.85rem;
+  margin-top: 1rem;
+}
+
+.socialLink {
+  color: var(--salon-ink);
+}
+
+.copyright {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(40, 36, 42, 0.12);
+  text-align: center;
+  font-size: 0.68rem;
+  opacity: 0.66;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .navbar,
+  .heroPanel,
+  .glassSection,
+  .serviceCard,
+  .stylistCard,
+  .galleryCard,
+  .reviewCard,
+  .priceList,
+  .bookingCard,
+  .contactDetails,
+  .whatsappCard,
+  .formPanel {
+    background: rgba(247, 243, 241, 0.94);
+  }
+}
+
+@media (max-width: 1023px) {
+  .desktopLinks,
+  .navDivider,
+  .navActions > .primaryButton {
+    display: none;
+  }
+
+  .navbar {
+    justify-content: space-between;
+  }
+
+  .menuButton {
+    display: flex;
+  }
+
+  .heroContent {
+    align-items: flex-end;
+  }
+
+  .heroPanel {
+    width: min(100%, 560px);
+  }
+
+  .serviceGrid,
+  .stylistGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pricingLayout,
+  .contactLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .bookingCard {
+    min-height: 250px;
+  }
+
+  .footerGrid {
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+
+  .footerGrid > div:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 767px) {
+  .header {
+    padding: 0.75rem;
+  }
+
+  .navbar {
+    min-height: 58px;
+    padding-left: 1rem;
+  }
+
+  .wordmark {
+    max-width: 190px;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 1rem;
+  }
+
+  .wordmark small {
+    font-size: 0.45rem;
+  }
+
+  .hero {
+    min-height: 830px;
+  }
+
+  .heroImage {
+    object-position: 64% center;
+  }
+
+  .heroWash {
+    background: linear-gradient(180deg, rgba(247, 243, 241, 0.08) 15%, rgba(247, 243, 241, 0.9) 57%, rgba(247, 243, 241, 0.98));
+  }
+
+  .heroContent {
+    min-height: 830px;
+    padding: 7rem 0 1.25rem;
+  }
+
+  .heroPanel {
+    padding: 1.35rem;
+    border-radius: 1.45rem;
+  }
+
+  .heroPanel h1 {
+    font-size: clamp(2.65rem, 13vw, 4rem);
+  }
+
+  .heroDescription {
+    font-size: 0.88rem;
+  }
+
+  .heroButtons {
+    display: grid;
+  }
+
+  .stats {
+    gap: 0.35rem;
+  }
+
+  .stats > div {
+    display: block;
+    padding: 0 0.35rem;
+    text-align: center;
+  }
+
+  .stats svg {
+    width: 0.9rem;
+    margin: 0 auto 0.25rem;
+  }
+
+  .stats span,
+  .stats small {
+    display: block;
+  }
+
+  .stats span {
+    font-size: 1.05rem;
+  }
+
+  .stats small {
+    font-size: 0.57rem;
+  }
+
+  .locationPill {
+    display: none;
+  }
+
+  .sections {
+    width: calc(100% - 1rem);
+    margin-top: 0.5rem;
+  }
+
+  .glassSection {
+    padding: 2.8rem 0.75rem;
+    border-radius: 1.65rem;
+    backdrop-filter: blur(16px) saturate(125%);
+  }
+
+  .sectionHeading {
+    margin-bottom: 1.5rem;
+    padding: 0 0.5rem;
+  }
+
+  .sectionHeading h2 {
+    font-size: 2.15rem;
+  }
+
+  .sectionHeading > div {
+    font-size: 0.8rem;
+  }
+
+  .filters {
+    gap: 0.35rem;
+  }
+
+  .filters button {
+    min-height: 44px;
+    padding: 0.55rem 0.85rem;
+  }
+
+  .serviceGrid,
+  .stylistGrid,
+  .galleryGrid,
+  .reviewGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .serviceCard {
+    min-height: 225px;
+  }
+
+  .priceRow {
+    grid-template-columns: 1fr auto;
+    gap: 0.5rem;
+  }
+
+  .priceRow > span {
+    grid-column: 1;
+  }
+
+  .priceRow strong {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+
+  .stylistImage {
+    aspect-ratio: 5 / 4;
+  }
+
+  .pair > div {
+    aspect-ratio: 4 / 4.6;
+  }
+
+  .reviewCard > p {
+    min-height: 0;
+  }
+
+  .contactDetails,
+  .whatsappCard,
+  .formPanel {
+    padding: 1rem;
+  }
+
+  .footerGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footerGrid > div:first-child,
+  .footerGrid > div:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root *,
+  .root *::before,
+  .root *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

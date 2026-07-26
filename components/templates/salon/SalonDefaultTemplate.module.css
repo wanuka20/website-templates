@@ -1,0 +1,53 @@
+.root :global(.bg-rose-500),
+.root :global(.data-\[state\=active\]\:bg-rose-500[data-state="active"]) {
+  background-color: var(--salon-default-color-1) !important;
+}
+
+.root :global(.bg-pink-600) {
+  background-color: var(--salon-default-color-2) !important;
+}
+
+.root :global(.text-rose-500),
+.root :global(.text-rose-400),
+.root :global(.hover\:text-rose-500:hover),
+.root :global(.hover\:text-rose-400:hover),
+.root :global(.group:hover .group-hover\:text-rose-500) {
+  color: var(--salon-default-color-1) !important;
+}
+
+.root :global(.bg-rose-50) {
+  background-color: color-mix(in srgb, var(--salon-default-color-1) 7%, white) !important;
+}
+
+:global(.dark) .root :global(.bg-rose-50) {
+  background-color: color-mix(in srgb, var(--salon-default-color-1) 16%, #020617) !important;
+}
+
+.root :global(.bg-rose-100) {
+  background-color: color-mix(in srgb, var(--salon-default-color-1) 15%, white) !important;
+}
+
+.root :global(.border-rose-500),
+.root :global(.hover\:border-rose-500:hover),
+.root :global(.hover\:border-rose-300:hover),
+.root :global(.ring-rose-200) {
+  border-color: var(--salon-default-color-1) !important;
+  --tw-ring-color: var(--salon-default-color-1) !important;
+}
+
+.root :global(.from-rose-500) {
+  --tw-gradient-from: var(--salon-default-color-1) var(--tw-gradient-from-position) !important;
+  --tw-gradient-to: color-mix(in srgb, var(--salon-default-color-1) 0%, transparent) var(--tw-gradient-to-position) !important;
+}
+
+.root :global(.to-pink-600) {
+  --tw-gradient-to: var(--salon-default-color-2) var(--tw-gradient-to-position) !important;
+}
+
+.root :global(.hover\:bg-rose-600:hover) {
+  background-color: color-mix(in srgb, var(--salon-default-color-1) 82%, black) !important;
+}
+
+.root :global(.shadow-rose-500\/30) {
+  --tw-shadow-color: color-mix(in srgb, var(--salon-default-color-1) 30%, transparent) !important;
+}

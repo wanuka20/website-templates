@@ -101,6 +101,13 @@ const SETTINGS_SHEETS = [
         "Optional logo image URL."
       ],
       [
+        "Theme",
+        "themeTemplate",
+        "Theme Template",
+        "editorial",
+        "Allowed values: editorial, classic. Blank or invalid values use editorial."
+      ],
+      [
         "SEO",
         "seo.title",
         "SEO title",

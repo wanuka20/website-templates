@@ -94,6 +94,13 @@
           "Optional logo image URL."
         ],
         [
+          "Theme",
+          "themeTemplate",
+          "Theme Template",
+          "default",
+          "Allowed value: default. Blank or invalid values use default."
+        ],
+        [
           "SEO",
           "seo.title",
           "SEO title",

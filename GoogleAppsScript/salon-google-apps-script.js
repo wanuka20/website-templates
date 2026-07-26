@@ -94,6 +94,13 @@ const SETTINGS_SHEETS = [
         "Optional logo image URL."
       ],
       [
+        "Theme",
+        "themeTemplate",
+        "Theme Template",
+        "liquid-glass",
+        "Allowed values: default, liquid-glass. Blank or invalid values use liquid-glass."
+      ],
+      [
         "Business Details",
         "bookingUrl",
         "Booking URL",

@@ -140,6 +140,13 @@ function text(value: unknown, fallback = "") {
   return typeof raw === "string" && raw.trim() ? raw.trim() : missingText(value);
 }
 
+function optionalText(value: unknown) {
+  const raw = rawValue(value);
+  return typeof raw === "string" && raw.trim() && !isFallbackMarker(raw)
+    ? raw.trim()
+    : undefined;
+}
+
 function numberValue(value: unknown, fallback: number) {
   const raw = rawValue(value);
   if (isFallbackMarker(raw)) return fallback;
@@ -241,6 +248,7 @@ function mergeCommon<T extends BusinessConfig>(
   fallback: T,
 ) {
   return {
+    themeTemplate: optionalText(get(content, "themeTemplate")),
     name: text(get(content, "name"), fallback.name),
     tagline: text(get(content, "tagline"), fallback.tagline),
     description: text(get(content, "description"), fallback.description),

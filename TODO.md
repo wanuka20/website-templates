@@ -145,13 +145,37 @@
 # v.0.5.4  (In progress)
 ## Business Template Visual Enhancement
 ### Completed
+- [x] Add per-design Salon theme colors and correct default-theme dark sections
+  - Added independent, editable `color1` and `color2` HEX values for the `default` and `liquid-glass` Salon designs in `config/salon-design.ts`.
+  - Wired the liquid-glass buttons, active filters, gradients, section backgrounds, and contact-form accent to its own values.
+  - Wired the default Salon design's rose/pink controls, gradients, badges, section washes, and contact-form accent to its own values.
+  - Corrected the Stylists and Reviews section backgrounds so they use a dark blended theme color in dark mode instead of retaining the light-mode wash.
+  - Verified TypeScript, ESLint, and whitespace checks; no contact form was submitted.
+- [x] Control each template's visual theme from Google Sheets
+  - Added a `Theme Template` row with the `themeTemplate` key to the live Gym, Restaurant, Salon, Real Estate, and Tuition `Settings - Brand` sheets, including strict dropdown validation and allowed-value guidance.
+  - Mapped the Sheet value through the shared content loader and each route's typed renderer map; blank or invalid values safely use the existing code selector as the fallback.
+  - Gym supports `editorial` and `classic`; Salon supports `default` and `liquid-glass`; Restaurant supports `default` and `editorial`; Real Estate and Tuition currently support `default` until additional renderer files are added.
+  - Updated all five local AdminSheet workbooks and Apps Script definitions so future Sheet setup remains consistent with the live Sheets.
+  - Verified the exact live rows after writing, plus TypeScript, ESLint, 52 unit tests, the production build, and workbook rendering/formula scans.
+  - Production still requires the current code changes to be committed and deployed; Sheet content can remain cached for up to five minutes after changing a dropdown.
 - [x] Add switchable Gym visual designs
   - Added `config/gym-design.ts` as the single place to select the active Gym presentation: `"editorial"` for the new black/red design or `"classic"` for the original orange-led design.
   - Kept each design in its own top-level renderer (`EditorialGymTemplate.tsx` and `ClassicGymTemplate.tsx`), both using the same Google Sheets content, lead form, anchors, contact links, membership links, and WhatsApp behavior.
   - Added the same typed renderer-map structure for Salon, Restaurant, Real Estate, and Tuition, each starting with its unchanged `default` design and ready for future variants.
   - Made every page renderer map type-checked so future designs can be added as a file, a design name, and one map entry without changing the data or backend integration.
+- [x] Add the switchable Restaurant editorial Sri Lankan design
+  - Added `RestaurantEditorialTemplate.tsx` and its isolated CSS module while retaining `RestaurantDefaultTemplate.tsx` as the original presentation.
+  - Registered `editorial` and `default` in the typed Restaurant renderer map, with `editorial` as the code fallback when the Google Sheets `themeTemplate` value is blank or invalid.
+  - Reworked the visual presentation into an ivory, olive, powder-blue, food-led editorial layout while preserving the existing content model, Google Sheets loader, SEO metadata, anchors, menu filtering, dark mode, contact links, reservation lead flow, honeypot, and WhatsApp URLs.
+  - Kept the existing lead payload contract intact: the editorial form presents `subject` as date/time/guest details and `message` as special requests without adding incompatible backend fields.
+  - Verified TypeScript, ESLint, all 52 unit tests, the production build, and six focused Chromium checks covering mapped content, filtering, mobile navigation, theme persistence, validation with zero lead requests, contact links, responsive overflow, and Axe accessibility.
+  - Saved desktop and mobile visual baselines in `reports/restaurant-editorial-desktop-1440.png` and `reports/restaurant-editorial-mobile-390.png`.
 
 ### Next steps
+- [ ] Add per-theme editable HEX color pairs for Gym, Restaurant, Real Estate, and Tuition
+  - Give every supported design its own `color1` and `color2` values in the matching `config/*-design.ts` file, following the Salon structure.
+  - Wire each design's primary accents, secondary accents, gradients, and dark-mode section washes to its own pair without changing content, lead flows, or integrations.
+  - Verify every affected template at desktop and mobile sizes, including dark mode, without submitting real leads.
 - [ ] Continue the remaining visual-enhancement work
 - [ ] Review and polish all five business templates
   - Audit Gym, Restaurant, Salon, Real Estate, and Tuition independently on desktop, tablet, and mobile.

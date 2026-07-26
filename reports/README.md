@@ -5,6 +5,17 @@ The Gym template has two production Lighthouse reports:
 - `lighthouse-gym-v0.5.0.json` — initial v0.5.0 audit.
 - `lighthouse-gym-v0.5.0-final.json` — final v0.5.0 audit after removing template Framer Motion hydration.
 
+## Restaurant editorial visual baselines
+
+- `restaurant-editorial-desktop-1440.png` — full-page Chromium capture at 1440 px.
+- `restaurant-editorial-mobile-390.png` — full-page Chromium capture at 390 px.
+
+These baselines verify the editorial Restaurant renderer's section order,
+responsive composition, mobile navigation layout, horizontally scrollable menu
+and gallery content, reservation panel, and footer. The Restaurant remains
+content-driven, so configured Google Sheets text and images may legitimately
+differ from these local fallback-content captures.
+
 ## Repeat this test later
 
 1. Run a production build:

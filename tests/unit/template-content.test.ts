@@ -44,9 +44,10 @@ describe("Google Sheets content normalization and fallback", () => {
     const fetchMock = vi.fn().mockResolvedValue(
       jsonResponse({
         ok: true,
-        content: {
-          name: "Sheet Gym",
-          heroTitle: "Train from the Sheet",
+          content: {
+            name: "Sheet Gym",
+            themeTemplate: "classic",
+            heroTitle: "Train from the Sheet",
           heroImage: "https://drive.google.com/file/d/drive-file-id/view?usp=sharing",
         },
       }),
@@ -57,6 +58,7 @@ describe("Google Sheets content normalization and fallback", () => {
     const content = await getGymContent();
 
     expect(content.name).toBe("Sheet Gym");
+    expect(content.themeTemplate).toBe("classic");
     expect(content.heroTitle).toBe("Train from the Sheet");
     expect(content.heroImage).toBe(
       "https://drive.google.com/thumbnail?id=drive-file-id&sz=w1600",
@@ -89,6 +91,21 @@ describe("Google Sheets content normalization and fallback", () => {
     expect(content.heroImage).toBe(
       "/placeholder_images/gym-adminsheet/settings-brand-d12.jpg",
     );
+  });
+
+  it("leaves a missing or fallback-marked theme unset for the typed resolver", async () => {
+    process.env.GYM_GOOGLE_SHEET_WEB_APP_URL = "https://example.test/gym";
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(jsonResponse({ ok: true, content: {} }))
+      .mockResolvedValueOnce(
+        jsonResponse({ ok: true, content: { themeTemplate: "#FALLBACK" } }),
+      );
+    vi.stubGlobal("fetch", fetchMock);
+
+    const { getGymContent } = await loadModule();
+    expect((await getGymContent()).themeTemplate).toBeUndefined();
+    expect((await getGymContent()).themeTemplate).toBeUndefined();
   });
 
   it("maps newly editable Sheet fields to their matching template content", async () => {

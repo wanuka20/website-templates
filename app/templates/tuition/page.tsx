@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import type { ComponentType } from "react";
 import { getTuitionContent } from "@/lib/template-content";
 import { generateMetadata as genMeta } from "@/lib/seo";
-import { tuitionDesign, type TuitionDesign } from "@/config/tuition-design";
+import { resolveTuitionDesign, type TuitionDesign } from "@/config/tuition-design";
 import { TuitionDefaultTemplate } from "@/components/templates/tuition/TuitionDefaultTemplate";
 import type { TuitionConfig } from "@/types";
 
@@ -18,7 +18,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function TuitionTemplatePage() {
   const tuitionConfig = await getTuitionContent();
-  const TuitionTemplate = tuitionTemplates[tuitionDesign];
+  const TuitionTemplate =
+    tuitionTemplates[resolveTuitionDesign(tuitionConfig.themeTemplate)];
 
   return <TuitionTemplate config={tuitionConfig} />;
 }

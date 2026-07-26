@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import type { ComponentType } from "react";
 import { getGymContent } from "@/lib/gym-content";
 import { generateMetadata as genMeta } from "@/lib/seo";
-import { gymDesign, type GymDesign } from "@/config/gym-design";
+import { resolveGymDesign, type GymDesign } from "@/config/gym-design";
 import { ClassicGymTemplate } from "@/components/templates/gym/ClassicGymTemplate";
 import { EditorialGymTemplate } from "@/components/templates/gym/EditorialGymTemplate";
 import type { GymConfig } from "@/types";
@@ -20,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function GymTemplatePage() {
   const gymConfig = await getGymContent();
-  const GymTemplate = gymTemplates[gymDesign];
+  const GymTemplate = gymTemplates[resolveGymDesign(gymConfig.themeTemplate)];
 
   return <GymTemplate config={gymConfig} />;
 }

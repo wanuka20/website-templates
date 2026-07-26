@@ -2,6 +2,7 @@
 
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import { ContactForm } from "@/components/shared/ContactForm";
+import { salonDefaultThemeColors } from "@/config/salon-design";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { WhatsAppInline } from "@/components/shared/WhatsAppButton";
@@ -60,7 +61,7 @@ export function SalonContact({ config }: { config: SalonConfig }) {
             <div className="rounded-2xl border bg-card p-8 shadow-sm">
               <h3 className="mb-6 text-xl font-bold">Send an Enquiry</h3>
               <ContactForm
-                accentColor="#f43f5e"
+                accentColor={salonDefaultThemeColors.color1}
                 onSubmit={({ data, honeypot }) =>
                   submitLeadToGoogleSheet({
                     template: "salon",

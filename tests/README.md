@@ -16,6 +16,20 @@ These tests run against an optimized `next build`/`next start` server, not `next
 - `npm run test:lighthouse:summary` — rebuild the summary from existing raw Lighthouse reports.
 - `npm run test:production` — lint, typecheck, unit, build, and browser gates.
 
+## Focused Restaurant editorial checks
+
+After `npm.cmd run build`, run the Restaurant-only Chromium suite with:
+
+```powershell
+npm.cmd exec -- playwright test tests/e2e/restaurant-editorial.spec.ts --project=chromium --workers=1
+```
+
+The focused suite checks mapped Restaurant content, menu filtering, mobile
+navigation, dark-mode persistence, form validation, phone/email/map/WhatsApp
+links, desktop/tablet/mobile overflow, and Axe accessibility. It validates the
+empty form and confirms that no `/api/leads` request occurs; it does not send a
+real reservation.
+
 ## Live lead test warning
 
 `npm run test:leads` sends one real, clearly labelled test lead to each configured production Apps Script endpoint. It does not delete rows automatically because deletion requires authenticated Google Sheets access and exact row verification. Run it only when you are prepared to verify and delete rows named `CODEX PRODUCTION TEST - DELETE` immediately afterward.
