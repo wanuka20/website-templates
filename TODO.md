@@ -1,5 +1,46 @@
 # Website Performance Roadmap
 
+# ON-HOLD
+## Visual
+- [ ] Add per-theme editable HEX color pairs for Gym, Restaurant, Real Estate, and Tuition
+  - Give every supported design its own `color1` and `color2` values in the matching `config/*-design.ts` file, following the Salon structure.
+  - Wire each design's primary accents, secondary accents, gradients, and dark-mode section washes to its own pair without changing content, lead flows, or integrations.
+  - Verify every affected template at desktop and mobile sizes, including dark mode, without submitting real leads.
+- [ ] Review and polish all five business templates
+  - Audit Gym, Restaurant, Salon, Real Estate, and Tuition independently on desktop, tablet, and mobile.
+  - Improve visual hierarchy, spacing, typography, imagery, section flow, and consistency without redesigning stable components unnecessarily.
+- [ ] Strengthen each template's primary customer journey
+  - Make Gym membership enquiries, Restaurant reservations, Salon bookings, Real Estate property enquiries, and Tuition enrolment actions obvious and consistent.
+- [ ] Improve business-specific credibility and conversion elements
+  - Review testimonials, ratings, trainer/staff/agent profiles, service details, pricing, schedules, contact information, and calls to action for each industry.
+- [ ] Verify real customer content remains visually resilient
+  - Test long business names, long headings, missing optional fields, different image ratios, large item lists, and incomplete content without broken layouts.
+- [ ] Define reusable template visual variants
+  - Record supported hero, navigation, section, color, and typography variants without creating customer-specific template copies.
+
+# v.0.6.6  (Upcoming)
+## Database-Backed Production Observability
+- [ ] Define the production event and error logging policy
+  - Log operational events such as site resolution, lead submission, database writes, publishing, domain changes, and failures.
+  - Log safe metadata only: event name, site ID, template key, route, provider, HTTP status, duration, request ID, and error code.
+  - Never log names, email addresses, phone numbers, message content, credentials, tokens, or environment-variable values.
+- [ ] Add structured server-side logging to database-backed operations
+  - Emit consistent JSON logs that can be searched in Vercel Runtime Logs.
+  - Add a unique request ID to connect site resolution, validation, database writes, and the final response.
+- [ ] Add production error monitoring and alerts
+  - Capture uncaught server errors, failed database operations, publishing failures, domain-resolution failures, and failed lead submissions with safe context.
+  - Configure alerts for lead-delivery failures, database failures, or an unusual failure rate.
+- [ ] Add a safe operational log viewer guide
+  - Document where to view Vercel runtime logs, error-monitoring events, and managed PostgreSQL service logs.
+  - Document how to investigate a customer-reported missing lead or incorrect site using its request ID and site ID.
+- [ ] Add observability tests
+  - Verify successful, rejected, timed-out, and failed database-backed operations create the expected safe log events.
+  - Verify tests cannot expose personally identifiable information, cross-tenant content, database credentials, or secrets in logs.
+- [ ] Verify Sri Lanka timestamp handling after migration
+  - Use the IANA timezone `Asia/Colombo` (UTC+05:30) as the human-readable project timezone.
+  - Keep canonical database and machine-log timestamps in UTC while displaying operational timestamps in `Asia/Colombo`.
+  - Add tests covering the Sri Lanka timestamp format and date boundaries around midnight.
+
 # v.0.6.5  (Upcoming) 
 ## Pilot Launch and Google Sheets Retirement
 - [ ] Run a two-customer Gym isolation pilot
@@ -107,6 +148,8 @@
 
 # v.0.5.6  (Upcoming)
 ## Database Architecture and Risk Plan
+- [ ] Capture visual regression baselines before database migration
+  - Save representative desktop and mobile screenshots for all five templates so database work can be checked for unintended appearance changes.
 - [ ] Write the multi-tenant architecture decision
   - Confirm one codebase and one primary deployment with shared template families and isolated customer site records.
 - [ ] Define customer-specific customization boundaries
@@ -118,31 +161,7 @@
 - [ ] Create a migration risk register
   - Include data loss, cross-tenant access, cache leakage, failed lead delivery, broken domains, provider outage, and rollback risks.
 
-# v.0.5.5  (Upcoming)
-## Production Observability
-- [ ] Define the production event and error logging policy
-  - Log operational events such as lead submission started, succeeded, timed out, rejected, or failed.
-  - Log safe metadata only: event name, template, route, provider, HTTP status, duration, request ID, and error code.
-  - Never log names, email addresses, phone numbers, message content, credentials, tokens, or environment-variable values.
-- [ ] Add structured server-side logging for the lead-submission API
-  - Emit consistent JSON logs that can be searched in Vercel Runtime Logs.
-  - Add a unique request ID to connect all events from one submission.
-- [ ] Add production error monitoring and alerts
-  - Capture uncaught server errors and failed lead submissions with useful context.
-  - Configure an alert for lead-delivery failures or an unusual failure rate.
-- [ ] Add a safe operational log viewer guide
-  - Document where to view Vercel runtime logs, error-monitoring events, and Google Apps Script execution failures.
-  - Document how to investigate a customer-reported missing lead using its request ID.
-- [ ] Add observability tests
-  - Verify successful, rejected, timed-out, and failed submissions create the expected safe log events.
-  - Verify tests cannot expose personally identifiable information or secrets in logs.
-- [ ] Standardize business timestamps on Sri Lanka time
-  - Use the IANA timezone `Asia/Colombo` (UTC+05:30) as the human-readable project timezone; do not label it as India Standard Time.
-  - Configure all five Google Sheets and their Apps Script projects to use `Asia/Colombo` so Leads timestamps display consistently.
-  - Ensure future server logs record an ISO UTC timestamp for reliable machine processing plus an `Asia/Colombo` timestamp for operations and support.
-  - Add tests covering the expected Sri Lanka timestamp format and date boundary around midnight.
-
-# v.0.5.4  (In progress)
+# v.0.5.4  (Pushed)
 ## Business Template Visual Enhancement
 ### Completed
 - [x] Add per-design Salon theme colors and correct default-theme dark sections
@@ -170,28 +189,6 @@
   - Kept the existing lead payload contract intact: the editorial form presents `subject` as date/time/guest details and `message` as special requests without adding incompatible backend fields.
   - Verified TypeScript, ESLint, all 52 unit tests, the production build, and six focused Chromium checks covering mapped content, filtering, mobile navigation, theme persistence, validation with zero lead requests, contact links, responsive overflow, and Axe accessibility.
   - Saved desktop and mobile visual baselines in `reports/restaurant-editorial-desktop-1440.png` and `reports/restaurant-editorial-mobile-390.png`.
-
-### Next steps
-- [ ] Add per-theme editable HEX color pairs for Gym, Restaurant, Real Estate, and Tuition
-  - Give every supported design its own `color1` and `color2` values in the matching `config/*-design.ts` file, following the Salon structure.
-  - Wire each design's primary accents, secondary accents, gradients, and dark-mode section washes to its own pair without changing content, lead flows, or integrations.
-  - Verify every affected template at desktop and mobile sizes, including dark mode, without submitting real leads.
-- [ ] Continue the remaining visual-enhancement work
-- [ ] Review and polish all five business templates
-  - Audit Gym, Restaurant, Salon, Real Estate, and Tuition independently on desktop, tablet, and mobile.
-  - Improve visual hierarchy, spacing, typography, imagery, section flow, and consistency without redesigning stable components unnecessarily.
-- [ ] Strengthen each template's primary customer journey
-  - Make Gym membership enquiries, Restaurant reservations, Salon bookings, Real Estate property enquiries, and Tuition enrolment actions obvious and consistent.
-- [ ] Improve business-specific credibility and conversion elements
-  - Review testimonials, ratings, trainer/staff/agent profiles, service details, pricing, schedules, contact information, and calls to action for each industry.
-- [ ] Verify real customer content remains visually resilient
-  - Test long business names, long headings, missing optional fields, different image ratios, large item lists, and incomplete content without broken layouts.
-- [ ] Define reusable template visual variants
-  - Record supported hero, navigation, section, color, and typography variants without creating customer-specific template copies.
-- [ ] Capture visual regression baselines before database migration
-  - Save representative desktop and mobile screenshots for all five templates so database work can be checked for unintended appearance changes.
-- [ ] Keep marketplace-page work out of this release
-  - Limit homepage, template-gallery, pricing, and marketplace-branding changes to fixes required for navigation, correctness, security, or accessibility.
 
 # v.0.5.3  (Pushed)
 ## Production Quality
