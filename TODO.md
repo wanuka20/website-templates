@@ -2,6 +2,9 @@
 
 # ON-HOLD
 ## Visual
+- [ ] Resume visual work for non-Gym templates only after the Gym pilot succeeds
+  - Keep Restaurant, Salon, Real Estate, and Tuition code in this repository, but do not expand their designs, data models, or migration paths during the Gym-first rollout.
+  - Choose the next business type only after two Gym sites prove customer isolation, domain routing, lead delivery, publishing, rollback, and operating cost.
 - [ ] Add per-theme editable HEX color pairs for Gym, Restaurant, Real Estate, and Tuition
   - Give every supported design its own `color1` and `color2` values in the matching `config/*-design.ts` file, following the Salon structure.
   - Wire each design's primary accents, secondary accents, gradients, and dark-mode section washes to its own pair without changing content, lead flows, or integrations.
@@ -19,12 +22,12 @@
   - Record supported hero, navigation, section, color, and typography variants without creating customer-specific template copies.
 
 # v.0.6.6  (Upcoming)
-## Database-Backed Production Observability
+## Gym Database-Backed Production Observability
 - [ ] Define the production event and error logging policy
   - Log operational events such as site resolution, lead submission, database writes, publishing, domain changes, and failures.
   - Log safe metadata only: event name, site ID, template key, route, provider, HTTP status, duration, request ID, and error code.
   - Never log names, email addresses, phone numbers, message content, credentials, tokens, or environment-variable values.
-- [ ] Add structured server-side logging to database-backed operations
+- [ ] Add structured server-side logging to Gym database-backed operations
   - Emit consistent JSON logs that can be searched in Vercel Runtime Logs.
   - Add a unique request ID to connect site resolution, validation, database writes, and the final response.
 - [ ] Add production error monitoring and alerts
@@ -36,21 +39,19 @@
 - [ ] Add observability tests
   - Verify successful, rejected, timed-out, and failed database-backed operations create the expected safe log events.
   - Verify tests cannot expose personally identifiable information, cross-tenant content, database credentials, or secrets in logs.
-- [ ] Verify Sri Lanka timestamp handling after migration
+- [ ] Verify Sri Lanka timestamp handling after the Gym migration
   - Use the IANA timezone `Asia/Colombo` (UTC+05:30) as the human-readable project timezone.
   - Keep canonical database and machine-log timestamps in UTC while displaying operational timestamps in `Asia/Colombo`.
   - Add tests covering the Sri Lanka timestamp format and date boundaries around midnight.
 
 # v.0.6.5  (Upcoming) 
-## Pilot Launch and Google Sheets Retirement
+## Gym Pilot Launch and Gym Google Sheets Retirement
 - [ ] Run a two-customer Gym isolation pilot
   - Create two Gym sites with different content, leads, preview URLs, and custom domains while sharing the same Gym components.
   - Verify that neither customer can read, modify, cache, or receive the other customer's data.
-- [ ] Migrate and verify the remaining template families
-  - Verify Gym, Restaurant, Salon, Real Estate, and Tuition content against their existing Sheets and fallback configs.
-- [ ] Remove Google Sheets from the production request path
+- [ ] Remove Gym Google Sheets from the production request path
   - Keep read-only exports and rollback documentation for an agreed retention period.
-  - Remove obsolete Apps Script environment variables only after the database rollout is proven.
+  - Remove obsolete Gym Apps Script environment variables only after the Gym pilot is proven; leave the other templates' integrations unchanged.
 - [ ] Add durable per-IP rate limiting to the database-backed lead path
   - Use shared database storage; do not use an in-memory Vercel counter.
 - [ ] Verify customer custom-domain behavior after the database migration
@@ -60,11 +61,11 @@
   - Launch the first real pilot customer only after every isolation and rollback test passes.
 
 # v.0.6.4  (Upcoming)
-## Internal Site Management
+## Internal Gym Site Management
 - [ ] Add administrator authentication and deny access by default
   - Keep database administrator/service credentials server-side and out of browser bundles.
-- [ ] Build an internal customer and site manager
-  - Create customers and sites, select a template, edit structured content, manage status, and view site domains.
+- [ ] Build an internal Gym customer and site manager
+  - Create customers and Gym sites, edit structured Gym content, manage status, and view site domains.
 - [ ] Add draft, preview, publish, and rollback states
   - Keep unpublished changes away from customer domains and retain the last known-good published revision.
 - [ ] Add internal lead management
@@ -73,12 +74,12 @@
   - Store uploads under site-specific paths and validate type, size, ownership, and deletion behavior.
 
 # v.0.6.3  (Upcoming)
-## Multi-Tenant Domains and Lead Routing
+## Gym Multi-Tenant Domains and Lead Routing
 - [ ] Resolve each request hostname to exactly one active site
   - Support local development hosts, platform preview subdomains, and verified custom domains.
   - Return a safe not-found state for unknown, duplicate, disabled, or unverified domains.
-- [ ] Render templates from the resolved site record
-  - Select the shared template family using `template_key` and load only that site's published content.
+- [ ] Render the shared Gym template from the resolved site record
+  - Load only the resolved Gym site's published content and validated visual variant; keep the existing `/templates/gym` route as a demo and visual-test route during migration.
 - [ ] Make metadata and caching site-aware
   - Generate customer-specific canonicals, SEO metadata, sitemap entries, and cache tags.
   - Prevent one customer's cached content from appearing on another customer's domain.
@@ -89,43 +90,43 @@
   - Track requested, pending-verification, active, failed, and removed domain states before automating the Vercel API.
 
 # v.0.6.2  (Upcoming)
-## Safe Google Sheets Migration
-- [ ] Back up all five Sheets before migration
-  - Export immutable copies of Settings, content, image references, and Leads data.
+## Safe Gym Google Sheets Migration
+- [ ] Back up the Gym Sheet before migration
+  - Export immutable copies of Gym Settings, content, image references, and Leads data.
 - [ ] Build an idempotent migration tool with dry-run support
-  - Map existing Sheet fields to validated per-template content schemas without modifying the source Sheets.
+  - Map existing Gym Sheet fields to a validated Gym content schema without modifying the source Sheet.
   - Make repeated migration runs safe and report skipped, transformed, and invalid values.
 - [ ] Migrate one Gym site first
   - Compare every migrated field, image, SEO value, and lead count with its Sheet source.
 - [ ] Add a temporary database-first fallback mode
-  - Read from PostgreSQL first and use the existing Sheet/config fallback only while migration is being verified.
+  - Read the migrated Gym site from PostgreSQL first and use the existing Gym Sheet/config fallback only while migration is being verified.
   - Avoid permanent dual writes; define one source of truth at each migration stage.
 - [ ] Document and test rollback
   - Restore the previous content path without deleting migrated data if verification fails.
 
 # v.0.6.1  (Upcoming)
-## Site-Aware Data Access
+## Gym Site-Aware Data Access
 - [ ] Create a server-only data-access layer
   - Load customers, sites, domains, content, revisions, and leads without exposing database credentials.
 - [ ] Replace template-wide content lookup with site-specific lookup
   - Change cache identity from template-only keys such as `template-content:gym` to site-specific keys.
-- [ ] Keep template components shared
-  - Continue passing validated site configuration into the existing Gym, Restaurant, Salon, Real Estate, and Tuition components.
-- [ ] Add template-specific content validation
-  - Validate database content with a schema for each template before rendering or publishing.
+- [ ] Keep Gym components shared
+  - Continue passing validated per-site Gym configuration into the existing Gym components without copying customer-specific template code.
+- [ ] Add Gym content validation
+  - Validate Gym database content before rendering or publishing.
 - [ ] Add tenant-isolation tests
   - Prove two Gym sites can share template code while keeping content, domains, leads, uploads, and cache entries separate.
 
 # v.0.6.0  (Upcoming)
-## Multi-Tenant Database Foundation
+## Gym-First Multi-Tenant Database Foundation
 - [ ] Select and document the managed PostgreSQL stack
   - Compare the operational needs and costs, with Supabase/PostgreSQL as the current recommended starting point.
   - Separate local, staging, and production environments and never use production data for automated tests.
 - [ ] Define the initial multi-tenant schema
   - Add migrations for `customers`, `sites`, `domains`, `site_content`, `site_revisions`, and `leads`.
-  - Give every customer-owned record an explicit `site_id` or `customer_id` relationship.
-- [ ] Define the template and content model
-  - Store a stable `template_key` on each site and validated template-specific content separately from shared template code.
+  - Use one shared database and give every customer-owned record an explicit `site_id` or `customer_id` relationship; do not create a database per customer.
+- [ ] Define the Gym template and content model
+  - Store `template_key = "gym"` on initial sites and validated Gym-specific content separately from shared template code.
   - Support feature flags and named visual variants without customer-name checks in shared components.
 - [ ] Establish database security
   - Use least-privilege server credentials, deny-by-default access policies, validated writes, and tenant-isolation constraints.
@@ -136,30 +137,36 @@
   - Use different domains, branding, content, leads, and feature settings to expose isolation bugs early.
 
 # v.0.5.7  (Upcoming)
-## Database Migration Staging
+## Gym Database Migration Staging
 - [ ] Create a non-production migration rehearsal environment
   - Use copied test data with no real customer secrets or live lead delivery.
-- [ ] Inventory and map all existing Google Sheets fields
-  - Record required, optional, repeated, image, SEO, contact, and template-specific fields.
+- [ ] Inventory and map the existing Gym Google Sheets fields
+  - Record required, optional, repeated, image, SEO, contact, and Gym-specific fields.
 - [ ] Define migration acceptance criteria
   - Require field parity, image parity, lead-count parity, tenant isolation, rollback, and backup restoration before production cutover.
 - [ ] Document the Google Sheets deprecation path
   - Identify which Sheets features become database fields, internal admin screens, exports, or retired behavior.
 
-# v.0.5.6  (Upcoming)
-## Database Architecture and Risk Plan
-- [ ] Capture visual regression baselines before database migration
-  - Save representative desktop and mobile screenshots for all five templates so database work can be checked for unintended appearance changes.
-- [ ] Write the multi-tenant architecture decision
-  - Confirm one codebase and one primary deployment with shared template families and isolated customer site records.
-- [ ] Define customer-specific customization boundaries
-  - Use content configuration, feature flags, named variants, and isolated integration modules instead of duplicated template code.
-- [ ] Define data ownership and lifecycle rules
-  - Cover customer creation, site suspension, cancellation, export, retention, deletion, and domain removal.
-- [ ] Define database cost and growth assumptions
-  - Estimate initial sites, leads, images, storage, backups, bandwidth, and expected monthly operating cost before choosing a paid plan.
-- [ ] Create a migration risk register
-  - Include data loss, cross-tenant access, cache leakage, failed lead delivery, broken domains, provider outage, and rollback risks.
+# v.0.5.6  (In progress)
+## Gym-First Platform Architecture and Risk Plan
+- [ ] Record the Gym-first product boundary
+  - Treat the current Gym website scope as brand content, membership enquiries, trainers, schedules, gallery, testimonials, SEO, WhatsApp, and contact leads.
+  - Defer member accounts, payments, attendance, trainer payroll, and a full booking/CRM product unless a validated Gym requirement makes one necessary.
+- [ ] Confirm the shared-platform deployment model
+  - Keep one repository, one primary Vercel project, and one shared managed PostgreSQL database for all business types and customers.
+  - Do not create a repository, Vercel project, or database per Gym customer; isolate each customer through a trusted `site_id` and site-specific domain records.
+  - Allow a Gym to use either an active custom domain or a platform subdomain while its custom domain is pending.
+- [ ] Define Gym-first customization boundaries
+  - Keep shared Gym components and represent customer-specific content, visual variants, features, domains, leads, uploads, and status as site data.
+  - Move the Gym visual selection from a global code fallback to a validated per-site setting during the database migration.
+- [ ] Define the Gym-first data ownership and lifecycle rules
+  - Cover customer creation, Gym site creation, suspension, cancellation, content export, retention, deletion, and domain removal.
+- [ ] Define database cost and growth assumptions for the Gym pilot
+  - Estimate initial Gym sites, leads, images, storage, backups, bandwidth, and expected monthly operating cost before choosing a paid plan.
+- [ ] Create a Gym migration risk register
+  - Include data loss, cross-site access, cache leakage, failed lead delivery, broken domains, provider outage, rollback, and accidental permanent dual writes.
+- [ ] Capture Gym visual regression baselines before database migration
+  - Save representative desktop and mobile screenshots for the current Gym designs so data-layer work can be checked for unintended visual changes.
 
 # v.0.5.4  (Pushed)
 ## Business Template Visual Enhancement

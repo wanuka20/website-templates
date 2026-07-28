@@ -1,6 +1,13 @@
-CURRENT VERSION: 0.5.3
+CURRENT VERSION: 0.5.4
 
 VERSION HISTORY:
+  - 2026-07-28 - v0.5.4: switchable visual designs and Sheet-controlled theming.
+    - Added typed, isolated visual renderers for switchable Gym and Restaurant designs while preserving existing content, lead flows, anchors, contact links, and integrations.
+    - Added Google Sheets-controlled theme selection for all five templates with safe code fallbacks for blank or invalid values.
+    - Added independent Salon design color pairs and corrected dark-mode section backgrounds.
+    - Updated local AdminSheet workbooks and Apps Script definitions to keep future Sheet setup consistent.
+    - Verified TypeScript, ESLint, 52 unit tests, the production build, focused Chromium checks, live Sheet rows, and workbook rendering/formula scans.
+
   - 2026-07-23 - v0.5.3: production quality, accessibility, and deployment readiness.
     - Added server-side lead validation coverage and a silent honeypot, with durable shared per-IP rate limiting deferred to the future database-backed path.
     - Remediated public-route accessibility issues, removed placeholder links, added legal placeholders, and restored the templates' bright primary colour identity.
