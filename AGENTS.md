@@ -29,6 +29,12 @@ The user can confirm by saying "Go", "Confirm", or equivalent clear approval, or
 
 After the user confirms, continue with the task. Do not repeat this approval step for minor follow-up instructions in the same task unless the recommended model or effort needs to change.
 
+## Voice Assistant Instructions
+
+- Reuse a single existing `website-templates` worker task for simple questions, read-only lookups, and minor follow-ups; do not create a fresh task for every small request.
+- When operating in voice chat, before opening a new worktree or subchat/task, ask the user which model to use and wait for their response.
+- When assigning a tasks to subchat or new worktree change the effort to fit the task before sending the message to the chat.
+
 ## Safety rules
 
 - Inspect relevant existing files before editing.

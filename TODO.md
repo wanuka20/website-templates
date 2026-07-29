@@ -136,7 +136,7 @@
 - [ ] Seed two isolated Gym sites for development
   - Use different domains, branding, content, leads, and feature settings to expose isolation bugs early.
 
-# v.0.5.7  (Upcoming)
+# v.0.5.7  (In progress)
 ## Gym Database Migration Staging
 - [ ] Create a non-production migration rehearsal environment
   - Use copied test data with no real customer secrets or live lead delivery.
@@ -147,25 +147,25 @@
 - [ ] Document the Google Sheets deprecation path
   - Identify which Sheets features become database fields, internal admin screens, exports, or retired behavior.
 
-# v.0.5.6  (In progress)
+# v.0.5.6 (Branch - db-migration) (Pushed)
 ## Gym-First Platform Architecture and Risk Plan
-- [ ] Record the Gym-first product boundary
+- [x] Record the Gym-first product boundary
   - Treat the current Gym website scope as brand content, membership enquiries, trainers, schedules, gallery, testimonials, SEO, WhatsApp, and contact leads.
   - Defer member accounts, payments, attendance, trainer payroll, and a full booking/CRM product unless a validated Gym requirement makes one necessary.
-- [ ] Confirm the shared-platform deployment model
+- [x] Confirm the shared-platform deployment model
   - Keep one repository, one primary Vercel project, and one shared managed PostgreSQL database for all business types and customers.
   - Do not create a repository, Vercel project, or database per Gym customer; isolate each customer through a trusted `site_id` and site-specific domain records.
   - Allow a Gym to use either an active custom domain or a platform subdomain while its custom domain is pending.
-- [ ] Define Gym-first customization boundaries
+- [x] Define Gym-first customization boundaries
   - Keep shared Gym components and represent customer-specific content, visual variants, features, domains, leads, uploads, and status as site data.
   - Move the Gym visual selection from a global code fallback to a validated per-site setting during the database migration.
-- [ ] Define the Gym-first data ownership and lifecycle rules
+- [x] Define the Gym-first data ownership and lifecycle rules
   - Cover customer creation, Gym site creation, suspension, cancellation, content export, retention, deletion, and domain removal.
-- [ ] Define database cost and growth assumptions for the Gym pilot
+- [x] Define database cost and growth assumptions for the Gym pilot
   - Estimate initial Gym sites, leads, images, storage, backups, bandwidth, and expected monthly operating cost before choosing a paid plan.
-- [ ] Create a Gym migration risk register
+- [x] Create a Gym migration risk register
   - Include data loss, cross-site access, cache leakage, failed lead delivery, broken domains, provider outage, rollback, and accidental permanent dual writes.
-- [ ] Capture Gym visual regression baselines before database migration
+- [x] Capture Gym visual regression baselines before database migration
   - Save representative desktop and mobile screenshots for the current Gym designs so data-layer work can be checked for unintended visual changes.
 
 # v.0.5.4  (Pushed)
