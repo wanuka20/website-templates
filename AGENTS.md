@@ -34,6 +34,9 @@ After the user confirms, continue with the task. Do not repeat this approval ste
 - Reuse a single existing `website-templates` worker task for simple questions, read-only lookups, and minor follow-ups; do not create a fresh task for every small request.
 - When operating in voice chat, before opening a new worktree or subchat/task, ask the user which model to use and wait for their response.
 - When assigning a tasks to subchat or new worktree change the effort to fit the task before sending the message to the chat.
+- Reuse the current task for short follow-ups; start a fresh task for a substantial new phase when it reduces irrelevant context.
+- Default to medium effort; ask the user before using high effort because they are managing usage.
+- Keep prompts, source material, and output focused on the immediate task.
 
 ## Safety rules
 
