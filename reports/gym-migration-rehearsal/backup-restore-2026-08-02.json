@@ -1,0 +1,80 @@
+{
+  "runId": "gym-v0.5.7-backup-restore-2026-08-02",
+  "status": "passed",
+  "scope": "Gym-only, non-production, synthetic fixture only",
+  "provider": "Neon Free",
+  "project": {
+    "name": "website-templates-gym-rehearsal",
+    "id": "spring-cell-71400308"
+  },
+  "restore": {
+    "method": "manual-snapshot-multi-step-restore",
+    "snapshotName": "v0.5.7 synthetic baseline 2026-08-02",
+    "snapshotCreatedAtUtc": "2026-08-01T20:32:42Z",
+    "sourceBranch": {
+      "name": "production",
+      "id": "br-soft-dawn-axaiqalb"
+    },
+    "restoredBranch": {
+      "name": "v0.5.7-restore-proof-2026-08-02",
+      "id": "br-spring-frog-ax87j39r",
+      "restoredAt": "2026-08-02T02:03:59+05:30"
+    },
+    "providerReportedDurationSeconds": 0.55,
+    "sourceBranchAndConnectionUnchanged": true
+  },
+  "checkpoints": {
+    "sourceBeforeSnapshot": {
+      "customers": 2,
+      "sites": 2,
+      "domains": 2,
+      "siteContent": 2,
+      "siteRevisions": 0,
+      "leads": 5,
+      "northstarLeads": 2,
+      "harbourLeads": 3,
+      "nonRehearsalDomains": 0,
+      "nonSyntheticLeadEmails": 0
+    },
+    "restoredBranch": {
+      "customers": 2,
+      "sites": 2,
+      "domains": 2,
+      "siteContent": 2,
+      "siteRevisions": 0,
+      "leads": 5,
+      "northstarLeads": 2,
+      "harbourLeads": 3,
+      "nonRehearsalDomains": 0,
+      "nonSyntheticLeadEmails": 0
+    },
+    "sourceAfterRestore": {
+      "customers": 2,
+      "sites": 2,
+      "domains": 2,
+      "siteContent": 2,
+      "siteRevisions": 0,
+      "leads": 5,
+      "northstarLeads": 2,
+      "harbourLeads": 3,
+      "nonRehearsalDomains": 0,
+      "nonSyntheticLeadEmails": 0
+    }
+  },
+  "safety": {
+    "productionResourcesTouched": 0,
+    "googleSheetsReads": 0,
+    "googleSheetsWrites": 0,
+    "appsScriptCalls": 0,
+    "vercelChanges": 0,
+    "liveLeads": 0,
+    "secretsRecorded": 0,
+    "sourceBranchMutations": 0
+  },
+  "retainedEvidence": {
+    "snapshot": true,
+    "restoredBranch": true,
+    "applicationConnected": false,
+    "cleanupRequiresSeparateApproval": true
+  }
+}

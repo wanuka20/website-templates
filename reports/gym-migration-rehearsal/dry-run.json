@@ -1,0 +1,61 @@
+{
+  "fixtureVersion": 1,
+  "mode": "offline-dry-run",
+  "cloudConnections": 0,
+  "sourceSheetsRead": 0,
+  "sourceSheetsWritten": 0,
+  "productionWrites": 0,
+  "sites": 2,
+  "totalSyntheticLeads": 5,
+  "reconciliation": [
+    {
+      "siteId": "10000000-0000-4000-8000-000000000001",
+      "source": {
+        "contentFields": 10,
+        "images": 1,
+        "leadCount": 2
+      },
+      "target": {
+        "contentFields": 10,
+        "images": 1,
+        "leadCount": 2
+      },
+      "parity": true
+    },
+    {
+      "siteId": "10000000-0000-4000-8000-000000000002",
+      "source": {
+        "contentFields": 10,
+        "images": 2,
+        "leadCount": 3
+      },
+      "target": {
+        "contentFields": 10,
+        "images": 2,
+        "leadCount": 3
+      },
+      "parity": true
+    }
+  ],
+  "isolation": {
+    "crossSiteContentReads": [
+      {
+        "requestingSiteId": "10000000-0000-4000-8000-000000000001",
+        "targetSiteId": "10000000-0000-4000-8000-000000000002",
+        "returnedRows": 0
+      },
+      {
+        "requestingSiteId": "10000000-0000-4000-8000-000000000002",
+        "targetSiteId": "10000000-0000-4000-8000-000000000001",
+        "returnedRows": 0
+      }
+    ],
+    "passed": true
+  },
+  "rollback": {
+    "action": "keep rehearsal records; switch the local reader back to the existing fallback",
+    "destructiveDeleteRequired": false
+  },
+  "passed": true,
+  "failures": []
+}

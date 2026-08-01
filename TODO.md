@@ -138,14 +138,22 @@
 
 # v.0.5.7  (In progress)
 ## Gym Database Migration Staging
-- [ ] Create a non-production migration rehearsal environment
-  - Use copied test data with no real customer secrets or live lead delivery.
-- [ ] Inventory and map the existing Gym Google Sheets fields
-  - Record required, optional, repeated, image, SEO, contact, and Gym-specific fields.
-- [ ] Define migration acceptance criteria
-  - Require field parity, image parity, lead-count parity, tenant isolation, rollback, and backup restoration before production cutover.
-- [ ] Document the Google Sheets deprecation path
-  - Identify which Sheets features become database fields, internal admin screens, exports, or retired behavior.
+- [x] Create and apply a non-production migration rehearsal environment
+  - Added the guarded Gym-only schema, two-site synthetic fixture, deterministic offline check, and local apply/seed commands.
+  - Applied the schema and synthetic fixture to the approved Neon Free project `website-templates-gym-rehearsal`; verified six tables, two sites, and five synthetic leads without touching production, Sheets, Apps Script, Vercel, or live leads.
+  - Diagnosed the local timeout as the positional Node socket path used by `pg`; explicit IPv4 completes TCP and certificate-verified PostgreSQL TLS, so the rehearsal client now uses IPv4 with `sslmode=verify-full`.
+- [x] Inventory and map the existing Gym Google Sheets fields
+  - Recorded the Gym content-to-database mapping in `docs/gym-migration-rehearsal.md`; this is a code/fixture rehearsal, not a live-Sheet audit.
+- [x] Define rehearsal acceptance criteria
+  - Passed schema, content/image/lead parity, synthetic-only value checks, and two cross-site request/target checks. Production-grade authorization and row-level security remain v0.6.0 work.
+- [x] Document the Google Sheets deprecation path
+  - Kept Sheets, Apps Script, Vercel, live leads, and production outside this rehearsal; the production retirement path remains scheduled after the two-Gym pilot.
+- [x] Move the verified rehearsal package into the main project
+  - Added the schema, synthetic fixture, guarded local commands, field-map documentation, and dry-run evidence without copying a connection string.
+- [x] Prove backup restoration with only the synthetic rehearsal data
+  - Captured a manual Neon snapshot of the synthetic-only `production` branch and restored it with the multi-step workflow into the separate `v0.5.7-restore-proof-2026-08-02` branch.
+  - Verified matching source-before, restored-branch, and source-after counts: two customers, two sites, two domains, two content rows, zero revisions, and five leads split two/three by site; non-rehearsal domains and non-synthetic lead emails remained zero.
+  - Left the original branch and connection unchanged. The retained snapshot and restored branch are isolated evidence and are not connected to the site, Vercel, Sheets, Apps Script, customer domains, or live lead paths.
 
 # v.0.5.6 (Branch - db-migration) (Pushed)
 ## Gym-First Platform Architecture and Risk Plan

@@ -1,0 +1,44 @@
+{
+  "fixtureVersion": 1,
+  "source": "synthetic fixture only; never copied from Google Sheets or a customer site",
+  "sites": [
+    {
+      "customerId": "00000000-0000-4000-8000-000000000001",
+      "siteId": "10000000-0000-4000-8000-000000000001",
+      "domain": "northstar-gym.rehearsal.test",
+      "visualVariant": "classic",
+      "content": {
+        "name": "Northstar Training Club",
+        "tagline": "Train with intent",
+        "contact": { "phone": "+94 00 000 0001", "email": "northstar@example.test" },
+        "seo": { "title": "Northstar Training Club", "description": "Synthetic rehearsal Gym site", "keywords": ["synthetic", "gym"] },
+        "images": ["/content-placeholder.svg"],
+        "membershipPlans": 2,
+        "trainers": 2,
+        "classes": 3,
+        "testimonials": 2,
+        "galleryImages": 2
+      },
+      "leadCount": 2
+    },
+    {
+      "customerId": "00000000-0000-4000-8000-000000000002",
+      "siteId": "10000000-0000-4000-8000-000000000002",
+      "domain": "harbour-gym.rehearsal.test",
+      "visualVariant": "editorial",
+      "content": {
+        "name": "Harbour Strength Lab",
+        "tagline": "Build your base",
+        "contact": { "phone": "+94 00 000 0002", "email": "harbour@example.test" },
+        "seo": { "title": "Harbour Strength Lab", "description": "Synthetic rehearsal Gym site", "keywords": ["synthetic", "strength"] },
+        "images": ["/content-placeholder.svg", "/content-placeholder.svg"],
+        "membershipPlans": 3,
+        "trainers": 3,
+        "classes": 4,
+        "testimonials": 3,
+        "galleryImages": 3
+      },
+      "leadCount": 3
+    }
+  ]
+}
