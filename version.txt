@@ -1,6 +1,20 @@
-CURRENT VERSION: 0.5.4
+CURRENT VERSION: 0.5.7
 
 VERSION HISTORY:
+  - 2026-08-02 - v0.5.7: Gym database migration staging and synthetic Neon recovery proof.
+    - Added a guarded Gym-only PostgreSQL rehearsal schema, two isolated synthetic sites, five synthetic leads, and deterministic local apply, seed, and dry-run commands.
+    - Recorded the Gym content field mapping, migration acceptance criteria, Google Sheets deprecation boundary, and safe non-production operating instructions.
+    - Applied and verified the schema and fixture in the approved Neon Free rehearsal project without connecting the website, Vercel, Sheets, Apps Script, customer domains, or live lead paths.
+    - Proved snapshot restoration into a separate Neon branch and verified matching source-before, restored-branch, and source-after row counts while leaving the original branch and connection unchanged.
+    - Verified the synthetic-only markers, two-site isolation checks, ESLint, TypeScript, the deterministic migration rehearsal, JSON evidence, and whitespace checks.
+
+  - 2026-07-30 - v0.5.6: Gym-first platform architecture and migration risk plan.
+    - Defined the Gym website product boundary and deferred member accounts, payments, attendance, payroll, and full CRM functionality.
+    - Selected one shared repository, Vercel project, and managed PostgreSQL platform with trusted hostname resolution and an explicit `site_id` boundary for tenant-owned data.
+    - Documented per-site customization, lifecycle and retention rules, recovery objectives, pilot cost assumptions, and the staged migration sequence.
+    - Added an actionable migration risk register covering data loss, cross-site access, cache leakage, lead routing, domains, provider failure, rollback, uploads, publishing, and secret exposure.
+    - Captured desktop and mobile Gym visual baselines for both supported designs before database-layer changes.
+
   - 2026-07-28 - v0.5.4: switchable visual designs and Sheet-controlled theming.
     - Added typed, isolated visual renderers for switchable Gym and Restaurant designs while preserving existing content, lead flows, anchors, contact links, and integrations.
     - Added Google Sheets-controlled theme selection for all five templates with safe code fallbacks for blank or invalid values.

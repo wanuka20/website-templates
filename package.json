@@ -18,6 +18,8 @@
     "test:migration:rehearsal": "node scripts/run-gym-migration-rehearsal.mjs",
     "db:rehearsal:apply": "node --env-file-if-exists=.env.local scripts/apply-gym-rehearsal-schema.mjs",
     "db:rehearsal:seed": "node --env-file-if-exists=.env.local scripts/seed-gym-migration-rehearsal.mjs",
+    "db:foundation:recovery:capture": "node --env-file-if-exists=.env.local scripts/verify-gym-foundation-recovery.mjs capture",
+    "db:foundation:recovery:verify": "node --env-file-if-exists=.env.local scripts/verify-gym-foundation-recovery.mjs verify",
     "test:leads": "node scripts/run-live-lead-tests.mjs",
     "test:lighthouse": "node scripts/run-lighthouse.mjs",
     "test:lighthouse:summary": "node scripts/summarize-lighthouse.mjs",

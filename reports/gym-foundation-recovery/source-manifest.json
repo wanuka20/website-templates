@@ -1,0 +1,36 @@
+{
+  "formatVersion": 1,
+  "capturedAtUtc": "2026-08-02T11:44:08.054Z",
+  "target": "staging-source",
+  "projectId": "cool-king-04447558",
+  "branchId": "br-morning-silence-azd9cnky",
+  "branchName": "production",
+  "sessionTimeZone": "UTC",
+  "timestampWithoutTimeZoneColumns": 0,
+  "tables": {
+    "customers": {
+      "rowCount": 2,
+      "sha256": "3aad9732a64302d5c0470b9bc1517e6751d6d7a3349423a88081573684b765d8"
+    },
+    "sites": {
+      "rowCount": 2,
+      "sha256": "8582ec680c5bf602678cbc19857ae9e0209e076fbb8e2a44aca126d788000145"
+    },
+    "domains": {
+      "rowCount": 2,
+      "sha256": "64d7c75678d4bb3fe40eccff74197a158036ab3eeecef90e41e0a6c4021652a8"
+    },
+    "site_content": {
+      "rowCount": 2,
+      "sha256": "10ad046c628bce4885152dbf03023ecd8036398be317810f34e61c7fc5f63aa6"
+    },
+    "site_revisions": {
+      "rowCount": 2,
+      "sha256": "5ed7af99986fc6592066606d6bf123072a54cde57306ee66256a35e03fd0ac72"
+    },
+    "leads": {
+      "rowCount": 5,
+      "sha256": "6d61aec92e2d8517452c5e6bd0d43c22478c0ca0d96d046e76c1d3b212b228bd"
+    }
+  }
+}

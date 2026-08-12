@@ -117,26 +117,30 @@
 - [ ] Add tenant-isolation tests
   - Prove two Gym sites can share template code while keeping content, domains, leads, uploads, and cache entries separate.
 
-# v.0.6.0  (Upcoming)
+# v.0.6.0  (In progress)
 ## Gym-First Multi-Tenant Database Foundation
-- [ ] Select and document the managed PostgreSQL stack
-  - Compare the operational needs and costs, with Supabase/PostgreSQL as the current recommended starting point.
-  - Separate local, staging, and production environments and never use production data for automated tests.
-- [ ] Define the initial multi-tenant schema
-  - Add migrations for `customers`, `sites`, `domains`, `site_content`, `site_revisions`, and `leads`.
-  - Use one shared database and give every customer-owned record an explicit `site_id` or `customer_id` relationship; do not create a database per customer.
-- [ ] Define the Gym template and content model
-  - Store `template_key = "gym"` on initial sites and validated Gym-specific content separately from shared template code.
-  - Support feature flags and named visual variants without customer-name checks in shared components.
-- [ ] Establish database security
-  - Use least-privilege server credentials, deny-by-default access policies, validated writes, and tenant-isolation constraints.
-- [ ] Establish timestamps, backups, and recovery
-  - Store canonical timestamps in UTC and display operational time using `Asia/Colombo`.
-  - Configure backups and prove that a staging restore can recover customer content and leads.
-- [ ] Seed two isolated Gym sites for development
-  - Use different domains, branding, content, leads, and feature settings to expose isolation bugs early.
+- [x] Select and document the managed PostgreSQL stack
+  - Selected Neon Launch/PostgreSQL for usage-based pilot costs, with a disposable local PostgreSQL runtime, committed SQL migrations, and the existing server-only `pg` runtime driver; the completed Neon rehearsal remains isolated synthetic evidence only.
+  - Defined separate local, staging, and production databases/credentials; production data is prohibited from automated tests, fixtures, local work, staging, and previews. See `docs/v0.6.0-managed-postgresql-stack-and-environments.md`.
+- [x] Define the initial multi-tenant schema
+  - Added a separate future Gym foundation migration lineage for `customers`, `sites`, `domains`, `site_content`, `site_revisions`, and `leads`, without repurposing the v0.5.7 rehearsal schema.
+  - Enforced one shared schema with a customer-to-site relationship, non-null `site_id` foreign keys for tenant-owned data, globally unique normalized hostnames, and a same-site published-revision constraint. See `db/foundation/README.md`.
+- [x] Define the Gym template and content model
+  - Added a strict, versioned Gym runtime schema that keeps `template_key = "gym"`, validated Gym marketing content, named visual variants, and named feature flags separate from shared renderer code.
+  - Centralized the `classic` and `editorial` allowlist, defaulted six named features to today's enabled behavior, and rejected unknown fields, unsafe links, duplicate nested IDs, unsupported variants, and customer-specific flags. See `docs/v0.6.0-gym-content-model.md`.
+- [x] Establish database security
+  - Added separate NOLOGIN migrator/runtime capability roles, forced row-level security on every foundation table, private signed hostname-derived tenant context, published-revision reads, site-scoped lead inserts, and database write constraints.
+  - Applied the security migration to the approved synthetic-only Neon staging project and proved hostname-derived isolation for both seeded Gyms; production remains unprovisioned and requires separate approval. See `docs/v0.6.0-database-security.md`.
+- [x] Establish timestamps, backups, and recovery
+  - [x] Store canonical timestamps in UTC, display operational time using `Asia/Colombo`, and test the Colombo midnight boundary and ambiguous inputs.
+  - [x] Define the Neon backup baseline and add a read-only, content-safe source/restore verifier for all six foundation tables.
+  - [x] Provision the separately approved synthetic staging project, apply the foundation migrations, and seed the two isolated Gym sites.
+  - [x] Capture the staging source manifest and snapshot, restore to a separate validation branch, and prove that customer content and leads match without changing the source.
+- [x] Seed two isolated Gym sites for development
+  - Added an idempotent synthetic seed with different domains, branding, content, leads, visual variants, and feature settings for Northstar Training Club and Harbour Strength Lab.
+  - Applied it to the separate Neon staging project and proved that each runtime hostname context exposed only its own site and published revision.
 
-# v.0.5.7  (In progress)
+# v.0.5.7  (Pushed)
 ## Gym Database Migration Staging
 - [x] Create and apply a non-production migration rehearsal environment
   - Added the guarded Gym-only schema, two-site synthetic fixture, deterministic offline check, and local apply/seed commands.

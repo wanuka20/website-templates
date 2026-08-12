@@ -1,0 +1,85 @@
+{
+  "formatVersion": 1,
+  "verifiedAtUtc": "2026-08-02T11:49:15.531Z",
+  "sourceCapturedAtUtc": "2026-08-02T11:44:08.054Z",
+  "sourceRecheckedAtUtc": "2026-08-02T11:53:50.227Z",
+  "target": "staging-restore",
+  "projectId": "cool-king-04447558",
+  "sourceBranch": {
+    "id": "br-morning-silence-azd9cnky",
+    "name": "production"
+  },
+  "restoredBranch": {
+    "id": "br-hidden-shadow-az81fhkv",
+    "name": "v0.6.0-restore-proof-2026-08-02"
+  },
+  "snapshot": {
+    "label": "production at 2026-08-02 11:45:29 UTC (manual)",
+    "captureDurationSeconds": 1.03,
+    "restoreDurationSeconds": 1.42
+  },
+  "sessionTimeZone": "UTC",
+  "databaseTimeZoneDefaultVerified": true,
+  "runtimeRoleTimeZoneDefaultsVerified": true,
+  "timestampWithoutTimeZoneColumns": 0,
+  "comparisons": {
+    "customers": {
+      "expectedRowCount": 2,
+      "restoredRowCount": 2,
+      "rowCountMatches": true,
+      "contentHashMatches": true
+    },
+    "sites": {
+      "expectedRowCount": 2,
+      "restoredRowCount": 2,
+      "rowCountMatches": true,
+      "contentHashMatches": true
+    },
+    "domains": {
+      "expectedRowCount": 2,
+      "restoredRowCount": 2,
+      "rowCountMatches": true,
+      "contentHashMatches": true
+    },
+    "site_content": {
+      "expectedRowCount": 2,
+      "restoredRowCount": 2,
+      "rowCountMatches": true,
+      "contentHashMatches": true
+    },
+    "site_revisions": {
+      "expectedRowCount": 2,
+      "restoredRowCount": 2,
+      "rowCountMatches": true,
+      "contentHashMatches": true
+    },
+    "leads": {
+      "expectedRowCount": 5,
+      "restoredRowCount": 5,
+      "rowCountMatches": true,
+      "contentHashMatches": true
+    }
+  },
+  "runtimeIsolation": {
+    "northstar": {
+      "siteId": "21000000-0000-4000-8000-000000000001",
+      "visibleSiteIds": [
+        "21000000-0000-4000-8000-000000000001"
+      ],
+      "visiblePublishedRevisionIds": [
+        "23000000-0000-4000-8000-000000000001"
+      ]
+    },
+    "harbour": {
+      "siteId": "21000000-0000-4000-8000-000000000002",
+      "visibleSiteIds": [
+        "21000000-0000-4000-8000-000000000002"
+      ],
+      "visiblePublishedRevisionIds": [
+        "23000000-0000-4000-8000-000000000002"
+      ]
+    }
+  },
+  "sourceUnchanged": true,
+  "passed": true
+}

@@ -1,5 +1,10 @@
-export const gymDesigns = ["editorial", "classic"] as const;
-export type GymDesign = (typeof gymDesigns)[number];
+import {
+  gymVisualVariants,
+  type GymVisualVariant,
+} from "@/lib/gym-content-model";
+
+export const gymDesigns = gymVisualVariants;
+export type GymDesign = GymVisualVariant;
 
 // Reserved theme HEX values for Gym designs.
 export const gymThemeColors = {
